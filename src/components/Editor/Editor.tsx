@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Addition from '../UI/Addition';
 import Header from '../UI/Header';
 import InputFile from '../UI/InputFile';
@@ -10,6 +10,32 @@ import ProgressBar from './ProgressBar';
 
 const Editor: React.FC = () => {
   const [hideDetail, setHideDetail] = useState(true);
+  const initialValues = {
+    job_title: '',
+    first_name: '',
+    email: '',
+    phone: '',
+    country: '',
+    city: '',
+    address: '',
+    postal_code: '',
+    driving_license: '',
+    nationality: '',
+    place_of_birth: '',
+    date_of_birth: '',
+  };
+
+  const [values, setValues] = useState(initialValues);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    console.log(id);
+
+    setValues({
+      ...values,
+      [id]: value,
+    });
+  };
+
   return (
     <section className="w-1/2 p-12">
       <Title>Simple Resume</Title>
@@ -17,21 +43,46 @@ const Editor: React.FC = () => {
       <Header>Personal Details</Header>
       <div className="mb-6 flex mt-4">
         <div className="mr-10">
-          <InputText placeholder="e.g Teacher" label="Wanted Job Title" />
+          <InputText
+            placeholder="e.g Teacher"
+            label="Wanted Job Title"
+            reference="job_title"
+            handleInputChange={handleInputChange}
+          />
         </div>
         <InputFile />
       </div>
       <div className="mb-6 flex">
         <div className="mr-10">
-          <InputText placeholder="" label="First Name" />
+          <InputText
+            placeholder=""
+            label="First Name"
+            reference="first_name"
+            handleInputChange={handleInputChange}
+          />
         </div>
-        <InputText placeholder="" label="Last Name" />
+        <InputText
+          placeholder=""
+          label="Last Name"
+          reference="last_name"
+          handleInputChange={handleInputChange}
+        />
       </div>
       <div className="mb-6 flex">
         <div className="mr-10">
-          <InputText placeholder="" label="Email" />
+          <InputText
+            placeholder=""
+            label="Email"
+            reference="email"
+            handleInputChange={handleInputChange}
+          />
         </div>
-        <InputText placeholder="" label="Phone" />
+        <InputText
+          placeholder=""
+          label="Phone"
+          reference="phone"
+          handleInputChange={handleInputChange}
+        />
       </div>
 
       <section
@@ -41,27 +92,67 @@ const Editor: React.FC = () => {
       >
         <div className="mb-6 flex">
           <div className="mr-10">
-            <InputText placeholder="" label="Country" />
+            <InputText
+              placeholder=""
+              label="Country"
+              reference="country"
+              handleInputChange={handleInputChange}
+            />
           </div>
-          <InputText placeholder="" label="City" />
+          <InputText
+            placeholder=""
+            label="City"
+            reference="city"
+            handleInputChange={handleInputChange}
+          />
         </div>
         <div className="mb-6 flex">
           <div className="mr-10">
-            <InputText placeholder="" label="Address" />
+            <InputText
+              placeholder=""
+              label="Address"
+              reference="address"
+              handleInputChange={handleInputChange}
+            />
           </div>
-          <InputText placeholder="" label="Postal Code" />
+          <InputText
+            placeholder=""
+            label="Postal Code"
+            reference="postal_code"
+            handleInputChange={handleInputChange}
+          />
         </div>
         <div className="mb-6 flex">
           <div className="mr-10">
-            <InputText placeholder="" label="Driving License" />
+            <InputText
+              placeholder=""
+              label="Driving License"
+              reference="driving_license"
+              handleInputChange={handleInputChange}
+            />
           </div>
-          <InputText placeholder="" label="Nationality" />
+          <InputText
+            placeholder=""
+            label="Nationality"
+            reference="nationality"
+            handleInputChange={handleInputChange}
+          />
         </div>
         <div className="mb-6 flex">
           <div className="mr-10">
-            <InputText placeholder="" label="Place Of Birth" />
+            <InputText
+              placeholder=""
+              label="Place Of Birth"
+              reference="place_of_birth"
+              handleInputChange={handleInputChange}
+            />
           </div>
-          <InputText placeholder="" label="Date Of Birth" />
+          <InputText
+            placeholder=""
+            label="Date Of Birth"
+            reference="date_of_birth"
+            handleInputChange={handleInputChange}
+          />
         </div>
       </section>
       <div
@@ -123,7 +214,7 @@ const Editor: React.FC = () => {
         </Paragraph>
         <Addition>Add link</Addition>
       </section>
-      <section className="mb-10">
+      <section className="mb-10 flex flex-col">
         <Header>Skills</Header>
         <Paragraph>
           Choose 5 of the most important skills to show your talents! Make sure they match

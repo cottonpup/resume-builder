@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface Props {
   placeholder: string;
   label: string;
+  reference: string;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputText: React.FC<Props> = (props) => {
@@ -10,7 +12,7 @@ const InputText: React.FC<Props> = (props) => {
 
   return (
     <section>
-      <label className="flex text-sm text-slate-500 mb-1" htmlFor="job-title">
+      <label className="flex text-sm text-slate-500 mb-1" htmlFor={props.reference}>
         {props.label}
       </label>
       <input
@@ -18,9 +20,10 @@ const InputText: React.FC<Props> = (props) => {
         className="flex w-72 px-5 py-3 bg-[#eff2f9] rounded-sm caret-[#1a91f0] focus:outline-none"
         placeholder={props.placeholder}
         type="text"
-        id="job-title"
+        id={props.reference}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
+        onChange={props.handleInputChange}
       />
       <div
         className={`border-b-2 ${
