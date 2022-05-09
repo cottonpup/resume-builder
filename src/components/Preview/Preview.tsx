@@ -6,10 +6,10 @@ interface Props {
 
 const Preview: React.FC<Props> = (props) => {
   return (
-    // <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
     <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
+      {/* <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen"> */}
+      {/* <section className="relative left-1/2 top-1"> */}
       <div className="flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
-        {/* <div className="flex fill-[#ffffff] text-[#ffffff] items-center mb-2"> */}
         <div>
           <svg
             width="24"
@@ -36,15 +36,18 @@ const Preview: React.FC<Props> = (props) => {
           </svg>
         </div>
       </div>
+      {/* </section> */}
 
-      <section className="bg-white w-[21cm] h-[29.7cm] rounded-md p-5 scale-[calc(80vh/29.7cm)]">
+      <div className="bg-white w-[21cm] h-[29.7cm] rounded-md p-5">
         <h1 className="text-left text-xl">{`${props.cvData.first_name} ${props.cvData.last_name}`}</h1>
         <p className="text-left text-xs mb-3">{props.cvData.job_title}</p>
         <div className="flex items-center">
           <i className="fa-solid fa-user mr-1"></i>
           <h2 className="text-left text-base">Profile</h2>
         </div>
-      </section>
+      </div>
+
+      {/* <section className="absolute bottom-0"> */}
       <div className="text-white fill-white flex items-center justify-between mt-3 w-[28rem]">
         <div className="flex items-center">
           <svg
@@ -81,6 +84,7 @@ const Preview: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
+      {/* </section> */}
     </div>
   );
 };
