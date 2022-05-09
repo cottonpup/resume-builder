@@ -8,33 +8,12 @@ import Skill from '../UI/Skill';
 import Title from '../UI/Title';
 import ProgressBar from './ProgressBar';
 
-const Editor: React.FC = () => {
+interface Props {
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Editor: React.FC<Props> = (props) => {
   const [hideDetail, setHideDetail] = useState(true);
-  const initialValues = {
-    job_title: '',
-    first_name: '',
-    email: '',
-    phone: '',
-    country: '',
-    city: '',
-    address: '',
-    postal_code: '',
-    driving_license: '',
-    nationality: '',
-    place_of_birth: '',
-    date_of_birth: '',
-  };
-
-  const [values, setValues] = useState(initialValues);
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    console.log(id);
-
-    setValues({
-      ...values,
-      [id]: value,
-    });
-  };
 
   return (
     <section className="w-1/2 p-12">
@@ -47,7 +26,7 @@ const Editor: React.FC = () => {
             placeholder="e.g Teacher"
             label="Wanted Job Title"
             reference="job_title"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
         <InputFile />
@@ -58,14 +37,14 @@ const Editor: React.FC = () => {
             placeholder=""
             label="First Name"
             reference="first_name"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
         <InputText
           placeholder=""
           label="Last Name"
           reference="last_name"
-          handleInputChange={handleInputChange}
+          handleInputChange={props.handleInputChange}
         />
       </div>
       <div className="mb-6 flex">
@@ -74,14 +53,14 @@ const Editor: React.FC = () => {
             placeholder=""
             label="Email"
             reference="email"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
         <InputText
           placeholder=""
           label="Phone"
           reference="phone"
-          handleInputChange={handleInputChange}
+          handleInputChange={props.handleInputChange}
         />
       </div>
 
@@ -96,14 +75,14 @@ const Editor: React.FC = () => {
               placeholder=""
               label="Country"
               reference="country"
-              handleInputChange={handleInputChange}
+              handleInputChange={props.handleInputChange}
             />
           </div>
           <InputText
             placeholder=""
             label="City"
             reference="city"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
         <div className="mb-6 flex">
@@ -112,14 +91,14 @@ const Editor: React.FC = () => {
               placeholder=""
               label="Address"
               reference="address"
-              handleInputChange={handleInputChange}
+              handleInputChange={props.handleInputChange}
             />
           </div>
           <InputText
             placeholder=""
             label="Postal Code"
             reference="postal_code"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
         <div className="mb-6 flex">
@@ -128,14 +107,14 @@ const Editor: React.FC = () => {
               placeholder=""
               label="Driving License"
               reference="driving_license"
-              handleInputChange={handleInputChange}
+              handleInputChange={props.handleInputChange}
             />
           </div>
           <InputText
             placeholder=""
             label="Nationality"
             reference="nationality"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
         <div className="mb-6 flex">
@@ -144,14 +123,14 @@ const Editor: React.FC = () => {
               placeholder=""
               label="Place Of Birth"
               reference="place_of_birth"
-              handleInputChange={handleInputChange}
+              handleInputChange={props.handleInputChange}
             />
           </div>
           <InputText
             placeholder=""
             label="Date Of Birth"
             reference="date_of_birth"
-            handleInputChange={handleInputChange}
+            handleInputChange={props.handleInputChange}
           />
         </div>
       </section>
