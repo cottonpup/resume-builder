@@ -21,25 +21,23 @@ const Editor: React.FC<Props> = (props) => {
       <ProgressBar />
       <Header>Personal Details</Header>
       <div className="mb-6 flex mt-4">
-        <div className="mr-10">
-          <InputText
-            placeholder="e.g Teacher"
-            label="Wanted Job Title"
-            reference="job_title"
-            handleInputChange={props.handleInputChange}
-          />
-        </div>
+        <InputText
+          placeholder="e.g Teacher"
+          label="Wanted Job Title"
+          reference="job_title"
+          handleInputChange={props.handleInputChange}
+        />
+        <div className="mr-10"></div>
         <InputFile />
       </div>
       <div className="mb-6 flex">
-        <div className="mr-10">
-          <InputText
-            placeholder=""
-            label="First Name"
-            reference="first_name"
-            handleInputChange={props.handleInputChange}
-          />
-        </div>
+        <InputText
+          placeholder=""
+          label="First Name"
+          reference="first_name"
+          handleInputChange={props.handleInputChange}
+        />
+        <div className="mr-10"></div>
         <InputText
           placeholder=""
           label="Last Name"
@@ -48,14 +46,13 @@ const Editor: React.FC<Props> = (props) => {
         />
       </div>
       <div className="mb-6 flex">
-        <div className="mr-10">
-          <InputText
-            placeholder=""
-            label="Email"
-            reference="email"
-            handleInputChange={props.handleInputChange}
-          />
-        </div>
+        <InputText
+          placeholder=""
+          label="Email"
+          reference="email"
+          handleInputChange={props.handleInputChange}
+        />
+        <div className="mr-10"></div>
         <InputText
           placeholder=""
           label="Phone"
@@ -70,14 +67,13 @@ const Editor: React.FC<Props> = (props) => {
         } transition-all`}
       >
         <div className="mb-6 flex">
-          <div className="mr-10">
-            <InputText
-              placeholder=""
-              label="Country"
-              reference="country"
-              handleInputChange={props.handleInputChange}
-            />
-          </div>
+          <InputText
+            placeholder=""
+            label="Country"
+            reference="country"
+            handleInputChange={props.handleInputChange}
+          />
+          <div className="mr-10"></div>
           <InputText
             placeholder=""
             label="City"
@@ -86,14 +82,13 @@ const Editor: React.FC<Props> = (props) => {
           />
         </div>
         <div className="mb-6 flex">
-          <div className="mr-10">
-            <InputText
-              placeholder=""
-              label="Address"
-              reference="address"
-              handleInputChange={props.handleInputChange}
-            />
-          </div>
+          <InputText
+            placeholder=""
+            label="Address"
+            reference="address"
+            handleInputChange={props.handleInputChange}
+          />
+          <div className="mr-10"></div>
           <InputText
             placeholder=""
             label="Postal Code"
@@ -102,14 +97,13 @@ const Editor: React.FC<Props> = (props) => {
           />
         </div>
         <div className="mb-6 flex">
-          <div className="mr-10">
-            <InputText
-              placeholder=""
-              label="Driving License"
-              reference="driving_license"
-              handleInputChange={props.handleInputChange}
-            />
-          </div>
+          <InputText
+            placeholder=""
+            label="Driving License"
+            reference="driving_license"
+            handleInputChange={props.handleInputChange}
+          />
+          <div className="mr-10"></div>
           <InputText
             placeholder=""
             label="Nationality"
@@ -118,14 +112,13 @@ const Editor: React.FC<Props> = (props) => {
           />
         </div>
         <div className="mb-6 flex">
-          <div className="mr-10">
-            <InputText
-              placeholder=""
-              label="Place Of Birth"
-              reference="place_of_birth"
-              handleInputChange={props.handleInputChange}
-            />
-          </div>
+          <InputText
+            placeholder=""
+            label="Place Of Birth"
+            reference="place_of_birth"
+            handleInputChange={props.handleInputChange}
+          />
+          <div className="mr-10"></div>
           <InputText
             placeholder=""
             label="Date Of Birth"
