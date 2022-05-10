@@ -1,4 +1,5 @@
 // import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CVData } from '../../hooks/cvDataHook';
 import { useWindowSize } from '../../hooks/windowSizeHook';
 
@@ -9,6 +10,26 @@ interface Props {
 
 const Preview: React.FC<Props> = (props) => {
   const windowSize = useWindowSize();
+  const [showDetails, setShowDetails] = useState(false);
+
+  useEffect(() => {
+    if (
+      props.cvData.email ||
+      props.cvData.country ||
+      props.cvData.city ||
+      props.cvData.address ||
+      props.cvData.postal_code ||
+      props.cvData.driving_license ||
+      props.cvData.nationality ||
+      props.cvData.place_of_birth ||
+      props.cvData.date_of_birth
+    ) {
+      setShowDetails(true);
+      // TODO 진행률 +8% 올리기
+    } else {
+      setShowDetails(false);
+    }
+  }, [props.cvData]);
 
   return (
     // <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
@@ -76,11 +97,31 @@ const Preview: React.FC<Props> = (props) => {
                 <div className="flex-[3_3_0%]">
                   <div className="flex items-center">
                     <i className="fa-solid fa-user mr-1"></i>
-                    <h2 className="text-left text-[17px] font">Profile</h2>
+                    <h2 className="text-left text-[17px] font font-semibold">Profile</h2>
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-left text-[17px] font">Details</h2>
+                  <h2
+                    className={`text-left text-[14px] font-medium leading-tight pt-5 text-cyan-700 ${
+                      !showDetails ? 'hidden' : ''
+                    }`}
+                  >
+                    Details
+                  </h2>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.address}
+                  </p>
+                  <p className="text-left text-[12px] leading-snug">
+                    {`${props.cvData.city ? props.cvData.city : ''} ${
+                      props.cvData.postal_code ? `, ${props.cvData.postal_code}` : ''
+                    }`}
+                  </p>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.phone}
+                  </p>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.email}
+                  </p>
                 </div>
               </section>
             </div>
