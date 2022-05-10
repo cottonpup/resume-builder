@@ -11,13 +11,13 @@ const InputText: React.FC<Props> = (props) => {
   const [entered, setEntered] = useState(false);
 
   return (
-    <section>
+    <section className="w-full">
       <label className="flex text-sm text-slate-500 mb-1" htmlFor={props.reference}>
         {props.label}
       </label>
       <input
         // size={29}
-        className="flex w-72 px-5 py-3 bg-[#eff2f9] rounded-sm caret-[#1a91f0] focus:outline-none"
+        className="flex w-full px-5 py-3 bg-[#eff2f9] rounded-sm caret-[#1a91f0] focus:outline-none"
         placeholder={props.placeholder}
         type="text"
         id={props.reference}

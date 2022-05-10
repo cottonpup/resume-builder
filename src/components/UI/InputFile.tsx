@@ -5,7 +5,7 @@ const InputFile: React.FC = () => {
 
   return (
     <section
-      className="flex mr-[8.3rem] mt-4 items-center cursor-pointer"
+      className="flex w-full mt-4 items-center cursor-pointer"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
@@ -40,7 +40,7 @@ const InputFile: React.FC = () => {
         id="photo"
         name="photo"
         accept="image/png, image/jpeg"
-        className="opacity-0"
+        className="opacity-0 hidden"
       />
     </section>
   );
