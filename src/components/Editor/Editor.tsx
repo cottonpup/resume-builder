@@ -16,7 +16,7 @@ const Editor: React.FC<Props> = (props) => {
   const [hideDetail, setHideDetail] = useState(true);
 
   return (
-    <section className="flex-1 w-2/4 p-12">
+    <section className="flex-1 p-12 max-w-full xl:w-2/4">
       <Title>Simple Resume</Title>
       <ProgressBar />
       <Header>Personal Details</Header>
