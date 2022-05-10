@@ -11,7 +11,7 @@ const Preview: React.FC<Props> = (props) => {
 
   return (
     // <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
-    <div className="w-1/2 bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
+    <div className="w-2/4 bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
       <div className="h-1 w-[calc(29.7cm)]" />
       {/* <section className="relative left-1/2 top-1"> */}
       <div className="p-4 flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
