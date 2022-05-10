@@ -1,15 +1,20 @@
+// import { useEffect } from 'react';
 import { CVData } from '../../hooks/cvDataHook';
+import { useWindowSize } from '../../hooks/windowSizeHook';
 
 interface Props {
   cvData: CVData;
 }
 
 const Preview: React.FC<Props> = (props) => {
+  const windowSize = useWindowSize();
+
   return (
-    <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
-      {/* <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen"> */}
+    // <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
+    <div className="w-1/2 bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
+      <div className="h-1 w-[calc(29.7cm)]" />
       {/* <section className="relative left-1/2 top-1"> */}
-      <div className="flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
+      <div className="p-4 flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
         <div>
           <svg
             width="24"
@@ -36,19 +41,30 @@ const Preview: React.FC<Props> = (props) => {
           </svg>
         </div>
       </div>
-      {/* </section> */}
 
-      <div className="bg-white w-[21cm] h-[29.7cm] rounded-md p-5">
-        <h1 className="text-left text-xl">{`${props.cvData.first_name} ${props.cvData.last_name}`}</h1>
-        <p className="text-left text-xs mb-3">{props.cvData.job_title}</p>
-        <div className="flex items-center">
-          <i className="fa-solid fa-user mr-1"></i>
-          <h2 className="text-left text-base">Profile</h2>
+      {/* TODO: h-[1122.52px] is temporary, find a way to calculate it according to any screen density */}
+      <div className="w-full flex-1 flex items-center justify-center">
+        <div className="relative leading-10">
+          <div
+            className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-md p-8 absolute"
+            style={{
+              transform: `translate(-50%, -50%) scale(calc(${windowSize.height - 130} /
+          1122.52))`,
+            }}
+          >
+            <h1 className="text-left text-[36px]">{`${props.cvData.first_name} ${props.cvData.last_name}`}</h1>
+            <p className="text-left text-[15px] mb-5">{props.cvData.job_title}</p>
+            <div className="flex items-center">
+              <i className="fa-solid fa-user mr-1"></i>
+              <h2 className="text-left text-[17px] font">Profile</h2>
+            </div>
+            <h2 className="text-left text-[17px] font">Details</h2>
+          </div>
         </div>
       </div>
 
       {/* <section className="absolute bottom-0"> */}
-      <div className="text-white fill-white flex items-center justify-between mt-3 w-[28rem]">
+      <div className="p-4 text-white fill-white flex items-center justify-between mt-3 w-[28rem]">
         <div className="flex items-center">
           <svg
             width="24"
