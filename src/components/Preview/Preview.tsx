@@ -4,6 +4,7 @@ import { useWindowSize } from '../../hooks/windowSizeHook';
 
 interface Props {
   cvData: CVData;
+  fileItem: { url?: string; isUploaded: boolean };
 }
 
 const Preview: React.FC<Props> = (props) => {
@@ -46,19 +47,43 @@ const Preview: React.FC<Props> = (props) => {
       <div className="w-full flex-1 flex items-center justify-center">
         <div className="relative leading-10">
           <div
-            className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-md p-8 absolute"
+            className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-md absolute"
             style={{
               transform: `translate(-50%, -50%) scale(calc(${windowSize.height - 130} /
           1122.52))`,
             }}
           >
-            <h1 className="text-left text-[36px]">{`${props.cvData.first_name} ${props.cvData.last_name}`}</h1>
-            <p className="text-left text-[15px] mb-5">{props.cvData.job_title}</p>
-            <div className="flex items-center">
-              <i className="fa-solid fa-user mr-1"></i>
-              <h2 className="text-left text-[17px] font">Profile</h2>
+            <div className="p-14">
+              <section className="w-full">
+                <div className="flex items-start">
+                  <div
+                    className={`h-20 w-20 bg-cover mr-4 rounded-sm bg-center ${
+                      !props.fileItem.isUploaded ? 'hidden' : ''
+                    }`}
+                    style={{
+                      backgroundImage: `${
+                        props.fileItem.isUploaded ? `url(${props.fileItem.url})` : ''
+                      }`,
+                    }}
+                  ></div>
+                  <div>
+                    <h1 className="text-left text-[36px]">{`${props.cvData.first_name} ${props.cvData.last_name}`}</h1>
+                    <p className="text-left text-[15px] mb-5">{props.cvData.job_title}</p>
+                  </div>
+                </div>
+              </section>
+              <section className="flex">
+                <div className="flex-[3_3_0%]">
+                  <div className="flex items-center">
+                    <i className="fa-solid fa-user mr-1"></i>
+                    <h2 className="text-left text-[17px] font">Profile</h2>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-left text-[17px] font">Details</h2>
+                </div>
+              </section>
             </div>
-            <h2 className="text-left text-[17px] font">Details</h2>
           </div>
         </div>
       </div>

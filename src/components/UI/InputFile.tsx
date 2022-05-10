@@ -1,7 +1,19 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 
-const InputFile: React.FC = () => {
+interface Props {
+  setFileItem: (args: { url: string | undefined; isUploaded: boolean }) => void;
+  fileItem: { url?: string; isUploaded: boolean };
+}
+
+const InputFile: React.FC<Props> = (props) => {
   const [isHover, setIsHover] = useState(false);
+
+  const setImagePreview: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const url = e?.target.files?.[0]
+      ? URL.createObjectURL(e.target.files?.[0])
+      : undefined;
+    props.setFileItem({ url: url, isUploaded: true });
+  };
 
   return (
     <section
@@ -10,13 +22,22 @@ const InputFile: React.FC = () => {
       onMouseLeave={() => setIsHover(false)}
     >
       <label
-        className={`h-14 w-14 ${
-          isHover ? 'bg-[#eaf6ff]' : 'bg-[#eff2f9]'
-        } flex justify-center items-center mr-4 rounded-sm cursor-pointer`}
+        className={`h-14 w-14 
+        ${isHover ? 'bg-[#eaf6ff]' : 'bg-[#eff2f9]'} 
+        flex justify-center items-center mr-4 rounded-sm cursor-pointer 
+        bg-center bg-cover
+        `}
+        style={{
+          backgroundImage: `${
+            props.fileItem.isUploaded ? `url(${props.fileItem.url})` : ''
+          }`,
+        }}
         htmlFor="photo"
       >
         <svg
-          className={`${isHover ? 'fill-[#1a91f0]' : 'fill-[#bec4d5]'}`}
+          className={`${isHover ? 'fill-[#1a91f0]' : 'fill-[#bec4d5]'} ${
+            props.fileItem.isUploaded ? 'hidden' : 'block'
+          }`}
           width="40px"
           height="40px"
           viewBox="0 0 40 40"
@@ -30,7 +51,7 @@ const InputFile: React.FC = () => {
       <label
         className={`text-sm ${
           isHover ? 'text-[#10529a]' : 'text-[#1a91f0]'
-        } whitespace-nowrap cursor-pointer`}
+        } whitespace-nowrap cursor-pointer `}
         htmlFor="photo"
       >
         Upload photo
@@ -41,6 +62,7 @@ const InputFile: React.FC = () => {
         name="photo"
         accept="image/png, image/jpeg"
         className="opacity-0 hidden"
+        onChange={setImagePreview}
       />
     </section>
   );
