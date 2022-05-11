@@ -10,6 +10,7 @@ function App() {
     url: undefined,
     isUploaded: false,
   });
+  const [progressPercent, setProgressPercent] = useState<number>(10);
 
   return (
     <div className="App">
@@ -18,8 +19,14 @@ function App() {
           handleInputChange={updateCVData}
           setFileItem={setFileItem}
           fileItem={fileItem}
+          progressPercent={progressPercent}
         />
-        <Preview cvData={cvData} fileItem={fileItem} />
+        <Preview
+          cvData={cvData}
+          fileItem={fileItem}
+          progressPercent={progressPercent}
+          setProgressPercent={setProgressPercent}
+        />
       </main>
     </div>
   );

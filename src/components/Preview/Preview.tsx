@@ -1,21 +1,22 @@
-// import { useEffect } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { CVData } from '../../hooks/cvDataHook';
 import { useWindowSize } from '../../hooks/windowSizeHook';
 
 interface Props {
   cvData: CVData;
   fileItem: { url?: string; isUploaded: boolean };
+  setProgressPercent: (arg: number) => void;
+  progressPercent: number;
 }
 
 const Preview: React.FC<Props> = (props) => {
   const windowSize = useWindowSize();
-  const [showDetails, setShowDetails] = useState(false);
 
-  useEffect(() => {
+  const showDetails = useCallback(() => {
     if (
       props.cvData.email ||
       props.cvData.country ||
+      props.cvData.phone ||
       props.cvData.city ||
       props.cvData.address ||
       props.cvData.postal_code ||
@@ -24,10 +25,10 @@ const Preview: React.FC<Props> = (props) => {
       props.cvData.place_of_birth ||
       props.cvData.date_of_birth
     ) {
-      setShowDetails(true);
+      return true;
       // TODO 진행률 +8% 올리기
     } else {
-      setShowDetails(false);
+      return false;
     }
   }, [props.cvData]);
 
@@ -102,8 +103,8 @@ const Preview: React.FC<Props> = (props) => {
                 </div>
                 <div className="flex-1">
                   <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-5 text-cyan-700 ${
-                      !showDetails ? 'hidden' : ''
+                    className={`text-left text-[14px] font-medium leading-tight pt-2 text-cyan-700 ${
+                      !showDetails() ? 'hidden' : ''
                     }`}
                   >
                     Details
@@ -117,10 +118,50 @@ const Preview: React.FC<Props> = (props) => {
                     }`}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.country}
+                  </p>
+                  <p className="text-left text-[12px] leading-snug">
                     {props.cvData.phone}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
                     {props.cvData.email}
+                  </p>
+                  <h2
+                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700`}
+                  >
+                    {props.cvData.date_of_birth && !props.cvData.place_of_birth
+                      ? 'Date of birth'
+                      : ''}
+                    {props.cvData.date_of_birth && props.cvData.place_of_birth
+                      ? 'Date / '
+                      : ''}
+                    {props.cvData.place_of_birth ? 'Place of birth' : ''}
+                  </h2>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.place_of_birth}
+                  </p>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.date_of_birth}
+                  </p>
+                  <h2
+                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700  ${
+                      props.cvData.nationality ? '' : 'hidden'
+                    }`}
+                  >
+                    Nationality
+                  </h2>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.nationality}
+                  </p>
+                  <h2
+                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700 ${
+                      props.cvData.driving_license ? '' : 'hidden'
+                    }`}
+                  >
+                    Driving license
+                  </h2>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.cvData.driving_license}
                   </p>
                 </div>
               </section>

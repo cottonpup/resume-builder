@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import Addition from '../UI/Addition';
 import Header from '../UI/Header';
 import InputFile from '../UI/InputFile';
+import InputParagraph from '../UI/InputParagraph';
 import InputText from '../UI/InputText';
 import Paragraph from '../UI/Paragraph';
 import Skill from '../UI/Skill';
@@ -12,6 +13,7 @@ interface Props {
   setFileItem: (args: { url: string | undefined; isUploaded: boolean }) => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   fileItem: { url?: string; isUploaded: boolean };
+  progressPercent: number;
 }
 
 const Editor: React.FC<Props> = (props) => {
@@ -21,7 +23,7 @@ const Editor: React.FC<Props> = (props) => {
     <section className="flex-1 p-[48px] max-w-full xl:w-2/4">
       <div className="max-w-[760px] m-auto xl:m-0 xl:max-w-full">
         <Title>Simple Resume</Title>
-        <ProgressBar />
+        <ProgressBar progressPercent={props.progressPercent} />
         <Header>Personal Details</Header>
         <div className="mb-6 flex mt-4">
           <InputText
@@ -156,6 +158,7 @@ const Editor: React.FC<Props> = (props) => {
             role, experience & most importantly - your biggest achievements, best
             qualities and skills.
           </Paragraph>
+          <InputParagraph handleInputChange={props.handleInputChange} />
         </section>
         <section className="mb-10">
           <Header>Employment History</Header>
@@ -182,7 +185,7 @@ const Editor: React.FC<Props> = (props) => {
           </Paragraph>
           <Addition>Add link</Addition>
         </section>
-        <section className="mb-10 flex flex-col">
+        <section className=" flex flex-col">
           <Header>Skills</Header>
           <Paragraph>
             Choose 5 of the most important skills to show your talents! Make sure they
@@ -201,6 +204,10 @@ const Editor: React.FC<Props> = (props) => {
             <Skill>Data Analysis</Skill>
           </div>
           <Addition>Add skill</Addition>
+        </section>
+        <section className="">
+          <Header>Languages</Header>
+          <Addition>Add languages</Addition>
         </section>
       </div>
     </section>
