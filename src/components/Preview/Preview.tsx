@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { CVData } from '../../hooks/cvDataHook';
 import { useWindowSize } from '../../hooks/windowSizeHook';
 
