@@ -14,6 +14,11 @@ export const initialInputValues = {
   nationality: '',
   place_of_birth: '',
   date_of_birth: '',
+  employment_history_job_title: '',
+  employment_history_employer: '',
+  employment_history_start_date: '',
+  employment_history_end_date: '',
+  employment_history_start_city: '',
 };
 
 export type CVData = typeof initialInputValues;

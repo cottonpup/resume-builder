@@ -1,11 +1,12 @@
+import type { EditorState } from 'draft-js';
 import { ChangeEvent, useState } from 'react';
-import Addition from '../UI/Addition';
+import DraftEditor from '../UI/DraftEditor';
 import Header from '../UI/Header';
 import InputFile from '../UI/InputFile';
-import InputParagraph from '../UI/InputParagraph';
 import InputText from '../UI/InputText';
 import Paragraph from '../UI/Paragraph';
 import Skill from '../UI/Skill';
+import TextAddition from '../UI/TextAddition';
 import Title from '../UI/Title';
 import ProgressBar from './ProgressBar';
 
@@ -14,9 +15,11 @@ interface Props {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   fileItem: { url?: string; isUploaded: boolean };
   progressPercent: number;
+  editorState: EditorState;
+  setEditorState: React.Dispatch<React.SetStateAction<EditorState>>;
 }
 
-const Editor: React.FC<Props> = (props) => {
+function Editor(props: Props) {
   const [hideDetail, setHideDetail] = useState(true);
 
   return (
@@ -158,7 +161,10 @@ const Editor: React.FC<Props> = (props) => {
             role, experience & most importantly - your biggest achievements, best
             qualities and skills.
           </Paragraph>
-          <InputParagraph handleInputChange={props.handleInputChange} />
+          <DraftEditor
+            editorState={props.editorState}
+            setEditorState={props.setEditorState}
+          />
         </section>
         <section className="mb-10">
           <Header>Employment History</Header>
@@ -167,15 +173,16 @@ const Editor: React.FC<Props> = (props) => {
             achievements, if possible - use numbers/facts (Achieved X, measured by Y, by
             doing Z).
           </Paragraph>
-          <Addition>Add employment</Addition>
+          <TextAddition>Add employment</TextAddition>
         </section>
+
         <section className="mb-10">
           <Header>Education</Header>
           <Paragraph>
             A varied education on your resume sums up the value that your learnings and
             background will bring to job.
           </Paragraph>
-          <Addition>Add education</Addition>
+          <TextAddition>Add education</TextAddition>
         </section>
         <section className="mb-10">
           <Header>Website & Social Links</Header>
@@ -183,7 +190,7 @@ const Editor: React.FC<Props> = (props) => {
             You can add links to websites you want hiring managers to see! Perhaps It will
             be a link to your portfolio, LinkedIn profile, or personal website
           </Paragraph>
-          <Addition>Add link</Addition>
+          <TextAddition>Add link</TextAddition>
         </section>
         <section className=" flex flex-col">
           <Header>Skills</Header>
@@ -203,15 +210,15 @@ const Editor: React.FC<Props> = (props) => {
             <Skill>Analytical Thinking Skills</Skill>
             <Skill>Data Analysis</Skill>
           </div>
-          <Addition>Add skill</Addition>
+          <TextAddition>Add skill</TextAddition>
         </section>
-        <section className="">
+        <section>
           <Header>Languages</Header>
-          <Addition>Add languages</Addition>
+          <TextAddition>Add languages</TextAddition>
         </section>
       </div>
     </section>
   );
-};
+}
 
 export default Editor;

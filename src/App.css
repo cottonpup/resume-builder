@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr,
+.public-DraftEditorPlaceholder-root {
+  overflow-wrap: break-word;
+  padding: 8px 16px 16px;
+  border-radius: 3px;
+  overflow-y: auto;
+  caret-color: rgb(26, 145, 240);
+  max-height: 420px;
+  min-height: 200px;
+}

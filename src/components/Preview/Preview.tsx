@@ -1,12 +1,14 @@
 import { useCallback } from 'react';
 import { CVData } from '../../hooks/cvDataHook';
 import { useWindowSize } from '../../hooks/windowSizeHook';
+import { type EditorState } from 'draft-js';
 
 interface Props {
   cvData: CVData;
   fileItem: { url?: string; isUploaded: boolean };
   setProgressPercent: (arg: number) => void;
   progressPercent: number;
+  editorState: EditorState;
 }
 
 const Preview: React.FC<Props> = (props) => {
@@ -96,9 +98,24 @@ const Preview: React.FC<Props> = (props) => {
               </section>
               <section className="flex">
                 <div className="flex-[3_3_0%]">
-                  <div className="flex items-center">
+                  <div
+                    className={`flex items-center ${
+                      props.editorState.getCurrentContent().getPlainText().length > 0
+                        ? 'block'
+                        : 'hidden'
+                    }`}
+                  >
                     <i className="fa-solid fa-user mr-1"></i>
                     <h2 className="text-left text-[17px] font font-semibold">Profile</h2>
+                  </div>
+                  <p className="text-left text-[12px] leading-snug">
+                    {props.editorState.getCurrentContent().getPlainText()}
+                  </p>
+                  <div className="flex items-center">
+                    <i className="fa-solid fa-briefcase mr-1"></i>
+                    <h2 className="text-left text-[17px] font font-semibold">
+                      Employment History
+                    </h2>
                   </div>
                 </div>
                 <div className="flex-1">

@@ -17,7 +17,7 @@ const ProgressBar: React.FC<Props> = (props) => {
         </Paragraph>
       </section>
       <section className="h-1 bg-slate-100 mb-8">
-        <div className={`w-[${props.progressPercent}%] h-1 bg-red-500`}></div>
+        {/* <div className={`w-[${props.progressPercent}%] h-1 bg-red-500`}></div> */}
       </section>
     </>
   );

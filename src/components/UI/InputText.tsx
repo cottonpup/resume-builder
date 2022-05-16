@@ -4,7 +4,7 @@ interface Props {
   placeholder: string;
   label: string;
   reference: string;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputText: React.FC<Props> = (props) => {
