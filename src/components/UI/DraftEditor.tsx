@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import { Editor, type EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state';
 
 interface Props {
   editorState: EditorState;
   setEditorState: React.Dispatch<React.SetStateAction<EditorState>>;
+  // key: string;
 }
 
 function DraftEditor(props: Props) {
   // editorState.getCurrentContent().getPlainText()
   const [entered, setEntered] = useState(false);
+  const dispatch = useDispatch();
+  const { update_professional_summary_data } = bindActionCreators(
+    actionCreators,
+    dispatch,
+  );
+
+  const handleOnChange = (editorState: EditorState) => {
+    props.setEditorState(editorState);
+    update_professional_summary_data(editorState.getCurrentContent().getPlainText());
+  };
 
   return (
     <div className="mt-4 bg-[#eff2f9]">
@@ -89,7 +103,7 @@ function DraftEditor(props: Props) {
 
       <Editor
         editorState={props.editorState}
-        onChange={props.setEditorState}
+        onChange={handleOnChange}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
         spellCheck={true}

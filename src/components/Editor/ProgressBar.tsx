@@ -1,7 +1,7 @@
 import Paragraph from '../UI/Paragraph';
 
 interface Props {
-  progressPercent: number;
+  // progressPercent: number;
 }
 
 const ProgressBar: React.FC<Props> = (props) => {
@@ -9,7 +9,7 @@ const ProgressBar: React.FC<Props> = (props) => {
     <>
       <section className="mb-2 flex justify-between">
         <Paragraph>
-          <div className="pr-1 font-bold text-red-500">{`${props.progressPercent} %`}</div>
+          {/* <div className="pr-1 font-bold text-red-500">{`${props.progressPercent} %`}</div> */}
           Profile completeness
         </Paragraph>
         <Paragraph>

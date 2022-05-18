@@ -1,10 +1,15 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { actionCreators, State } from '../../state';
+import { UpdatePersonalDetailData } from '../../state/action-creators';
+// import { UpdateAction } from '../../state/actions/index';
 
 interface Props {
   placeholder: string;
   label: string;
   reference: string;
-  handleInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  updateData: UpdatePersonalDetailData;
 }
 
 const InputText: React.FC<Props> = (props) => {
@@ -23,7 +28,9 @@ const InputText: React.FC<Props> = (props) => {
         id={props.reference}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
-        onChange={props.handleInputChange}
+        onChange={(e) =>
+          props.updateData({ key: props.reference, value: e.target.value })
+        }
       />
       <div
         className={`border-b-2 ${
