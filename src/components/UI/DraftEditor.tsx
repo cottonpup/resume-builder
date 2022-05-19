@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Editor, type EditorState } from 'draft-js';
+import { convertToRaw, Editor, type EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state';
+import { ActionType } from '../../state/action-types';
 
 interface Props {
   editorState: EditorState;
@@ -15,14 +16,24 @@ function DraftEditor(props: Props) {
   // editorState.getCurrentContent().getPlainText()
   const [entered, setEntered] = useState(false);
   const dispatch = useDispatch();
-  const { update_professional_summary_data } = bindActionCreators(
-    actionCreators,
-    dispatch,
-  );
+  // const { update_professional_summary_data } = bindActionCreators(
+  //   actionCreators,
+  //   dispatch,
+  // );
 
   const handleOnChange = (editorState: EditorState) => {
     props.setEditorState(editorState);
-    update_professional_summary_data(editorState.getCurrentContent().getPlainText());
+    // console.log(editorState.getCurrentContent().getPlainText('\u0001'));
+    console.log(convertToRaw(editorState.getCurrentContent()).blocks);
+    //update_professional_summary_data(editorState.getCurrentContent().getPlainText());
+    // const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
+    // const value = blocks
+    //   .map((block) => (!block.text.trim() && '\n') || block.text)
+    //   .join('\n');
+    dispatch({
+      type: ActionType.UPDATE_PROFESSIONAL_SUMMARY_DATA,
+      payload: convertToRaw(editorState.getCurrentContent()).blocks,
+    });
   };
 
   return (

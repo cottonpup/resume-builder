@@ -8,9 +8,16 @@ import TextAddition from '../UI/TextAddition';
 import Title from '../UI/Title';
 import ProgressBar from './ProgressBar';
 import PersonalDetail from './PersonalDetail';
+import { actionCreators, State } from '../../state';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 function Editor() {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const state = useSelector((state: State) => state.cvData);
+  const dispatch = useDispatch();
+  const { add_employment_history_data } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <section className="flex-1 p-[48px] max-w-full xl:w-2/4">
@@ -34,7 +41,12 @@ function Editor() {
             achievements, if possible - use numbers/facts (Achieved X, measured by Y, by
             doing Z).
           </Paragraph>
-          <TextAddition>Add employment</TextAddition>
+          <TextAddition
+            listItems={state.employment_history}
+            addData={add_employment_history_data}
+          >
+            Add employment
+          </TextAddition>
         </section>
 
         <section className="mb-10">
@@ -43,7 +55,7 @@ function Editor() {
             A varied education on your resume sums up the value that your learnings and
             background will bring to job.
           </Paragraph>
-          <TextAddition>Add education</TextAddition>
+          {/* <TextAddition listItems={state.education}>Add education</TextAddition> */}
         </section>
         <section className="mb-10">
           <Header>Website & Social Links</Header>
@@ -51,7 +63,7 @@ function Editor() {
             You can add links to websites you want hiring managers to see! Perhaps It will
             be a link to your portfolio, LinkedIn profile, or personal website
           </Paragraph>
-          <TextAddition>Add link</TextAddition>
+          {/* <TextAddition listItems={state.websites_social_links}>Add link</TextAddition> */}
         </section>
         <section className=" flex flex-col">
           <Header>Skills</Header>
@@ -71,11 +83,11 @@ function Editor() {
             <Skill>Analytical Thinking Skills</Skill>
             <Skill>Data Analysis</Skill>
           </div>
-          <TextAddition>Add skill</TextAddition>
+          {/* <TextAddition listItems={state.skills}>Add skill</TextAddition> */}
         </section>
         <section>
           <Header>Languages</Header>
-          <TextAddition>Add languages</TextAddition>
+          {/* <TextAddition listItems={state.language}>Add languages</TextAddition> */}
         </section>
       </div>
     </section>

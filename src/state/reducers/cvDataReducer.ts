@@ -1,10 +1,20 @@
 import { ActionType } from '../action-types';
 import { Action } from '../actions/index';
 
+export interface EmploymentElement {
+  id: string;
+  job_title: string;
+  employer: string;
+  start_date: string;
+  end_date: string;
+  city: string;
+  description: string;
+}
+
 const initialState = {
   personal_detail: {
     job_title: '',
-    profile: '',
+    profile: ``,
     first_name: '',
     last_name: '',
     email: '',
@@ -18,35 +28,49 @@ const initialState = {
     place_of_birth: '',
     date_of_birth: '',
   },
-  professional_summary: '',
-  employment_history: [
-    {
-      job_title: '',
-      employer: '',
-      start_date: '',
-      end_date: '',
-      city: '',
-      description: '',
-    },
-  ],
+  // TODO: Fix professional_summary type
+  // convertToRaw(editorState.getCurrentContent()).blocks;
+  professional_summary: [],
+  employment_history: [] as EmploymentElement[],
+  // {
+  // id: 0,
+  // job_title: '',
+  // employer: '',
+  // start_date: '',
+  // end_date: '',
+  // city: '',
+  // description: '',
+  // },
+  // {
+  // id: 1,
+  // job_title: '',
+  // employer: '',
+  // start_date: '',
+  // end_date: '',
+  // city: '',
+  // description: '',
+  // },
   education: [
-    {
-      school: '',
-      degree: '',
-      start_date: '',
-      end_date: '',
-      city: '',
-      description: '',
-    },
+    // {
+    //   id: 0
+    //   school: '',
+    //   degree: '',
+    //   start_date: '',
+    //   end_date: '',
+    //   city: '',
+    //   description: '',
+    // },
   ],
-  websites_social_links: [{ label: '', link: '' }],
+  websites_social_links: [
+    // { id: 0, label: '', link: '' }
+  ],
   skills: [],
   language: [],
 };
 
-type CVData = typeof initialState;
+export type CVData = typeof initialState;
 
-const reducer = (state: CVData = initialState, action: Action) => {
+export const reducer = (state: CVData = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.UPDATE_PERSONAL_DETAIL_DATA:
       return {
@@ -61,10 +85,25 @@ const reducer = (state: CVData = initialState, action: Action) => {
         ...state,
         professional_summary: action.payload,
       };
+    case ActionType.ADD_EMPLOYMENT_HISTORY_DATA:
+      // let objIndex = state.employment_history.findIndex((obj) => obj.id === );
+      return {
+        ...state,
+        employment_history: [
+          ...state.employment_history,
+          {
+            id: action.payload,
+            job_title: '',
+            employer: '',
+            start_date: '',
+            end_date: '',
+            city: '',
+            description: '',
+          },
+        ],
+      };
 
     default:
       return state;
   }
 };
-
-export default reducer;

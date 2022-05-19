@@ -1,17 +1,24 @@
 import { EditorState } from 'draft-js';
 import { useState } from 'react';
+import { AddEmploymentHistoryData } from '../../state/action-creators';
+import { EmploymentElement } from '../../state/reducers/cvDataReducer';
 import DraftEditor from './DraftEditor';
-import InputText from './InputText';
+// import InputText from './InputText';
+// import { State } from '../../state';
+// import { useSelector } from 'react-redux';
 
 interface Props {
   children: string;
+  listItems: EmploymentElement[]; // category e.g) professional_summary
+  addData: AddEmploymentHistoryData;
 }
 
-function TextAddition({ children }: Props) {
-  const [counter, setCounter] = useState(0);
+function TextAddition(props: Props) {
+  // const [counter, setCounter] = useState(0);
   const [enterStartDate, setEnterStartDate] = useState(false);
   const [enterEndDate, setEnterEndDate] = useState(false);
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  // const state = useSelector((state: State) => state.cvData);
 
   const [startDate, setStartDate] = useState({
     startYear: new Date().getFullYear(),
@@ -58,10 +65,12 @@ function TextAddition({ children }: Props) {
 
   return (
     <>
-      {Array.from(Array(counter).keys()).map((num) => (
+      {props.listItems.map((_, i) => (
         <div
-          className={`my-4 ${counter > 0 ? '' : 'hidden'} border-[1px] border-[#e7eaf4]`}
-          key={num}
+          className={`my-4 ${
+            props.listItems.length > 0 ? '' : 'hidden'
+          } border-[1px] border-[#e7eaf4]`}
+          key={i}
           onClick={handleModal}
         >
           <div className="flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px]">
@@ -81,7 +90,7 @@ function TextAddition({ children }: Props) {
           </div>
           <div className="px-[20px] pt-[4px] pb-[24px]">
             <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[24px]">
-              <InputText
+              {/* <InputText
                 placeholder=""
                 label="Job title"
                 reference="employment_history_job_title"
@@ -91,7 +100,7 @@ function TextAddition({ children }: Props) {
                 placeholder=""
                 label="Employer"
                 reference="employment_history_employer"
-              />
+              /> */}
             </div>
             <div className="flex w-full">
               <div className="flex  mb-[24px]">
@@ -320,11 +329,11 @@ function TextAddition({ children }: Props) {
                   </div>
                 </div>
                 <div className="mr-[40px]"></div>
-                <InputText
+                {/* <InputText
                   placeholder=""
                   label="City"
                   reference="employment_history_city"
-                />
+                /> */}
               </div>
             </div>
 
@@ -335,7 +344,7 @@ function TextAddition({ children }: Props) {
       ))}
       <button
         className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10`}
-        onClick={() => setCounter(counter + 1)}
+        onClick={() => props.addData('sdadsa')}
       >
         <svg
           width="24"
@@ -346,7 +355,7 @@ function TextAddition({ children }: Props) {
         >
           <polygon points="13 11 17 11 17 13 13 13 13 17 11 17 11 13 7 13 7 11 11 11 11 7 13 7"></polygon>
         </svg>
-        <p className="text-left">{children}</p>
+        <p className="text-left">{props.children}</p>
       </button>
     </>
   );

@@ -85,9 +85,13 @@ const Preview = () => {
                     <i className="fa-solid fa-user mr-1"></i>
                     <h2 className="text-left text-[17px] font font-semibold">Profile</h2>
                   </div>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.professional_summary}
-                  </p>
+
+                  {state.professional_summary.map((ele) => (
+                    <h1 className="text-left text-[12px] leading-snug h-[17px]">
+                      {ele?.text}
+                    </h1>
+                  ))}
+
                   {/* <div className="flex items-center">
                     <i className="fa-solid fa-briefcase mr-1"></i>
                     <h2 className="text-left text-[17px] font font-semibold">

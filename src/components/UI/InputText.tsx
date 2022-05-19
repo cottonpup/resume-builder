@@ -1,9 +1,5 @@
 import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { actionCreators, State } from '../../state';
-import { UpdatePersonalDetailData } from '../../state/action-creators';
-// import { UpdateAction } from '../../state/actions/index';
+import type { UpdatePersonalDetailData } from '../../state/action-creators';
 
 interface Props {
   placeholder: string;
@@ -21,7 +17,6 @@ const InputText: React.FC<Props> = (props) => {
         {props.label}
       </label>
       <input
-        // size={29}
         className="flex w-full px-5 py-3 bg-[#eff2f9] rounded-sm caret-[#1a91f0] focus:outline-none"
         placeholder={props.placeholder}
         type="text"
