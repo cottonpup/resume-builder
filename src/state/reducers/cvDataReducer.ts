@@ -11,6 +11,16 @@ export interface EmploymentElement {
   description: string;
 }
 
+export interface DraftContentElement {
+  key: string;
+  text: string;
+  type: string;
+  depth: number;
+  inlineStyleRanges: [];
+  entityRanges: [];
+  data: object;
+}
+
 const initialState = {
   personal_detail: {
     job_title: '',
@@ -30,7 +40,7 @@ const initialState = {
   },
   // TODO: Fix professional_summary type
   // convertToRaw(editorState.getCurrentContent()).blocks;
-  professional_summary: [],
+  professional_summary: [] as DraftContentElement[],
   employment_history: [] as EmploymentElement[],
   // {
   // id: 0,
