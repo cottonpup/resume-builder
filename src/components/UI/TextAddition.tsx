@@ -1,5 +1,6 @@
 import { EditorState } from 'draft-js';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { AddEmploymentHistoryData } from '../../state/action-creators';
 import { EmploymentElement } from '../../state/reducers/cvDataReducer';
 import DraftEditor from './DraftEditor';
@@ -70,7 +71,7 @@ function TextAddition(props: Props) {
           className={`my-4 ${
             props.listItems.length > 0 ? '' : 'hidden'
           } border-[1px] border-[#e7eaf4]`}
-          key={i}
+          key={uuidv4()}
           onClick={handleModal}
         >
           <div className="flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px]">
@@ -196,7 +197,7 @@ function TextAddition(props: Props) {
                           {months.map((month, i) => (
                             <button
                               data-number={i + 1}
-                              key={i}
+                              key={uuidv4()}
                               className={`w-[58px] h-[38px] ${
                                 startDate.startMonth !== month
                                   ? 'hover:bg-[#deeefc] hover:text-[#1a91f0]'
@@ -300,7 +301,7 @@ function TextAddition(props: Props) {
                           {months.map((month, i) => (
                             <button
                               data-number={i + 1}
-                              key={i}
+                              key={uuidv4()}
                               className={`w-[58px] h-[38px] ${
                                 endDate.endMonth !== month
                                   ? 'hover:bg-[#deeefc] hover:text-[#1a91f0]'
@@ -344,7 +345,7 @@ function TextAddition(props: Props) {
       ))}
       <button
         className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10`}
-        onClick={() => props.addData('sdadsa')}
+        onClick={() => props.addData(uuidv4())}
       >
         <svg
           width="24"

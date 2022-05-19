@@ -38,28 +38,8 @@ const initialState = {
     place_of_birth: '',
     date_of_birth: '',
   },
-  // TODO: Fix professional_summary type
-  // convertToRaw(editorState.getCurrentContent()).blocks;
   professional_summary: [] as DraftContentElement[],
   employment_history: [] as EmploymentElement[],
-  // {
-  // id: 0,
-  // job_title: '',
-  // employer: '',
-  // start_date: '',
-  // end_date: '',
-  // city: '',
-  // description: '',
-  // },
-  // {
-  // id: 1,
-  // job_title: '',
-  // employer: '',
-  // start_date: '',
-  // end_date: '',
-  // city: '',
-  // description: '',
-  // },
   education: [
     // {
     //   id: 0

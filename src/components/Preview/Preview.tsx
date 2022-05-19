@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useWindowSize } from '../../hooks/windowSizeHook';
 import { State } from '../../state';
 import { useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 const Preview = () => {
   const windowSize = useWindowSize();
@@ -87,7 +88,10 @@ const Preview = () => {
                   </div>
 
                   {state.professional_summary.map((ele, i) => (
-                    <h1 className="text-left text-[12px] leading-snug h-[17px]" key={i}>
+                    <h1
+                      className="text-left text-[12px] leading-snug h-[17px]"
+                      key={uuidv4()}
+                    >
                       {ele.text}
                     </h1>
                   ))}
