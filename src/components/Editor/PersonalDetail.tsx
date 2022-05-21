@@ -21,6 +21,7 @@ function PersonalDetail() {
           label="Wanted Job Title"
           reference="job_title"
           updateData={update_personal_detail_data}
+          group_name={'personal_detail'}
         />
         <div className="mr-10"></div>
         <InputFile />
@@ -31,6 +32,7 @@ function PersonalDetail() {
           label="First Name"
           reference="first_name"
           updateData={update_personal_detail_data}
+          group_name={'personal_detail'}
         />
         <div className="mr-10"></div>
         <InputText
@@ -38,6 +40,7 @@ function PersonalDetail() {
           label="Last Name"
           reference="last_name"
           updateData={update_personal_detail_data}
+          group_name={'personal_detail'}
         />
       </div>
       <div className="mb-6 flex">
@@ -46,6 +49,7 @@ function PersonalDetail() {
           label="Email"
           reference="email"
           updateData={update_personal_detail_data}
+          group_name={'personal_detail'}
         />
         <div className="mr-10"></div>
         <InputText
@@ -53,6 +57,7 @@ function PersonalDetail() {
           label="Phone"
           reference="phone"
           updateData={update_personal_detail_data}
+          group_name={'personal_detail'}
         />
       </div>
 
@@ -67,6 +72,7 @@ function PersonalDetail() {
             label="Country"
             reference="country"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
           <div className="mr-10"></div>
           <InputText
@@ -74,6 +80,7 @@ function PersonalDetail() {
             label="City"
             reference="city"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
         </div>
         <div className="mb-6 flex">
@@ -82,6 +89,7 @@ function PersonalDetail() {
             label="Address"
             reference="address"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
           <div className="mr-10"></div>
           <InputText
@@ -89,6 +97,7 @@ function PersonalDetail() {
             label="Postal Code"
             reference="postal_code"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
         </div>
         <div className="mb-6 flex">
@@ -97,6 +106,7 @@ function PersonalDetail() {
             label="Driving License"
             reference="driving_license"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
           <div className="mr-10"></div>
           <InputText
@@ -104,6 +114,7 @@ function PersonalDetail() {
             label="Nationality"
             reference="nationality"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
         </div>
         <div className="mb-6 flex">
@@ -112,6 +123,7 @@ function PersonalDetail() {
             label="Place Of Birth"
             reference="place_of_birth"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
           <div className="mr-10"></div>
           <InputText
@@ -119,6 +131,7 @@ function PersonalDetail() {
             label="Date Of Birth"
             reference="date_of_birth"
             updateData={update_personal_detail_data}
+            group_name={'personal_detail'}
           />
         </div>
       </section>

@@ -2,6 +2,8 @@ import type {
   UpdatePersonalDetailAction,
   UpdateProfessionalSummaryAction,
   AddEmploymentHistoryDataAction,
+  AddEducationAction,
+  UpdateEmploymentHistoryDataAction,
 } from './../actions/index';
 import { ActionType } from '../action-types';
 import type { Dispatch } from 'redux';
@@ -40,3 +42,26 @@ export const add_employment_history_data = (
   };
 };
 export type AddEmploymentHistoryData = typeof add_employment_history_data;
+
+export const update_employment_history_data = (
+  updatedInput: UpdateEmploymentHistoryDataAction['payload'],
+) => {
+  console.log({ updatedInput });
+  return (dispatch: Dispatch<UpdateEmploymentHistoryDataAction>) => {
+    dispatch({
+      type: ActionType.UPDATE_EMPLOYMENT_HISTORY_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type UpdateEmploymentHistoryData = typeof update_employment_history_data;
+
+export const add_education_data = (updatedInput: AddEducationAction['payload']) => {
+  return (dispatch: Dispatch<AddEducationAction>) => {
+    dispatch({
+      type: ActionType.ADD_EDUCATION_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type AddEducationData = typeof add_education_data;

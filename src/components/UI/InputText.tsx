@@ -1,15 +1,40 @@
-import { useState } from 'react';
-import type { UpdatePersonalDetailData } from '../../state/action-creators';
+import { ChangeEvent, useState } from 'react';
+import type {
+  UpdateEmploymentHistoryDataAction,
+  UpdatePersonalDetailAction,
+} from '../../state/actions';
 
 interface Props {
+  group_name: string;
   placeholder: string;
   label: string;
   reference: string;
-  updateData: UpdatePersonalDetailData;
+  identifier?: string;
+  updateData(
+    action:
+      | UpdatePersonalDetailAction['payload']
+      | UpdateEmploymentHistoryDataAction['payload'],
+  ): void;
 }
 
 const InputText: React.FC<Props> = (props) => {
   const [entered, setEntered] = useState(false);
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (props.group_name === 'personal_detail') {
+      props.updateData({
+        key: props.reference,
+        value: e.target.value,
+      });
+    }
+    if (props.group_name === 'employment_history') {
+      props.updateData({
+        key: props.reference,
+        value: e.target.value,
+        id: props.identifier,
+      });
+    }
+  };
 
   return (
     <section className="w-full">
@@ -23,9 +48,7 @@ const InputText: React.FC<Props> = (props) => {
         id={props.reference}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
-        onChange={(e) =>
-          props.updateData({ key: props.reference, value: e.target.value })
-        }
+        onChange={(e) => handleOnChange(e)}
       />
       <div
         className={`border-b-2 ${

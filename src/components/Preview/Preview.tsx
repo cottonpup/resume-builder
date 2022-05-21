@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useWindowSize } from '../../hooks/windowSizeHook';
 import { State } from '../../state';
 import { useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 
 const Preview = () => {
   const windowSize = useWindowSize();
@@ -88,20 +87,55 @@ const Preview = () => {
                   </div>
 
                   {state.professional_summary.map((ele, i) => (
-                    <h1
-                      className="text-left text-[12px] leading-snug h-[17px]"
-                      key={uuidv4()}
-                    >
+                    <h1 className="text-left text-[12px] leading-snug h-[17px]" key={i}>
                       {ele.text}
                     </h1>
                   ))}
-
-                  {/* <div className="flex items-center">
-                    <i className="fa-solid fa-briefcase mr-1"></i>
-                    <h2 className="text-left text-[17px] font font-semibold">
-                      Employment History
-                    </h2>
-                  </div> */}
+                  {state.employment_history && (
+                    <div className="flex items-center">
+                      <i className="fa-solid fa-briefcase mr-1"></i>
+                      <h2 className="text-left text-[17px] font font-semibold">
+                        Employment History
+                      </h2>
+                    </div>
+                  )}
+                  {state.employment_history.map((item, i) => (
+                    <>
+                      <h3
+                        className={`text-left text-[15px] font-semibold leading-snug ${
+                          i > 0 ? 'mt-2' : ''
+                        }`}
+                      >
+                        {`${item.job_title}${
+                          item.employer && item.job_title
+                            ? ` at ${item.employer}`
+                            : item.employer
+                        }${
+                          item.employer || item.job_title ? `, ${item.city}` : item.city
+                        }`}
+                      </h3>
+                      <p className="text-left text-[12px] leading-snug">
+                        {item.startDateSelected
+                          ? `${
+                              item.startMonth && item.startYear
+                                ? item.startMonth
+                                : `${item.startMonth}, `
+                            } ${item.startYear}`
+                          : ``}
+                        {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
+                        {item.endDateSelected
+                          ? `${
+                              item.endMonth && item.endYear
+                                ? item.endMonth
+                                : `${item.endMonth}, `
+                            } ${item.endYear}`
+                          : ``}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {item.description ? item.description : ''}
+                      </p>
+                    </>
+                  ))}
                 </div>
                 <div className="flex-1">
                   <h2

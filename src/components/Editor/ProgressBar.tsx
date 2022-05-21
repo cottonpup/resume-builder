@@ -13,7 +13,8 @@ const ProgressBar: React.FC<Props> = (props) => {
           Profile completeness
         </Paragraph>
         <Paragraph>
-          <div className="pr-1 font-bold text-emerald-600">+10 % </div>Complete inputs
+          <div className="pr-1 font-bold text-emerald-600">+10 % </div>Fill in your
+          details!
         </Paragraph>
       </section>
       <section className="h-1 bg-slate-100 mb-8">

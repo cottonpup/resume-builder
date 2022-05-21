@@ -2,7 +2,7 @@ import React from 'react';
 
 const Skill: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="flex items-center rounded-[4px] bg-[#eff2f9] mr-4 my-2 text-sm py-[6px] pr-[6px] pl-[10px]">
+    <button className="flex items-center rounded-[4px] bg-[#eff2f9] mr-4 my-2 text-sm py-[6px] pr-[6px] pl-[10px]">
       {children}
       <svg
         width="20"
@@ -13,7 +13,7 @@ const Skill: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       >
         <path d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5z"></path>
       </svg>
-    </div>
+    </button>
   );
 };
 

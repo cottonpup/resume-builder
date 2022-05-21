@@ -18,7 +18,23 @@ export interface AddEmploymentHistoryDataAction {
   payload: string;
 }
 
+export interface UpdateEmploymentHistoryDataAction {
+  type: ActionType.UPDATE_EMPLOYMENT_HISTORY_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string | number | boolean;
+  };
+}
+
+export interface AddEducationAction {
+  type: ActionType.ADD_EDUCATION_DATA;
+  payload: string;
+}
+
 export type Action =
   | UpdatePersonalDetailAction
   | UpdateProfessionalSummaryAction
-  | AddEmploymentHistoryDataAction;
+  | AddEmploymentHistoryDataAction
+  | UpdateEmploymentHistoryDataAction
+  | AddEducationAction;

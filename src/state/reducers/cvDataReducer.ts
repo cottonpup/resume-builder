@@ -5,10 +5,20 @@ export interface EmploymentElement {
   id: string;
   job_title: string;
   employer: string;
-  start_date: string;
-  end_date: string;
+  startYear: number;
+  startMonth: string;
+  startDateSelected: boolean;
+  endYear: number;
+  endMonth: string;
+  endDateSelected: boolean;
   city: string;
   description: string;
+}
+
+export interface EmploymentUpdateElement {
+  id: string;
+  key: string;
+  value: string | number | boolean;
 }
 
 export interface DraftContentElement {
@@ -19,6 +29,16 @@ export interface DraftContentElement {
   inlineStyleRanges: [];
   entityRanges: [];
   data: object;
+}
+
+export interface EducationElement {
+  id: string;
+  school: string;
+  degree: string;
+  start_date: string;
+  end_date: string;
+  city: string;
+  description: string;
 }
 
 const initialState = {
@@ -39,18 +59,9 @@ const initialState = {
     date_of_birth: '',
   },
   professional_summary: [] as DraftContentElement[],
+  // TODO: Make a reducer func to update details
   employment_history: [] as EmploymentElement[],
-  education: [
-    // {
-    //   id: 0
-    //   school: '',
-    //   degree: '',
-    //   start_date: '',
-    //   end_date: '',
-    //   city: '',
-    //   description: '',
-    // },
-  ],
+  education: [] as EducationElement[],
   websites_social_links: [
     // { id: 0, label: '', link: '' }
   ],
@@ -76,7 +87,6 @@ export const reducer = (state: CVData = initialState, action: Action) => {
         professional_summary: action.payload,
       };
     case ActionType.ADD_EMPLOYMENT_HISTORY_DATA:
-      // let objIndex = state.employment_history.findIndex((obj) => obj.id === );
       return {
         ...state,
         employment_history: [
@@ -85,6 +95,39 @@ export const reducer = (state: CVData = initialState, action: Action) => {
             id: action.payload,
             job_title: '',
             employer: '',
+            startYear: new Date().getFullYear(),
+            startMonth: '',
+            endYear: new Date().getFullYear(),
+            endMonth: '',
+            city: '',
+            description: '',
+          },
+        ],
+      };
+    /**
+       * const newState = state.map(obj =>
+            obj.id === "101" ? { ...obj, completed: true } : obj
+        );
+       */
+    case ActionType.UPDATE_EMPLOYMENT_HISTORY_DATA:
+      return {
+        ...state,
+        employment_history: state.employment_history.map((ele) => {
+          if (ele.id === action.payload.id) {
+            return { ...ele, [action.payload.key]: action.payload.value };
+          }
+          return ele;
+        }),
+      };
+    case ActionType.ADD_EDUCATION_DATA:
+      return {
+        ...state,
+        education: [
+          ...state.education,
+          {
+            id: action.payload,
+            school: '',
+            degree: '',
             start_date: '',
             end_date: '',
             city: '',
