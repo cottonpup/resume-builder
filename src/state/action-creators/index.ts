@@ -4,6 +4,7 @@ import type {
   AddEmploymentHistoryDataAction,
   AddEducationAction,
   UpdateEmploymentHistoryDataAction,
+  UpdateEducationAction,
 } from './../actions/index';
 import { ActionType } from '../action-types';
 import type { Dispatch } from 'redux';
@@ -65,3 +66,14 @@ export const add_education_data = (updatedInput: AddEducationAction['payload']) 
   };
 };
 export type AddEducationData = typeof add_education_data;
+
+export const update_education_data = (updatedInput: UpdateEducationAction['payload']) => {
+  console.log({ updatedInput });
+  return (dispatch: Dispatch<UpdateEducationAction>) => {
+    dispatch({
+      type: ActionType.UPDATE_EDUCATION_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type UpdateEducationData = typeof update_education_data;

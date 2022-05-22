@@ -19,7 +19,8 @@ function Editor() {
   const dispatch = useDispatch();
   const { add_employment_history_data } = bindActionCreators(actionCreators, dispatch);
   const { update_employment_history_data } = bindActionCreators(actionCreators, dispatch);
-  // const { add_education_data } = bindActionCreators(actionCreators, dispatch);
+  const { add_education_data } = bindActionCreators(actionCreators, dispatch);
+  const { update_education_data } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <section className="flex-1 p-[48px] max-w-full xl:w-2/4">
@@ -59,14 +60,14 @@ function Editor() {
             A varied education on your resume sums up the value that your learnings and
             background will bring to job.
           </Paragraph>
-          {/* <TextAddition
+          <TextAddition
             listItems={state.education}
             addData={add_education_data}
             group_name={'education'}
-            updateData={update_employment_history_data}
+            updateData={update_education_data}
           >
             Add education
-          </TextAddition> */}
+          </TextAddition>
         </section>
         <section className="mb-10">
           <Header>Website & Social Links</Header>

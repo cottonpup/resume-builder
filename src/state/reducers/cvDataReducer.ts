@@ -4,7 +4,9 @@ import { Action } from '../actions/index';
 export interface EmploymentElement {
   id: string;
   job_title: string;
+  job_title_label: string;
   employer: string;
+  employer_label: string;
   startYear: number;
   startMonth: string;
   startDateSelected: boolean;
@@ -12,6 +14,7 @@ export interface EmploymentElement {
   endMonth: string;
   endDateSelected: boolean;
   city: string;
+  city_label: string;
   description: string;
 }
 
@@ -34,10 +37,17 @@ export interface DraftContentElement {
 export interface EducationElement {
   id: string;
   school: string;
+  school_label: string;
   degree: string;
-  start_date: string;
-  end_date: string;
+  degree_label: string;
+  startYear: number;
+  startMonth: string;
+  startDateSelected: boolean;
+  endYear: number;
+  endMonth: string;
+  endDateSelected: boolean;
   city: string;
+  city_label: string;
   description: string;
 }
 
@@ -93,22 +103,22 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           ...state.employment_history,
           {
             id: action.payload,
+            job_title_label: 'Job title',
             job_title: '',
+            employer_label: 'Employer',
             employer: '',
             startYear: new Date().getFullYear(),
             startMonth: '',
             endYear: new Date().getFullYear(),
             endMonth: '',
+            startDateSelected: false,
+            endDateSelected: false,
+            city_label: 'City',
             city: '',
             description: '',
           },
         ],
       };
-    /**
-       * const newState = state.map(obj =>
-            obj.id === "101" ? { ...obj, completed: true } : obj
-        );
-       */
     case ActionType.UPDATE_EMPLOYMENT_HISTORY_DATA:
       return {
         ...state,
@@ -127,13 +137,28 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           {
             id: action.payload,
             school: '',
+            school_label: 'School',
             degree: '',
-            start_date: '',
-            end_date: '',
+            degree_label: 'Degree',
+            startYear: new Date().getFullYear(),
+            startMonth: '',
+            endYear: new Date().getFullYear(),
+            startDateSelected: false,
             city: '',
+            city_label: 'City',
             description: '',
           },
         ],
+      };
+    case ActionType.UPDATE_EDUCATION_DATA:
+      return {
+        ...state,
+        education: state.education.map((ele) => {
+          if (ele.id === action.payload.id) {
+            return { ...ele, [action.payload.key]: action.payload.value };
+          }
+          return ele;
+        }),
       };
 
     default:

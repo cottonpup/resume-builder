@@ -32,9 +32,19 @@ export interface AddEducationAction {
   payload: string;
 }
 
+export interface UpdateEducationAction {
+  type: ActionType.UPDATE_EDUCATION_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string | number | boolean;
+  };
+}
+
 export type Action =
   | UpdatePersonalDetailAction
   | UpdateProfessionalSummaryAction
   | AddEmploymentHistoryDataAction
   | UpdateEmploymentHistoryDataAction
-  | AddEducationAction;
+  | AddEducationAction
+  | UpdateEducationAction;

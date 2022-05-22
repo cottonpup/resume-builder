@@ -4,4 +4,5 @@ export enum ActionType {
   ADD_EMPLOYMENT_HISTORY_DATA = 'add_employment_history_data',
   UPDATE_EMPLOYMENT_HISTORY_DATA = 'update_employment_history_data',
   ADD_EDUCATION_DATA = 'add_education_data',
+  UPDATE_EDUCATION_DATA = 'update_education_data',
 }

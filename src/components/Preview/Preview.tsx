@@ -69,7 +69,7 @@ const Preview = () => {
                   ></div>
                   <div>
                     <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
-                    <p className="text-left text-[15px] mb-5">
+                    <p className="text-left text-[15px] mb-2">
                       {state.personal_detail.job_title}
                     </p>
                   </div>
