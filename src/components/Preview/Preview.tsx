@@ -1,44 +1,20 @@
 import { useCallback } from 'react';
-import { CVData } from '../../hooks/cvDataHook';
 import { useWindowSize } from '../../hooks/windowSizeHook';
-import { type EditorState } from 'draft-js';
+import { State } from '../../state';
+import { useSelector } from 'react-redux';
 
-interface Props {
-  cvData: CVData;
-  fileItem: { url?: string; isUploaded: boolean };
-  setProgressPercent: (arg: number) => void;
-  progressPercent: number;
-  editorState: EditorState;
-}
-
-const Preview: React.FC<Props> = (props) => {
+const Preview = () => {
   const windowSize = useWindowSize();
+  const state = useSelector((state: State) => state.cvData);
 
   const showDetails = useCallback(() => {
-    if (
-      props.cvData.email ||
-      props.cvData.country ||
-      props.cvData.phone ||
-      props.cvData.city ||
-      props.cvData.address ||
-      props.cvData.postal_code ||
-      props.cvData.driving_license ||
-      props.cvData.nationality ||
-      props.cvData.place_of_birth ||
-      props.cvData.date_of_birth
-    ) {
-      return true;
-      // TODO 진행률 +8% 올리기
-    } else {
-      return false;
-    }
-  }, [props.cvData]);
+    return Object.values([state.personal_detail][0]).some((value) => value);
+  }, [state.personal_detail]);
 
   return (
-    // <div className="w-1/2 p-10 bg-slate-500 fixed right-0 top-0 h-screen flex justify-center flex-col items-center">
     <div className="xl:w-1/2 xl:visible invisible bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
       <div className="h-1 xl:w-[calc(29.7cm)]" />
-      {/* <section className="relative left-1/2 top-1"> */}
+
       <div className="p-4 flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
         <div>
           <svg
@@ -67,7 +43,6 @@ const Preview: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {/* TODO: h-[1122.52px] is temporary, find a way to calculate it according to any screen density */}
       <div className="w-full flex-1 flex items-center justify-center">
         <div className="relative leading-10">
           <div
@@ -82,17 +57,21 @@ const Preview: React.FC<Props> = (props) => {
                 <div className="flex items-start">
                   <div
                     className={`h-20 w-20 bg-cover mr-4 rounded-sm bg-center ${
-                      !props.fileItem.isUploaded ? 'hidden' : ''
+                      !state.personal_detail.profile ? 'hidden' : ''
                     }`}
                     style={{
                       backgroundImage: `${
-                        props.fileItem.isUploaded ? `url(${props.fileItem.url})` : ''
+                        state.personal_detail.profile
+                          ? `url(${state.personal_detail.profile})`
+                          : ''
                       }`,
                     }}
                   ></div>
                   <div>
-                    <h1 className="text-left text-[36px]">{`${props.cvData.first_name} ${props.cvData.last_name}`}</h1>
-                    <p className="text-left text-[15px] mb-5">{props.cvData.job_title}</p>
+                    <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
+                    <p className="text-left text-[15px] mb-2">
+                      {state.personal_detail.job_title}
+                    </p>
                   </div>
                 </div>
               </section>
@@ -100,23 +79,63 @@ const Preview: React.FC<Props> = (props) => {
                 <div className="flex-[3_3_0%]">
                   <div
                     className={`flex items-center ${
-                      props.editorState.getCurrentContent().getPlainText().length > 0
-                        ? 'block'
-                        : 'hidden'
+                      state.professional_summary ? 'block' : 'hidden'
                     }`}
                   >
                     <i className="fa-solid fa-user mr-1"></i>
                     <h2 className="text-left text-[17px] font font-semibold">Profile</h2>
                   </div>
-                  <p className="text-left text-[12px] leading-snug">
-                    {props.editorState.getCurrentContent().getPlainText()}
-                  </p>
-                  <div className="flex items-center">
-                    <i className="fa-solid fa-briefcase mr-1"></i>
-                    <h2 className="text-left text-[17px] font font-semibold">
-                      Employment History
-                    </h2>
-                  </div>
+
+                  {state.professional_summary.map((ele, i) => (
+                    <h1 className="text-left text-[12px] leading-snug h-[17px]" key={i}>
+                      {ele.text}
+                    </h1>
+                  ))}
+                  {state.employment_history && (
+                    <div className="flex items-center">
+                      <i className="fa-solid fa-briefcase mr-1"></i>
+                      <h2 className="text-left text-[17px] font font-semibold">
+                        Employment History
+                      </h2>
+                    </div>
+                  )}
+                  {state.employment_history.map((item, i) => (
+                    <>
+                      <h3
+                        className={`text-left text-[15px] font-semibold leading-snug ${
+                          i > 0 ? 'mt-2' : ''
+                        }`}
+                      >
+                        {`${item.job_title}${
+                          item.employer && item.job_title
+                            ? ` at ${item.employer}`
+                            : item.employer
+                        }${
+                          item.employer || item.job_title ? `, ${item.city}` : item.city
+                        }`}
+                      </h3>
+                      <p className="text-left text-[12px] leading-snug">
+                        {item.startDateSelected
+                          ? `${
+                              item.startMonth && item.startYear
+                                ? item.startMonth
+                                : `${item.startMonth}, `
+                            } ${item.startYear}`
+                          : ``}
+                        {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
+                        {item.endDateSelected
+                          ? `${
+                              item.endMonth && item.endYear
+                                ? item.endMonth
+                                : `${item.endMonth}, `
+                            } ${item.endYear}`
+                          : ``}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {item.description ? item.description : ''}
+                      </p>
+                    </>
+                  ))}
                 </div>
                 <div className="flex-1">
                   <h2
@@ -127,58 +146,62 @@ const Preview: React.FC<Props> = (props) => {
                     Details
                   </h2>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.address}
+                    {state.personal_detail.address}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
-                    {`${props.cvData.city ? props.cvData.city : ''} ${
-                      props.cvData.postal_code ? `, ${props.cvData.postal_code}` : ''
+                    {`${state.personal_detail.city ? state.personal_detail.city : ''} ${
+                      state.personal_detail.postal_code
+                        ? `, ${state.personal_detail.postal_code}`
+                        : ''
                     }`}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.country}
+                    {state.personal_detail.country}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.phone}
+                    {state.personal_detail.phone}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.email}
+                    {state.personal_detail.email}
                   </p>
                   <h2
                     className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700`}
                   >
-                    {props.cvData.date_of_birth && !props.cvData.place_of_birth
+                    {state.personal_detail.date_of_birth &&
+                    !state.personal_detail.place_of_birth
                       ? 'Date of birth'
                       : ''}
-                    {props.cvData.date_of_birth && props.cvData.place_of_birth
+                    {state.personal_detail.date_of_birth &&
+                    state.personal_detail.place_of_birth
                       ? 'Date / '
                       : ''}
-                    {props.cvData.place_of_birth ? 'Place of birth' : ''}
+                    {state.personal_detail.place_of_birth ? 'Place of birth' : ''}
                   </h2>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.place_of_birth}
+                    {state.personal_detail.place_of_birth}
                   </p>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.date_of_birth}
+                    {state.personal_detail.date_of_birth}
                   </p>
                   <h2
                     className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700  ${
-                      props.cvData.nationality ? '' : 'hidden'
+                      state.personal_detail.nationality ? '' : 'hidden'
                     }`}
                   >
                     Nationality
                   </h2>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.nationality}
+                    {state.personal_detail.nationality}
                   </p>
                   <h2
                     className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700 ${
-                      props.cvData.driving_license ? '' : 'hidden'
+                      state.personal_detail.driving_license ? '' : 'hidden'
                     }`}
                   >
                     Driving license
                   </h2>
                   <p className="text-left text-[12px] leading-snug">
-                    {props.cvData.driving_license}
+                    {state.personal_detail.driving_license}
                   </p>
                 </div>
               </section>
@@ -187,7 +210,6 @@ const Preview: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {/* <section className="absolute bottom-0"> */}
       <div className="p-4 text-white fill-white flex items-center justify-between mt-3 w-[28rem]">
         <div className="flex items-center">
           <svg
@@ -205,7 +227,7 @@ const Preview: React.FC<Props> = (props) => {
         </div>
         <div className="flex items-center">
           <button className="py-[13px] px-6 bg-[#1a91f0] rounded-md mr-2">
-            <span>Download PDF</span>
+            <p>Download PDF</p>
           </button>
           <div>
             <button className="py-[13px] px-6 bg-[#1a91f0] rounded-md">
@@ -224,7 +246,6 @@ const Preview: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      {/* </section> */}
     </div>
   );
 };

@@ -1,19 +1,14 @@
-import { ChangeEventHandler, useState } from 'react';
+import { useState } from 'react';
+import { bindActionCreators } from 'redux';
+import { actionCreators, State } from '../../state';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface Props {
-  setFileItem: (args: { url: string | undefined; isUploaded: boolean }) => void;
-  fileItem: { url?: string; isUploaded: boolean };
-}
+function InputFile() {
+  const dispatch = useDispatch();
+  const { update_personal_detail_data } = bindActionCreators(actionCreators, dispatch);
 
-const InputFile: React.FC<Props> = (props) => {
   const [isHover, setIsHover] = useState(false);
-
-  const setImagePreview: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const url = e?.target.files?.[0]
-      ? URL.createObjectURL(e.target.files?.[0])
-      : undefined;
-    props.setFileItem({ url: url, isUploaded: true });
-  };
+  const state = useSelector((state: State) => state.cvData);
 
   return (
     <section
@@ -29,14 +24,14 @@ const InputFile: React.FC<Props> = (props) => {
         `}
         style={{
           backgroundImage: `${
-            props.fileItem.isUploaded ? `url(${props.fileItem.url})` : ''
+            state.personal_detail.profile ? `url(${state.personal_detail.profile})` : ''
           }`,
         }}
         htmlFor="photo"
       >
         <svg
           className={`${isHover ? 'fill-[#1a91f0]' : 'fill-[#bec4d5]'} ${
-            props.fileItem.isUploaded ? 'hidden' : 'block'
+            state.personal_detail.profile ? 'hidden' : 'block'
           }`}
           width="40px"
           height="40px"
@@ -62,10 +57,15 @@ const InputFile: React.FC<Props> = (props) => {
         name="photo"
         accept="image/png, image/jpeg"
         className="opacity-0 hidden"
-        onChange={setImagePreview}
+        onChange={(e) =>
+          update_personal_detail_data({
+            key: 'profile',
+            value: e?.target.files?.[0] ? URL.createObjectURL(e?.target.files?.[0]) : '',
+          })
+        }
       />
     </section>
   );
-};
+}
 
 export default InputFile;

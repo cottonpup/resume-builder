@@ -37,13 +37,18 @@
   }
 }
 
-.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr,
-.public-DraftEditorPlaceholder-root {
+.DraftEditor-editorContainer {
   overflow-wrap: break-word;
-  padding: 8px 16px 16px;
+
   border-radius: 3px;
   overflow-y: auto;
   caret-color: rgb(26, 145, 240);
   max-height: 420px;
-  min-height: 200px;
+  height: 200px !important;
+}
+
+.public-DraftEditorPlaceholder-inner,
+.notranslate.public-DraftEditor-content {
+  /* padding: 8px 16px 16px; */
+  padding: 8px 16px 16px;
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Editor, type EditorState } from 'draft-js';
+import { convertToRaw, Editor, type EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import { useDispatch } from 'react-redux';
+import { ActionType } from '../../state/action-types';
 
 interface Props {
   editorState: EditorState;
@@ -8,8 +10,16 @@ interface Props {
 }
 
 function DraftEditor(props: Props) {
-  // editorState.getCurrentContent().getPlainText()
   const [entered, setEntered] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleOnChange = (editorState: EditorState) => {
+    props.setEditorState(editorState);
+    dispatch({
+      type: ActionType.UPDATE_PROFESSIONAL_SUMMARY_DATA,
+      payload: convertToRaw(editorState.getCurrentContent()).blocks,
+    });
+  };
 
   return (
     <div className="mt-4 bg-[#eff2f9]">
@@ -89,7 +99,7 @@ function DraftEditor(props: Props) {
 
       <Editor
         editorState={props.editorState}
-        onChange={props.setEditorState}
+        onChange={handleOnChange}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
         spellCheck={true}
