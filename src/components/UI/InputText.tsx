@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type {
   UpdateEmploymentHistoryDataAction,
   UpdatePersonalDetailAction,
+  UpdateSkillsAction,
 } from '../../state/actions';
 
 interface Props {

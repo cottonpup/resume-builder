@@ -21,6 +21,7 @@ export function EmploymentHistory() {
 
   return (
     <>
+      <div className="mb-10"></div>
       <Header>Employment History</Header>
       <Paragraph>
         Show your relevant experience (last 10 years). Use bullet points to note your
@@ -102,7 +103,7 @@ export function EmploymentHistory() {
         );
       })}
       <button
-        className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10`}
+        className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10 mt-5`}
         onClick={() => add_employment_history_data(uuidv4())}
       >
         <svg

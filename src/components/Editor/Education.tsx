@@ -15,7 +15,6 @@ export function Education() {
   const state = useSelector((state: State) => state.cvData);
 
   const dispatch = useDispatch();
-  //   const { update_ } = bindActionCreators(actionCreators, dispatch);
   const { add_education_data } = bindActionCreators(actionCreators, dispatch);
   const { update_education_data } = bindActionCreators(actionCreators, dispatch);
 
@@ -101,7 +100,7 @@ export function Education() {
         );
       })}
       <button
-        className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10`}
+        className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10 mt-5`}
         onClick={() => add_education_data(uuidv4())}
       >
         <svg

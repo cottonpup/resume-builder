@@ -16,7 +16,6 @@ const Preview = () => {
   return (
     <div className="xl:w-1/2 xl:visible invisible bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
       <div className="h-1 xl:w-[calc(29.7cm)]" />
-
       <div className="p-4 flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
         <div>
           <svg
@@ -54,31 +53,29 @@ const Preview = () => {
           1122.52))`,
             }}
           >
-            <div className="p-14">
-              <section className="w-full">
-                <div className="flex items-start">
-                  <div
-                    className={`h-20 w-20 bg-cover mr-4 rounded-sm bg-center ${
-                      !state.personal_detail.profile ? 'hidden' : ''
-                    }`}
-                    style={{
-                      backgroundImage: `${
-                        state.personal_detail.profile
-                          ? `url(${state.personal_detail.profile})`
-                          : ''
-                      }`,
-                    }}
-                  ></div>
-                  <div>
-                    <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
-                    <p className="text-left text-[15px]">
-                      {state.personal_detail.job_title}
-                    </p>
-                  </div>
+            <div className="p-12">
+              <section className="w-full flex items-center">
+                <div
+                  className={`h-[4.3rem] w-[4rem] bg-cover mr-4 rounded-md bg-center ${
+                    !state.personal_detail.profile ? 'hidden' : ''
+                  }`}
+                  style={{
+                    backgroundImage: `${
+                      state.personal_detail.profile
+                        ? `url(${state.personal_detail.profile})`
+                        : ''
+                    }`,
+                  }}
+                ></div>
+                <div>
+                  <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
+                  <p className="text-left text-[15px]">
+                    {state.personal_detail.job_title}
+                  </p>
                 </div>
               </section>
-              <section className="flex">
-                <div className={`flex-[3_3_0%] `}>
+              <section className="flex mt-4">
+                <div className={`flex-[3_3_0%]`}>
                   <section
                     className={`${
                       state.professional_summary.blocks[0].text ? 'block' : 'hidden'
@@ -149,73 +146,185 @@ const Preview = () => {
                       </>
                     ))}
                   </section>
+                  <section>
+                    {state.education.length > 0 && (
+                      <div className="flex items-center mt-2">
+                        <i className="fa-solid fa-graduation-cap mr-1"></i>
+                        <h2 className="text-left text-[17px] font font-bold">
+                          Education
+                        </h2>
+                      </div>
+                    )}
+                    {state.education.map((item, i) => (
+                      <>
+                        <h3
+                          className={`text-left text-[15px] font-medium leading-snug ${
+                            i > 0 ? 'mt-2' : ''
+                          }`}
+                        >
+                          {`${item.school}${
+                            item.degree && item.school
+                              ? ` at ${item.degree}`
+                              : item.degree
+                          }${item.degree || item.school ? `, ${item.city}` : item.city}`}
+                        </h3>
+                        <p className="text-left text-[12px] leading-snug">
+                          {item.startDateSelected
+                            ? `${
+                                item.startMonth && item.startYear
+                                  ? item.startMonth
+                                  : `${item.startMonth}, `
+                              } ${item.startYear}`
+                            : ``}
+                          {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
+                          {item.endDateSelected
+                            ? `${
+                                item.endMonth && item.endYear
+                                  ? item.endMonth
+                                  : `${item.endMonth}, `
+                              } ${item.endYear}`
+                            : ``}
+                        </p>
+                        <Editor
+                          editorState={EditorState.createWithContent(
+                            convertFromRaw(item.description),
+                          )}
+                          onChange={() => {}}
+                          readOnly
+                        />
+                      </>
+                    ))}
+                  </section>
                 </div>
                 <div className="flex-1">
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-2 text-cyan-700 ${
-                      !showDetails() ? 'hidden' : ''
-                    }`}
-                  >
-                    Details
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.address}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {`${state.personal_detail.city ? state.personal_detail.city : ''} ${
-                      state.personal_detail.postal_code
-                        ? `, ${state.personal_detail.postal_code}`
-                        : ''
-                    }`}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.country}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.phone}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.email}
-                  </p>
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700`}
-                  >
-                    {state.personal_detail.date_of_birth &&
-                    !state.personal_detail.place_of_birth
-                      ? 'Date of birth'
-                      : ''}
-                    {state.personal_detail.date_of_birth &&
-                    state.personal_detail.place_of_birth
-                      ? 'Date / '
-                      : ''}
-                    {state.personal_detail.place_of_birth ? 'Place of birth' : ''}
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.place_of_birth}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.date_of_birth}
-                  </p>
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700  ${
-                      state.personal_detail.nationality ? '' : 'hidden'
-                    }`}
-                  >
-                    Nationality
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.nationality}
-                  </p>
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700 ${
-                      state.personal_detail.driving_license ? '' : 'hidden'
-                    }`}
-                  >
-                    Driving license
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.driving_license}
-                  </p>
+                  <section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 ${
+                          !showDetails() ? 'hidden' : ''
+                        }`}
+                      >
+                        Details
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.address}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {`${
+                          state.personal_detail.city ? state.personal_detail.city : ''
+                        } ${
+                          state.personal_detail.postal_code
+                            ? `, ${state.personal_detail.postal_code}`
+                            : ''
+                        }`}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.country}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.phone}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.email}
+                      </p>
+                    </section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold leading-tight pt-1 text-cyan-700`}
+                      >
+                        {state.personal_detail.date_of_birth &&
+                        !state.personal_detail.place_of_birth
+                          ? 'Date of birth'
+                          : ''}
+                        {state.personal_detail.date_of_birth &&
+                        state.personal_detail.place_of_birth
+                          ? 'Date / '
+                          : ''}
+                        {state.personal_detail.place_of_birth ? 'Place of birth' : ''}
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.place_of_birth}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.date_of_birth}
+                      </p>
+                    </section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold leading-tight pt-1 text-cyan-700  ${
+                          state.personal_detail.nationality ? '' : 'hidden'
+                        }`}
+                      >
+                        Nationality
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.nationality}
+                      </p>
+                    </section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold  leading-tight pt-1 text-cyan-700 ${
+                          state.personal_detail.driving_license ? '' : 'hidden'
+                        }`}
+                      >
+                        Driving license
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.driving_license}
+                      </p>
+                    </section>
+                  </section>
+
+                  <section className="mb-1">
+                    <h2
+                      className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 ${
+                        state.websites_social_links[0] ? '' : 'hidden'
+                      }`}
+                    >
+                      Links
+                    </h2>
+                    {state.websites_social_links.map((link) => (
+                      <a className="flex text-[12px] leading-snug" href={link.link}>
+                        {link.label}
+                      </a>
+                    ))}
+                  </section>
+                  <section className="mb-1">
+                    <h2
+                      className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 ${
+                        state.skills[0] ? '' : 'hidden'
+                      }`}
+                    >
+                      Skills
+                    </h2>
+                    {state.skills.map((skill) => (
+                      <p className="text-left text-[12px] leading-snug">{skill.skill}</p>
+                    ))}
+                  </section>
+                  <section className="mb-1">
+                    <h2
+                      className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 mb-2 ${
+                        state.languages[0] ? '' : 'hidden'
+                      }`}
+                    >
+                      Languages
+                    </h2>
+                    {state.languages.map((language, i) => (
+                      <div key={i}>
+                        <p className="text-left text-[12px] leading-snug">
+                          {language.language}
+                        </p>
+                        <section className="h-1 bg-slate-100 mb-2 mt-1">
+                          <div
+                            className={`h-1 bg-slate-500`}
+                            style={{
+                              width: `${language.proficiency}%`,
+                            }}
+                          ></div>
+                        </section>
+                      </div>
+                    ))}
+                  </section>
                 </div>
               </section>
             </div>

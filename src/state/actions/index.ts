@@ -43,10 +43,56 @@ export interface UpdateEducationAction {
   };
 }
 
+export interface AddWebsitesSocialLinksAction {
+  type: ActionType.ADD_WEBSITES_SOCIAL_LINKS_DATA;
+  payload: string;
+}
+
+export interface UpdateWebsitesSocialLinksAction {
+  type: ActionType.UPDATE_WEBSITES_SOCIAL_LINKS_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string;
+  };
+}
+export interface AddSkillsAction {
+  type: ActionType.ADD_SKILLS_DATA;
+  payload: string;
+}
+
+export interface UpdateSkillsAction {
+  type: ActionType.UPDATE_SKILLS_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string;
+  };
+}
+export interface AddLanguagesAction {
+  type: ActionType.ADD_LANGUAGES_DATA;
+  payload: string;
+}
+
+export interface UpdateLanguagesAction {
+  type: ActionType.UPDATE_LANGUAGES_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string | number;
+  };
+}
+
 export type Action =
   | UpdatePersonalDetailAction
   | UpdateProfessionalSummaryAction
   | AddEmploymentHistoryDataAction
   | UpdateEmploymentHistoryDataAction
   | AddEducationAction
-  | UpdateEducationAction;
+  | UpdateEducationAction
+  | AddWebsitesSocialLinksAction
+  | UpdateWebsitesSocialLinksAction
+  | AddSkillsAction
+  | UpdateSkillsAction
+  | AddLanguagesAction
+  | UpdateLanguagesAction;
