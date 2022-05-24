@@ -43,14 +43,38 @@ function InputFile() {
         </svg>
       </label>
 
-      <label
-        className={`text-sm ${
-          isHover ? 'text-[#10529a]' : 'text-[#1a91f0]'
-        } whitespace-nowrap cursor-pointer `}
-        htmlFor="photo"
-      >
-        Upload photo
-      </label>
+      <div>
+        <label
+          className={`${state.personal_detail.profile ? 'hidden' : ''} flex text-sm ${
+            isHover ? 'text-[#10529a]' : 'text-[#1a91f0]'
+          }  whitespace-nowrap cursor-pointer`}
+          htmlFor="photo"
+        >
+          Upload photo
+        </label>
+        <div
+          className={`${
+            state.personal_detail.profile ? '' : 'hidden'
+          } flex text-sm text-[#bec4d5] fill-[#bec4d5] items-center hover:text-[#fb4458] hover:fill-[#fb4458]`}
+          onClick={() =>
+            update_personal_detail_data({
+              key: 'profile',
+              value: '',
+            })
+          }
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 20 20"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M14 6h3v2H3V6h3V3c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1v3zm-9 4h10v8H5v-8zm2 6h6v-4H7v4zm5-10V4H8v2h4z"></path>
+          </svg>
+          Delete photo
+        </div>
+      </div>
       <input
         type="file"
         id="photo"
