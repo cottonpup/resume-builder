@@ -1,12 +1,11 @@
+import { EditorState, convertToRaw, RawDraftContentState } from 'draft-js';
 import { ActionType } from '../action-types';
 import { Action } from '../actions/index';
 
 export interface EmploymentElement {
   id: string;
   job_title: string;
-  job_title_label: string;
   employer: string;
-  employer_label: string;
   startYear: number;
   startMonth: string;
   startDateSelected: boolean;
@@ -14,8 +13,7 @@ export interface EmploymentElement {
   endMonth: string;
   endDateSelected: boolean;
   city: string;
-  city_label: string;
-  description: string;
+  description: RawDraftContentState;
 }
 
 export interface EmploymentUpdateElement {
@@ -24,22 +22,10 @@ export interface EmploymentUpdateElement {
   value: string | number | boolean;
 }
 
-export interface DraftContentElement {
-  key: string;
-  text: string;
-  type: string;
-  depth: number;
-  inlineStyleRanges: [];
-  entityRanges: [];
-  data: object;
-}
-
 export interface EducationElement {
   id: string;
   school: string;
-  school_label: string;
   degree: string;
-  degree_label: string;
   startYear: number;
   startMonth: string;
   startDateSelected: boolean;
@@ -47,8 +33,7 @@ export interface EducationElement {
   endMonth: string;
   endDateSelected: boolean;
   city: string;
-  city_label: string;
-  description: string;
+  description: RawDraftContentState;
 }
 
 const initialState = {
@@ -68,7 +53,7 @@ const initialState = {
     place_of_birth: '',
     date_of_birth: '',
   },
-  professional_summary: [] as DraftContentElement[],
+  professional_summary: convertToRaw(EditorState.createEmpty().getCurrentContent()),
   // TODO: Make a reducer func to update details
   employment_history: [] as EmploymentElement[],
   education: [] as EducationElement[],
@@ -103,9 +88,7 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           ...state.employment_history,
           {
             id: action.payload,
-            job_title_label: 'Job title',
             job_title: '',
-            employer_label: 'Employer',
             employer: '',
             startYear: new Date().getFullYear(),
             startMonth: '',
@@ -113,9 +96,8 @@ export const reducer = (state: CVData = initialState, action: Action) => {
             endMonth: '',
             startDateSelected: false,
             endDateSelected: false,
-            city_label: 'City',
             city: '',
-            description: '',
+            description: convertToRaw(EditorState.createEmpty().getCurrentContent()),
           },
         ],
       };
@@ -137,16 +119,13 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           {
             id: action.payload,
             school: '',
-            school_label: 'School',
             degree: '',
-            degree_label: 'Degree',
             startYear: new Date().getFullYear(),
             startMonth: '',
             endYear: new Date().getFullYear(),
             startDateSelected: false,
             city: '',
-            city_label: 'City',
-            description: '',
+            description: convertToRaw(EditorState.createEmpty().getCurrentContent()),
           },
         ],
       };

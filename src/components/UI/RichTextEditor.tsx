@@ -1,30 +1,41 @@
-import React, { useState } from 'react';
-import { convertToRaw, Editor, type EditorState } from 'draft-js';
+import { useState } from 'react';
+import {
+  convertToRaw,
+  Editor,
+  EditorState,
+  RawDraftContentState,
+  RichUtils,
+} from 'draft-js';
+import './RichTextEditor.css';
 import 'draft-js/dist/Draft.css';
-import { useDispatch } from 'react-redux';
-import { ActionType } from '../../state/action-types';
 
 interface Props {
-  editorState: EditorState;
-  setEditorState: React.Dispatch<React.SetStateAction<EditorState>>;
+  updateData: (rowDraftContentState: RawDraftContentState) => void;
+  placeholder: string;
+  id?: string;
 }
 
-function DraftEditor(props: Props) {
-  const [entered, setEntered] = useState(false);
-  const dispatch = useDispatch();
+const styleMap = {
+  STRIKETHROUGH: {
+    textDecoration: 'line-through',
+  },
+};
 
-  const handleOnChange = (editorState: EditorState) => {
-    props.setEditorState(editorState);
-    dispatch({
-      type: ActionType.UPDATE_PROFESSIONAL_SUMMARY_DATA,
-      payload: convertToRaw(editorState.getCurrentContent()).blocks,
-    });
+function RichTextEditor(props: Props) {
+  const [entered, setEntered] = useState(false);
+  const [isSpellCheckEnabled, setIsSpellCheckEnabled] = useState(true);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onStyleClick = (type: string) => {
+    const newEditorState = RichUtils.toggleInlineStyle(editorState, type);
+    setEditorState(newEditorState);
+    props.updateData(convertToRaw(newEditorState.getCurrentContent()));
   };
 
   return (
-    <div className="mt-4 bg-[#eff2f9]">
-      <div className="flex items-center p-4">
-        <button>
+    <div className="mt-4 bg-[#eff2f9]" id="editor">
+      <div className="flex items-center p-3 pb-0">
+        <button onClick={() => onStyleClick('BOLD')}>
           <svg
             width="24"
             height="24"
@@ -35,7 +46,7 @@ function DraftEditor(props: Props) {
             <path d="M8,17 L8,7 L11.7707948,7 C13.0770244,7 14.0677723,7.23236947 14.7430684,7.69711538 C15.4183644,8.1618613 15.7560074,8.84294423 15.7560074,9.74038462 C15.7560074,10.2303138 15.6204573,10.6618571 15.349353,11.0350275 C15.0782488,11.4081978 14.7011731,11.6817757 14.2181146,11.8557692 C14.7701814,11.983975 15.205174,12.242672 15.5231054,12.6318681 C15.8410367,13.0210642 16,13.4972499 16,14.0604396 C16,15.0219828 15.6697507,15.7499975 15.0092421,16.2445055 C14.3487336,16.7390135 13.4072766,16.9908424 12.1848429,17 L8,17 Z M10.2181146,12.6456044 L10.2181146,15.3447802 L12.1182994,15.3447802 C12.6407913,15.3447802 13.0486738,15.2291678 13.3419593,14.9979396 C13.6352448,14.7667113 13.7818854,14.4473464 13.7818854,14.0398352 C13.7818854,13.1240797 13.2717241,12.6593407 12.2513863,12.6456044 L10.2181146,12.6456044 Z M10.2181146,11.1895604 L11.8595194,11.1895604 C12.9784406,11.1712453 13.5378928,10.7568722 13.5378928,9.94642857 C13.5378928,9.4931296 13.3961813,9.1668966 13.1127542,8.96771978 C12.829327,8.76854296 12.3820117,8.66895604 11.7707948,8.66895604 L10.2181146,8.66895604 L10.2181146,11.1895604 Z"></path>
           </svg>
         </button>
-        <button>
+        <button onClick={() => onStyleClick('ITALIC')}>
           <svg
             width="24"
             height="24"
@@ -46,7 +57,7 @@ function DraftEditor(props: Props) {
             <path d="M10.1737981,15.5714286 L11.5584135,8.42857143 L9.95714286,8.42857143 C9.7598983,8.42857143 9.6,8.26867312 9.6,8.07142857 L9.6,7.35714286 C9.6,7.1598983 9.7598983,7 9.95714286,7 L15.6428571,7 C15.8401017,7 16,7.1598983 16,7.35714286 L16,8.07142857 C16,8.26867312 15.8401017,8.42857143 15.6428571,8.42857143 L13.7330228,8.42857143 L12.3484075,15.5714286 L14.0428571,15.5714286 C14.2401017,15.5714286 14.4,15.7313269 14.4,15.9285714 L14.4,16.6428571 C14.4,16.8401017 14.2401017,17 14.0428571,17 L8.35714286,17 C8.1598983,17 8,16.8401017 8,16.6428571 L8,15.9285714 C8,15.7313269 8.1598983,15.5714286 8.35714286,15.5714286 L10.1737981,15.5714286 Z"></path>
           </svg>
         </button>
-        <button>
+        <button onClick={() => onStyleClick('UNDERLINE')}>
           <svg
             width="24"
             height="24"
@@ -57,7 +68,7 @@ function DraftEditor(props: Props) {
             <path d="M16.3453125,7 L16.3453125,13.402819 C16.3453125,14.4666225 15.951127,15.3078604 15.1627441,15.9265579 C14.3743613,16.5452553 13.2972725,16.8545994 11.9314453,16.8545994 C10.586712,16.8545994 9.51885161,16.5541573 8.72783203,15.9532641 C7.93681245,15.3523709 7.53339852,14.5267115 7.51757812,13.4762611 L7.51757812,7 L9.890625,7 L9.890625,13.4161721 C9.890625,14.0526738 10.0712384,14.5166899 10.4324707,14.8082344 C10.793703,15.0997789 11.2933562,15.245549 11.9314453,15.245549 C13.2656317,15.245549 13.9432616,14.6535668 13.9643555,13.4695846 L13.9643555,7 L16.3453125,7 Z M7.87982196,17.4807122 L16.120178,17.4807122 C16.3299479,17.4807122 16.5,17.6507642 16.5,17.8605341 L16.5,18.620178 C16.5,18.8299479 16.3299479,19 16.120178,19 L7.87982196,19 C7.67005208,19 7.5,18.8299479 7.5,18.620178 L7.5,17.8605341 C7.5,17.6507642 7.67005208,17.4807122 7.87982196,17.4807122 Z"></path>
           </svg>
         </button>
-        <button>
+        <button onClick={() => onStyleClick('STRIKETHROUGH')}>
           <svg
             width="24"
             height="24"
@@ -69,7 +80,7 @@ function DraftEditor(props: Props) {
           </svg>
         </button>
         <div className="h-[20px] w-[1px] bg-[#bec4d5] mx-[10px]"></div>
-        <button>
+        <button onClick={() => onStyleClick('OL')}>
           <svg
             width="24"
             height="24"
@@ -80,7 +91,7 @@ function DraftEditor(props: Props) {
             <path d="M9,6.2 L9,7.8 C9,7.91045695 9.08954305,8 9.2,8 L19.8,8 C19.9104569,8 20,7.91045695 20,7.8 L20,6.2 C20,6.08954305 19.9104569,6 19.8,6 L9.2,6 C9.08954305,6 9,6.08954305 9,6.2 Z M9.2,18 L19.8,18 C19.9104569,18 20,17.9104569 20,17.8 L20,16.2 C20,16.0895431 19.9104569,16 19.8,16 L9.2,16 C9.08954305,16 9,16.0895431 9,16.2 L9,17.8 C9,17.9104569 9.08954305,18 9.2,18 Z M9.2,13 C9.08954305,13 9,12.9104569 9,12.8 L9,11.2 C9,11.0895431 9.08954305,11 9.2,11 L19.8,11 C19.9104569,11 20,11.0895431 20,11.2 L20,12.8 C20,12.9104569 19.9104569,13 19.8,13 L9.2,13 Z M4,16 L4,15 L7,15 L7,19 L4,19 L4,18 L6,18 L6,17.5 L5,17.5 L5,16.5 L6,16.5 L6,16 L4,16 Z M5,9 L5,6 L4,6 L4,5 L6,5 L6,9 L5,9 Z M4,11 L4,10 L7,10 L7,10.9 L5.2,13 L7,13 L7,14 L4,14 L4,13.1 L5.8,11 L4,11 Z"></path>
           </svg>
         </button>
-        <button>
+        <button onClick={() => onStyleClick('UL')}>
           <svg
             width="24"
             height="24"
@@ -93,17 +104,25 @@ function DraftEditor(props: Props) {
         </button>
         <div className="h-[20px] w-[1px] bg-[#bec4d5] mx-[10px]"></div>
         <button>
-          <i className="fa-solid fa-spell-check"></i>
+          <i
+            className="fa-solid fa-spell-check"
+            onClick={() => setIsSpellCheckEnabled(!isSpellCheckEnabled)}
+          ></i>
         </button>
       </div>
 
       <Editor
-        editorState={props.editorState}
-        onChange={handleOnChange}
+        editorState={editorState}
+        onChange={(editorState) => {
+          setEditorState(editorState);
+          props.updateData(convertToRaw(editorState.getCurrentContent()));
+        }}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
-        spellCheck={true}
-        placeholder="e.g. Passionate science teacher with 8+ years of experience and a track record of ..."
+        spellCheck={isSpellCheckEnabled}
+        placeholder={props.placeholder}
+        customStyleMap={styleMap}
+        // blockStyleFn={myBlockStyleFn}
       />
       <div
         className={`border-b-2 ${
@@ -116,4 +135,4 @@ function DraftEditor(props: Props) {
   );
 }
 
-export default DraftEditor;
+export default RichTextEditor;

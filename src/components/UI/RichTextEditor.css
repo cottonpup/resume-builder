@@ -1,0 +1,18 @@
+#editor .public-DraftEditorPlaceholder-inner,
+#editor .notranslate.public-DraftEditor-content {
+  padding: 8px 16px 16px;
+  max-height: 420px;
+  min-height: 200px !important;
+}
+
+/* #editor .notranslate.public-DraftEditor-content {
+} */
+
+#editor .DraftEditor-editorContainer {
+  overflow-wrap: break-word;
+  border-radius: 3px;
+  overflow-y: auto;
+  caret-color: rgb(26, 145, 240);
+  max-height: 420px;
+  min-height: 200px !important;
+}

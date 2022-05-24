@@ -31,6 +31,7 @@ export const update_professional_summary_data = (
     });
   };
 };
+export type UpdateProfessionalSummaryData = typeof update_professional_summary_data;
 
 export const add_employment_history_data = (
   updatedInput: AddEmploymentHistoryDataAction['payload'],

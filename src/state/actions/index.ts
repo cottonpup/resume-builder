@@ -1,3 +1,5 @@
+import { EmploymentElement, EducationElement } from './../reducers/cvDataReducer';
+import { RawDraftContentState } from 'draft-js';
 import { ActionType } from './../action-types/index';
 
 export interface UpdatePersonalDetailAction {
@@ -10,7 +12,7 @@ export interface UpdatePersonalDetailAction {
 
 export interface UpdateProfessionalSummaryAction {
   type: ActionType.UPDATE_PROFESSIONAL_SUMMARY_DATA;
-  payload: [];
+  payload: RawDraftContentState;
 }
 
 export interface AddEmploymentHistoryDataAction {
@@ -23,7 +25,7 @@ export interface UpdateEmploymentHistoryDataAction {
   payload: {
     id: string;
     key: string;
-    value: string | number | boolean;
+    value: EmploymentElement[keyof EmploymentElement];
   };
 }
 
@@ -37,7 +39,7 @@ export interface UpdateEducationAction {
   payload: {
     id: string;
     key: string;
-    value: string | number | boolean;
+    value: EducationElement[keyof EducationElement];
   };
 }
 

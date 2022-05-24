@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
-import { useWindowSize } from '../../hooks/windowSizeHook';
+import { useWindowSize } from '../hooks/windowSizeHook';
 import { State } from '../../state';
 import { useSelector } from 'react-redux';
+import { convertFromRaw, Editor, EditorState } from 'draft-js';
+import './PreviewEditor.css';
 
 const Preview = () => {
   const windowSize = useWindowSize();
@@ -43,8 +45,8 @@ const Preview = () => {
         </div>
       </div>
 
-      <div className="w-full flex-1 flex items-center justify-center">
-        <div className="relative leading-10">
+      <div className="w-full flex-1 flex items-center justify-center leading-2">
+        <div className="relative">
           <div
             className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-md absolute"
             style={{
@@ -69,73 +71,84 @@ const Preview = () => {
                   ></div>
                   <div>
                     <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
-                    <p className="text-left text-[15px] mb-2">
+                    <p className="text-left text-[15px]">
                       {state.personal_detail.job_title}
                     </p>
                   </div>
                 </div>
               </section>
               <section className="flex">
-                <div className="flex-[3_3_0%]">
-                  <div
-                    className={`flex items-center ${
-                      state.professional_summary ? 'block' : 'hidden'
+                <div className={`flex-[3_3_0%] `}>
+                  <section
+                    className={`${
+                      state.professional_summary.blocks[0].text ? 'block' : 'hidden'
                     }`}
+                    id={'preview'}
                   >
-                    <i className="fa-solid fa-user mr-1"></i>
-                    <h2 className="text-left text-[17px] font font-semibold">Profile</h2>
-                  </div>
-
-                  {state.professional_summary.map((ele, i) => (
-                    <h1 className="text-left text-[12px] leading-snug h-[17px]" key={i}>
-                      {ele.text}
-                    </h1>
-                  ))}
-                  {state.employment_history && (
-                    <div className="flex items-center">
-                      <i className="fa-solid fa-briefcase mr-1"></i>
-                      <h2 className="text-left text-[17px] font font-semibold">
-                        Employment History
-                      </h2>
+                    <div className={`flex items-center`}>
+                      <i className="fa-solid fa-user mr-1"></i>
+                      <h2 className="text-left text-[17px] font font-bold">Profile</h2>
                     </div>
-                  )}
-                  {state.employment_history.map((item, i) => (
-                    <>
-                      <h3
-                        className={`text-left text-[15px] font-semibold leading-snug ${
-                          i > 0 ? 'mt-2' : ''
-                        }`}
-                      >
-                        {`${item.job_title}${
-                          item.employer && item.job_title
-                            ? ` at ${item.employer}`
-                            : item.employer
-                        }${
-                          item.employer || item.job_title ? `, ${item.city}` : item.city
-                        }`}
-                      </h3>
-                      <p className="text-left text-[12px] leading-snug">
-                        {item.startDateSelected
-                          ? `${
-                              item.startMonth && item.startYear
-                                ? item.startMonth
-                                : `${item.startMonth}, `
-                            } ${item.startYear}`
-                          : ``}
-                        {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
-                        {item.endDateSelected
-                          ? `${
-                              item.endMonth && item.endYear
-                                ? item.endMonth
-                                : `${item.endMonth}, `
-                            } ${item.endYear}`
-                          : ``}
-                      </p>
-                      <p className="text-left text-[12px] leading-snug">
-                        {item.description ? item.description : ''}
-                      </p>
-                    </>
-                  ))}
+
+                    <Editor
+                      editorState={EditorState.createWithContent(
+                        convertFromRaw(state.professional_summary),
+                      )}
+                      onChange={() => {}}
+                      readOnly
+                    />
+                  </section>
+                  <section>
+                    {state.employment_history.length > 0 && (
+                      <div className="flex items-center mt-2">
+                        <i className="fa-solid fa-briefcase mr-1"></i>
+                        <h2 className="text-left text-[17px] font font-bold">
+                          Employment History
+                        </h2>
+                      </div>
+                    )}
+                    {state.employment_history.map((item, i) => (
+                      <>
+                        <h3
+                          className={`text-left text-[15px] font-medium leading-snug ${
+                            i > 0 ? 'mt-2' : ''
+                          }`}
+                        >
+                          {`${item.job_title}${
+                            item.employer && item.job_title
+                              ? ` at ${item.employer}`
+                              : item.employer
+                          }${
+                            item.employer || item.job_title ? `, ${item.city}` : item.city
+                          }`}
+                        </h3>
+                        <p className="text-left text-[12px] leading-snug">
+                          {item.startDateSelected
+                            ? `${
+                                item.startMonth && item.startYear
+                                  ? item.startMonth
+                                  : `${item.startMonth}, `
+                              } ${item.startYear}`
+                            : ``}
+                          {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
+                          {item.endDateSelected
+                            ? `${
+                                item.endMonth && item.endYear
+                                  ? item.endMonth
+                                  : `${item.endMonth}, `
+                              } ${item.endYear}`
+                            : ``}
+                        </p>
+                        <Editor
+                          editorState={EditorState.createWithContent(
+                            convertFromRaw(item.description),
+                          )}
+                          onChange={() => {}}
+                          readOnly
+                        />
+                      </>
+                    ))}
+                  </section>
                 </div>
                 <div className="flex-1">
                   <h2

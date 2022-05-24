@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import type {
   UpdateEmploymentHistoryDataAction,
   UpdatePersonalDetailAction,
@@ -20,21 +20,21 @@ interface Props {
 const InputText: React.FC<Props> = (props) => {
   const [entered, setEntered] = useState(false);
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (props.group_name === 'personal_detail') {
-      props.updateData({
-        key: props.reference,
-        value: e.target.value,
-      });
-    }
-    if (props.group_name === 'employment_history') {
-      props.updateData({
-        key: props.reference,
-        value: e.target.value,
-        id: props.identifier,
-      });
-    }
-  };
+  // const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (props.group_name === 'personal_detail') {
+  //     props.updateData({
+  //       key: props.reference,
+  //       value: e.target.value,
+  //     });
+  //   }
+  //   if (props.group_name === 'employment_history') {
+  //     props.updateData({
+  //       key: props.reference,
+  //       value: e.target.value,
+  //       id: props.identifier,
+  //     });
+  //   }
+  // };
 
   return (
     <section className="w-full">
@@ -48,7 +48,18 @@ const InputText: React.FC<Props> = (props) => {
         id={props.reference}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
-        onChange={(e) => handleOnChange(e)}
+        onChange={(e) => {
+          (props.identifier &&
+            props.updateData({
+              key: props.reference,
+              value: e.target.value,
+              id: props.identifier,
+            })) ||
+            props.updateData({
+              key: props.reference,
+              value: e.target.value,
+            });
+        }}
       />
       <div
         className={`border-b-2 ${

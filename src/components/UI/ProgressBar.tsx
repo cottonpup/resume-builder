@@ -1,4 +1,4 @@
-import Paragraph from '../UI/Paragraph';
+import Paragraph from './Paragraph';
 
 interface Props {
   // progressPercent: number;
