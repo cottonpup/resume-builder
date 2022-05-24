@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type {
   UpdateEmploymentHistoryDataAction,
   UpdatePersonalDetailAction,
-  UpdateSkillsAction,
 } from '../../state/actions';
 
 interface Props {
@@ -11,6 +10,7 @@ interface Props {
   label: string;
   reference: string;
   identifier?: string;
+  value?: string;
   updateData(
     action:
       | UpdatePersonalDetailAction['payload']
@@ -47,6 +47,7 @@ const InputText: React.FC<Props> = (props) => {
         placeholder={props.placeholder}
         type="text"
         id={props.reference}
+        value={props.value}
         onFocus={() => setEntered(!entered)}
         onBlur={() => setEntered(!entered)}
         onChange={(e) => {

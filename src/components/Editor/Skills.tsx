@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import InputText from '../UI/InputText';
 import Skill from '../UI/Skill';
 import { SkillsElement } from '../../state/reducers/cvDataReducer';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { AdditionWrapper } from '../UI/AdditionWrapper';
 
 export function Skills() {
   const state = useSelector((state: State) => state.cvData);
@@ -31,7 +32,22 @@ export function Skills() {
     'Ability to Learn Quickly',
     'Project Management Skills',
     'Critical Thinking Skills',
+    'Teamwork',
+    'Ability to Work in a Team',
+    'Customer Service',
+    'Communication',
+    'Fast Learner',
+    'Active Listening',
+    'Ability to Multitask',
+    'Teamwork Skills',
+    'Marketing',
+    'Good time management',
+    'Organizational Skills',
   ]);
+
+  useEffect(() => {
+    setSkillSuggestions(skillSuggestions.slice(0, 10).sort(() => Math.random() - 0.5));
+  }, [skillSuggestions.length]);
 
   return (
     <>
@@ -42,45 +58,38 @@ export function Skills() {
       </Paragraph>
       <div className="flex flex-wrap">
         {skillSuggestions.map((skill, i) => {
-          return <Skill key={skill}>{skill}</Skill>;
+          return (
+            <div
+              key={skill}
+              onClick={() => {
+                setSkillSuggestions(skillSuggestions.filter((ele) => ele !== skill));
+                let identifier = uuidv4();
+                add_skills_data(identifier);
+                update_skills_data({ id: identifier, key: 'skill', value: skill });
+              }}
+            >
+              <Skill>{skill}</Skill>
+            </div>
+          );
         })}
       </div>
       {state.skills.map((item: SkillsElement) => {
         return (
-          <div
-            className={`my-4 ${
-              state.skills.length > 0 ? '' : 'hidden'
-            } border-[1px] border-[#e7eaf4]`}
-            key={item.id}
-          >
-            <div className="flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px]">
-              <div className=" text-sm font-semibold">(Not specified)</div>
-
-              <div className="rotate-90 fill-[#9fa6bb]">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M9.431 7.257l1.352-1.474 5.893 5.48a1 1 0 0 1 0 1.474l-5.893 5.45-1.352-1.475L14.521 12 9.43 7.257z"></path>
-                </svg>
-              </div>
-            </div>
+          <AdditionWrapper target={state.skills} id={item.id} titleText={item.skill}>
             <div className="px-[20px] pt-[4px] pb-[24px]">
               <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
                 <InputText
                   placeholder=""
                   label="Skill"
                   reference="skill"
+                  value={item.skill}
                   updateData={update_skills_data}
                   group_name={'skills'}
                   identifier={item.id}
                 />
               </div>
             </div>
-          </div>
+          </AdditionWrapper>
         );
       })}
       <button

@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import InputText from '../UI/InputText';
 import { LanguagesElement } from '../../state/reducers/cvDataReducer';
 import { Select } from '../UI/Select';
+import { AdditionWrapper } from '../UI/AdditionWrapper';
 
 export function Languages() {
   const state = useSelector((state: State) => state.cvData);
@@ -19,27 +20,12 @@ export function Languages() {
       <Header>Languages</Header>
       {state.languages.map((item: LanguagesElement) => {
         return (
-          <div
-            className={`my-4 ${
-              state.languages.length > 0 ? '' : 'hidden'
-            } border-[1px] border-[#e7eaf4]`}
-            key={item.id}
+          <AdditionWrapper
+            target={state.languages}
+            id={item.id}
+            titleText={item.language}
+            extraText={item.level}
           >
-            <div className="flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px]">
-              <div className=" text-sm font-semibold">(Not specified)</div>
-
-              <div className="rotate-90 fill-[#9fa6bb]">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M9.431 7.257l1.352-1.474 5.893 5.48a1 1 0 0 1 0 1.474l-5.893 5.45-1.352-1.475L14.521 12 9.43 7.257z"></path>
-                </svg>
-              </div>
-            </div>
             <div className="px-[20px] pt-[4px] pb-[24px]">
               <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
                 <InputText
@@ -59,7 +45,7 @@ export function Languages() {
                 </section>
               </div>
             </div>
-          </div>
+          </AdditionWrapper>
         );
       })}
       <button

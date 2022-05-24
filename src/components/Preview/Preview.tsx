@@ -44,16 +44,16 @@ const Preview = () => {
         </div>
       </div>
 
-      <div className="w-full flex-1 flex items-center justify-center leading-2">
+      <div className="w-full flex-1 flex items-center justify-center leading-2 break-words">
         <div className="relative">
           <div
-            className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-md absolute"
+            className="bg-white aspect-[21/29.7] h-[1122.52px] min-w-[21cm] min-h-[29.7cm] rounded-md absolute overflow-hidden break-all"
             style={{
               transform: `translate(-50%, -50%) scale(calc(${windowSize.height - 130} /
           1122.52))`,
             }}
           >
-            <div className="p-12">
+            <div className="p-12 h-[1122.52px] min-h-[29.7cm] break-all">
               <section className="w-full flex items-center">
                 <div
                   className={`h-[4.3rem] w-[4rem] bg-cover mr-4 rounded-md bg-center ${
@@ -79,7 +79,7 @@ const Preview = () => {
                   <section
                     className={`${
                       state.professional_summary.blocks[0].text ? 'block' : 'hidden'
-                    }`}
+                    } `}
                     id={'preview'}
                   >
                     <div className={`flex items-center`}>
@@ -95,105 +95,110 @@ const Preview = () => {
                       readOnly
                     />
                   </section>
-                  <section>
-                    {state.employment_history.length > 0 && (
-                      <div className="flex items-center mt-2">
-                        <i className="fa-solid fa-briefcase mr-1"></i>
-                        <h2 className="text-left text-[17px] font font-bold">
-                          Employment History
-                        </h2>
-                      </div>
-                    )}
-                    {state.employment_history.map((item, i) => (
-                      <>
-                        <h3
-                          className={`text-left text-[15px] font-medium leading-snug ${
-                            i > 0 ? 'mt-2' : ''
-                          }`}
-                        >
-                          {`${item.job_title}${
-                            item.employer && item.job_title
-                              ? ` at ${item.employer}`
-                              : item.employer
-                          }${
-                            item.employer || item.job_title ? `, ${item.city}` : item.city
-                          }`}
-                        </h3>
-                        <p className="text-left text-[12px] leading-snug">
-                          {item.startDateSelected
-                            ? `${
-                                item.startMonth && item.startYear
-                                  ? item.startMonth
-                                  : `${item.startMonth}, `
-                              } ${item.startYear}`
-                            : ``}
-                          {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
-                          {item.endDateSelected
-                            ? `${
-                                item.endMonth && item.endYear
-                                  ? item.endMonth
-                                  : `${item.endMonth}, `
-                              } ${item.endYear}`
-                            : ``}
-                        </p>
-                        <Editor
-                          editorState={EditorState.createWithContent(
-                            convertFromRaw(item.description),
+                  <section id={'preview'}>
+                    {state.employment_history.length > 0 &&
+                      state.employment_history.map((item, i) => (
+                        <>
+                          <div className="flex items-center mt-2">
+                            <i className="fa-solid fa-briefcase mr-1"></i>
+                            <h2 className="text-left text-[17px] font font-bold">
+                              Employment History
+                            </h2>
+                          </div>
+                          <h3
+                            className={`text-left text-[15px] font-medium ${
+                              i > 0 ? 'mt-2' : ''
+                            }`}
+                          >
+                            {`${item.job_title}${
+                              item.employer && item.job_title
+                                ? ` at ${item.employer}`
+                                : item.employer
+                            }${
+                              item.employer || item.job_title
+                                ? `, ${item.city}`
+                                : item.city
+                            }`}
+                          </h3>
+                          <p className="text-left text-[12px]">
+                            {item.startDateSelected
+                              ? `${
+                                  item.startMonth && item.startYear
+                                    ? item.startMonth
+                                    : `${item.startMonth}, `
+                                } ${item.startYear}`
+                              : ``}
+                            {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
+                            {item.endDateSelected
+                              ? `${
+                                  item.endMonth && item.endYear
+                                    ? item.endMonth
+                                    : `${item.endMonth}, `
+                                } ${item.endYear}`
+                              : ``}
+                          </p>
+                          {item.description.blocks[0].text && (
+                            <Editor
+                              editorState={EditorState.createWithContent(
+                                convertFromRaw(item.description),
+                              )}
+                              onChange={() => {}}
+                              readOnly
+                            />
                           )}
-                          onChange={() => {}}
-                          readOnly
-                        />
-                      </>
-                    ))}
+                        </>
+                      ))}
                   </section>
-                  <section>
-                    {state.education.length > 0 && (
-                      <div className="flex items-center mt-2">
-                        <i className="fa-solid fa-graduation-cap mr-1"></i>
-                        <h2 className="text-left text-[17px] font font-bold">
-                          Education
-                        </h2>
-                      </div>
-                    )}
-                    {state.education.map((item, i) => (
-                      <>
-                        <h3
-                          className={`text-left text-[15px] font-medium leading-snug ${
-                            i > 0 ? 'mt-2' : ''
-                          }`}
-                        >
-                          {`${item.school}${
-                            item.degree && item.school
-                              ? ` at ${item.degree}`
-                              : item.degree
-                          }${item.degree || item.school ? `, ${item.city}` : item.city}`}
-                        </h3>
-                        <p className="text-left text-[12px] leading-snug">
-                          {item.startDateSelected
-                            ? `${
-                                item.startMonth && item.startYear
-                                  ? item.startMonth
-                                  : `${item.startMonth}, `
-                              } ${item.startYear}`
-                            : ``}
-                          {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
-                          {item.endDateSelected
-                            ? `${
-                                item.endMonth && item.endYear
-                                  ? item.endMonth
-                                  : `${item.endMonth}, `
-                              } ${item.endYear}`
-                            : ``}
-                        </p>
-                        <Editor
-                          editorState={EditorState.createWithContent(
-                            convertFromRaw(item.description),
-                          )}
-                          onChange={() => {}}
-                          readOnly
-                        />
-                      </>
-                    ))}
+                  <section id={'preview'}>
+                    {state.education.length > 0 &&
+                      state.education.map((item, i) => (
+                        <>
+                          <div className="flex items-center mt-2">
+                            <i className="fa-solid fa-graduation-cap mr-1"></i>
+                            <h2 className="text-left text-[17px] font font-bold">
+                              Education
+                            </h2>
+                          </div>
+
+                          <h3
+                            className={`text-left text-[15px] font-medium ${
+                              i > 0 ? 'mt-2' : ''
+                            }`}
+                          >
+                            {`${item.school}${
+                              item.degree && item.school
+                                ? ` at ${item.degree}`
+                                : item.degree
+                            }${
+                              item.degree || item.school ? `, ${item.city}` : item.city
+                            }`}
+                          </h3>
+                          <p className="text-left text-[12px]">
+                            {item.startDateSelected
+                              ? `${
+                                  item.startMonth && item.startYear
+                                    ? item.startMonth
+                                    : `${item.startMonth}, `
+                                } ${item.startYear}`
+                              : ``}
+                            {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
+                            {item.endDateSelected
+                              ? `${
+                                  item.endMonth && item.endYear
+                                    ? item.endMonth
+                                    : `${item.endMonth}, `
+                                } ${item.endYear}`
+                              : ``}
+                          </p>
+                          <Editor
+                            editorState={EditorState.createWithContent(
+                              convertFromRaw(item.description),
+                            )}
+                            onChange={() => {}}
+                            readOnly
+                          />
+                        </>
+                      ))}
                   </section>
                 </div>
                 <div className="flex-1">
@@ -284,7 +289,11 @@ const Preview = () => {
                       Links
                     </h2>
                     {state.websites_social_links.map((link) => (
-                      <a className="flex text-[12px] leading-snug" href={link.link}>
+                      <a
+                        className="flex text-[12px] leading-snug"
+                        href={link.link}
+                        key={link.id}
+                      >
                         {link.label}
                       </a>
                     ))}
@@ -298,7 +307,9 @@ const Preview = () => {
                       Skills
                     </h2>
                     {state.skills.map((skill) => (
-                      <p className="text-left text-[12px] leading-snug">{skill.skill}</p>
+                      <p className="text-left text-[12px] leading-snug" key={skill.id}>
+                        {skill.skill}
+                      </p>
                     ))}
                   </section>
                   <section className="mb-1">
@@ -331,7 +342,6 @@ const Preview = () => {
           </div>
         </div>
       </div>
-
       <div className="p-4 text-white fill-white flex items-center justify-between mt-3 w-[28rem]">
         <div className="flex items-center">
           <svg

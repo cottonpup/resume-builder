@@ -44,6 +44,7 @@ export interface WebsiteSocialElement {
 export interface SkillsElement {
   id: string;
   skill: string;
+  skillSuggestions: string;
 }
 
 export interface LanguagesElement {
