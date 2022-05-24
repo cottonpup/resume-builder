@@ -36,19 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.DraftEditor-editorContainer {
-  overflow-wrap: break-word;
-
-  border-radius: 3px;
-  overflow-y: auto;
-  caret-color: rgb(26, 145, 240);
-  max-height: 420px;
-  height: 200px !important;
-}
-
-.public-DraftEditorPlaceholder-inner,
-.notranslate.public-DraftEditor-content {
-  /* padding: 8px 16px 16px; */
-  padding: 8px 16px 16px;
-}

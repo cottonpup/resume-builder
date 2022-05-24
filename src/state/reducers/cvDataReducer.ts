@@ -1,12 +1,11 @@
+import { EditorState, convertToRaw, RawDraftContentState } from 'draft-js';
 import { ActionType } from '../action-types';
 import { Action } from '../actions/index';
 
 export interface EmploymentElement {
   id: string;
   job_title: string;
-  job_title_label: string;
   employer: string;
-  employer_label: string;
   startYear: number;
   startMonth: string;
   startDateSelected: boolean;
@@ -14,8 +13,7 @@ export interface EmploymentElement {
   endMonth: string;
   endDateSelected: boolean;
   city: string;
-  city_label: string;
-  description: string;
+  description: RawDraftContentState;
 }
 
 export interface EmploymentUpdateElement {
@@ -24,22 +22,10 @@ export interface EmploymentUpdateElement {
   value: string | number | boolean;
 }
 
-export interface DraftContentElement {
-  key: string;
-  text: string;
-  type: string;
-  depth: number;
-  inlineStyleRanges: [];
-  entityRanges: [];
-  data: object;
-}
-
 export interface EducationElement {
   id: string;
   school: string;
-  school_label: string;
   degree: string;
-  degree_label: string;
   startYear: number;
   startMonth: string;
   startDateSelected: boolean;
@@ -47,8 +33,25 @@ export interface EducationElement {
   endMonth: string;
   endDateSelected: boolean;
   city: string;
-  city_label: string;
-  description: string;
+  description: RawDraftContentState;
+}
+
+export interface WebsiteSocialElement {
+  id: string;
+  label: string;
+  link: string;
+}
+export interface SkillsElement {
+  id: string;
+  skill: string;
+  skillSuggestions: string;
+}
+
+export interface LanguagesElement {
+  id: string;
+  language: string;
+  level: string;
+  proficiency: number;
 }
 
 const initialState = {
@@ -68,15 +71,12 @@ const initialState = {
     place_of_birth: '',
     date_of_birth: '',
   },
-  professional_summary: [] as DraftContentElement[],
-  // TODO: Make a reducer func to update details
+  professional_summary: convertToRaw(EditorState.createEmpty().getCurrentContent()),
   employment_history: [] as EmploymentElement[],
   education: [] as EducationElement[],
-  websites_social_links: [
-    // { id: 0, label: '', link: '' }
-  ],
-  skills: [],
-  language: [],
+  websites_social_links: [] as WebsiteSocialElement[],
+  skills: [] as SkillsElement[],
+  languages: [] as LanguagesElement[],
 };
 
 export type CVData = typeof initialState;
@@ -103,9 +103,7 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           ...state.employment_history,
           {
             id: action.payload,
-            job_title_label: 'Job title',
             job_title: '',
-            employer_label: 'Employer',
             employer: '',
             startYear: new Date().getFullYear(),
             startMonth: '',
@@ -113,9 +111,8 @@ export const reducer = (state: CVData = initialState, action: Action) => {
             endMonth: '',
             startDateSelected: false,
             endDateSelected: false,
-            city_label: 'City',
             city: '',
-            description: '',
+            description: convertToRaw(EditorState.createEmpty().getCurrentContent()),
           },
         ],
       };
@@ -137,16 +134,13 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           {
             id: action.payload,
             school: '',
-            school_label: 'School',
             degree: '',
-            degree_label: 'Degree',
             startYear: new Date().getFullYear(),
             startMonth: '',
             endYear: new Date().getFullYear(),
             startDateSelected: false,
             city: '',
-            city_label: 'City',
-            description: '',
+            description: convertToRaw(EditorState.createEmpty().getCurrentContent()),
           },
         ],
       };
@@ -154,6 +148,73 @@ export const reducer = (state: CVData = initialState, action: Action) => {
       return {
         ...state,
         education: state.education.map((ele) => {
+          if (ele.id === action.payload.id) {
+            return { ...ele, [action.payload.key]: action.payload.value };
+          }
+          return ele;
+        }),
+      };
+    case ActionType.ADD_WEBSITES_SOCIAL_LINKS_DATA:
+      return {
+        ...state,
+        websites_social_links: [
+          ...state.websites_social_links,
+          {
+            id: action.payload,
+            label: '',
+            link: '',
+          },
+        ],
+      };
+    case ActionType.UPDATE_WEBSITES_SOCIAL_LINKS_DATA:
+      return {
+        ...state,
+        websites_social_links: state.websites_social_links.map((ele) => {
+          if (ele.id === action.payload.id) {
+            return { ...ele, [action.payload.key]: action.payload.value };
+          }
+          return ele;
+        }),
+      };
+    case ActionType.ADD_LANGUAGES_DATA:
+      return {
+        ...state,
+        languages: [
+          ...state.languages,
+          {
+            id: action.payload,
+            language: '',
+            level: '',
+            proficiency: 0,
+          },
+        ],
+      };
+    case ActionType.UPDATE_LANGUAGES_DATA:
+      return {
+        ...state,
+        languages: state.languages.map((ele) => {
+          if (ele.id === action.payload.id) {
+            return { ...ele, [action.payload.key]: action.payload.value };
+          }
+          return ele;
+        }),
+      };
+    case ActionType.ADD_SKILLS_DATA:
+      return {
+        ...state,
+        skills: [
+          ...state.skills,
+          {
+            id: action.payload,
+            skill: '',
+          },
+        ],
+      };
+
+    case ActionType.UPDATE_SKILLS_DATA:
+      return {
+        ...state,
+        skills: state.skills.map((ele) => {
           if (ele.id === action.payload.id) {
             return { ...ele, [action.payload.key]: action.payload.value };
           }

@@ -1,3 +1,5 @@
+import { EmploymentElement, EducationElement } from './../reducers/cvDataReducer';
+import { RawDraftContentState } from 'draft-js';
 import { ActionType } from './../action-types/index';
 
 export interface UpdatePersonalDetailAction {
@@ -10,7 +12,7 @@ export interface UpdatePersonalDetailAction {
 
 export interface UpdateProfessionalSummaryAction {
   type: ActionType.UPDATE_PROFESSIONAL_SUMMARY_DATA;
-  payload: [];
+  payload: RawDraftContentState;
 }
 
 export interface AddEmploymentHistoryDataAction {
@@ -23,7 +25,7 @@ export interface UpdateEmploymentHistoryDataAction {
   payload: {
     id: string;
     key: string;
-    value: string | number | boolean;
+    value: EmploymentElement[keyof EmploymentElement];
   };
 }
 
@@ -37,7 +39,47 @@ export interface UpdateEducationAction {
   payload: {
     id: string;
     key: string;
-    value: string | number | boolean;
+    value: EducationElement[keyof EducationElement];
+  };
+}
+
+export interface AddWebsitesSocialLinksAction {
+  type: ActionType.ADD_WEBSITES_SOCIAL_LINKS_DATA;
+  payload: string;
+}
+
+export interface UpdateWebsitesSocialLinksAction {
+  type: ActionType.UPDATE_WEBSITES_SOCIAL_LINKS_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string;
+  };
+}
+export interface AddSkillsAction {
+  type: ActionType.ADD_SKILLS_DATA;
+  payload: string;
+}
+
+export interface UpdateSkillsAction {
+  type: ActionType.UPDATE_SKILLS_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string;
+  };
+}
+export interface AddLanguagesAction {
+  type: ActionType.ADD_LANGUAGES_DATA;
+  payload: string;
+}
+
+export interface UpdateLanguagesAction {
+  type: ActionType.UPDATE_LANGUAGES_DATA;
+  payload: {
+    id: string;
+    key: string;
+    value: string | number;
   };
 }
 
@@ -47,4 +89,10 @@ export type Action =
   | AddEmploymentHistoryDataAction
   | UpdateEmploymentHistoryDataAction
   | AddEducationAction
-  | UpdateEducationAction;
+  | UpdateEducationAction
+  | AddWebsitesSocialLinksAction
+  | UpdateWebsitesSocialLinksAction
+  | AddSkillsAction
+  | UpdateSkillsAction
+  | AddLanguagesAction
+  | UpdateLanguagesAction;

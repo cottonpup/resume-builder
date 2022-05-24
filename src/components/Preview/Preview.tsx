@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
-import { useWindowSize } from '../../hooks/windowSizeHook';
+import { useWindowSize } from '../hooks/windowSizeHook';
 import { State } from '../../state';
 import { useSelector } from 'react-redux';
+import { convertFromRaw, Editor, EditorState } from 'draft-js';
+import './PreviewEditor.css';
 
 const Preview = () => {
   const windowSize = useWindowSize();
@@ -14,7 +16,6 @@ const Preview = () => {
   return (
     <div className="xl:w-1/2 xl:visible invisible bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
       <div className="h-1 xl:w-[calc(29.7cm)]" />
-
       <div className="p-4 flex fill-[#ffffff] text-[#ffffff] items-center mb-2">
         <div>
           <svg
@@ -43,173 +44,308 @@ const Preview = () => {
         </div>
       </div>
 
-      <div className="w-full flex-1 flex items-center justify-center">
-        <div className="relative leading-10">
+      <div className="w-full flex-1 flex items-center justify-center leading-2 break-words">
+        <div className="relative">
           <div
-            className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-md absolute"
+            className="bg-white aspect-[21/29.7] h-[1122.52px] min-w-[21cm] min-h-[29.7cm] rounded-md absolute overflow-hidden break-all"
             style={{
               transform: `translate(-50%, -50%) scale(calc(${windowSize.height - 130} /
           1122.52))`,
             }}
           >
-            <div className="p-14">
-              <section className="w-full">
-                <div className="flex items-start">
-                  <div
-                    className={`h-20 w-20 bg-cover mr-4 rounded-sm bg-center ${
-                      !state.personal_detail.profile ? 'hidden' : ''
-                    }`}
-                    style={{
-                      backgroundImage: `${
-                        state.personal_detail.profile
-                          ? `url(${state.personal_detail.profile})`
-                          : ''
-                      }`,
-                    }}
-                  ></div>
-                  <div>
-                    <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
-                    <p className="text-left text-[15px] mb-2">
-                      {state.personal_detail.job_title}
-                    </p>
-                  </div>
+            <div className="p-12 h-[1122.52px] min-h-[29.7cm] break-all">
+              <section className="w-full flex items-center">
+                <div
+                  className={`h-[4.3rem] w-[4rem] bg-cover mr-4 rounded-md bg-center ${
+                    !state.personal_detail.profile ? 'hidden' : ''
+                  }`}
+                  style={{
+                    backgroundImage: `${
+                      state.personal_detail.profile
+                        ? `url(${state.personal_detail.profile})`
+                        : ''
+                    }`,
+                  }}
+                ></div>
+                <div>
+                  <h1 className="text-left text-[36px]">{`${state.personal_detail.first_name} ${state.personal_detail.last_name}`}</h1>
+                  <p className="text-left text-[15px]">
+                    {state.personal_detail.job_title}
+                  </p>
                 </div>
               </section>
-              <section className="flex">
-                <div className="flex-[3_3_0%]">
-                  <div
-                    className={`flex items-center ${
-                      state.professional_summary ? 'block' : 'hidden'
-                    }`}
+              <section className="flex mt-4">
+                <div className={`flex-[3_3_0%]`}>
+                  <section
+                    className={`${
+                      state.professional_summary.blocks[0].text ? 'block' : 'hidden'
+                    } `}
+                    id={'preview'}
                   >
-                    <i className="fa-solid fa-user mr-1"></i>
-                    <h2 className="text-left text-[17px] font font-semibold">Profile</h2>
-                  </div>
-
-                  {state.professional_summary.map((ele, i) => (
-                    <h1 className="text-left text-[12px] leading-snug h-[17px]" key={i}>
-                      {ele.text}
-                    </h1>
-                  ))}
-                  {state.employment_history && (
-                    <div className="flex items-center">
-                      <i className="fa-solid fa-briefcase mr-1"></i>
-                      <h2 className="text-left text-[17px] font font-semibold">
-                        Employment History
-                      </h2>
+                    <div className={`flex items-center`}>
+                      <i className="fa-solid fa-user mr-1"></i>
+                      <h2 className="text-left text-[17px] font font-bold">Profile</h2>
                     </div>
-                  )}
-                  {state.employment_history.map((item, i) => (
-                    <>
-                      <h3
-                        className={`text-left text-[15px] font-semibold leading-snug ${
-                          i > 0 ? 'mt-2' : ''
-                        }`}
-                      >
-                        {`${item.job_title}${
-                          item.employer && item.job_title
-                            ? ` at ${item.employer}`
-                            : item.employer
-                        }${
-                          item.employer || item.job_title ? `, ${item.city}` : item.city
-                        }`}
-                      </h3>
-                      <p className="text-left text-[12px] leading-snug">
-                        {item.startDateSelected
-                          ? `${
-                              item.startMonth && item.startYear
+
+                    <Editor
+                      editorState={EditorState.createWithContent(
+                        convertFromRaw(state.professional_summary),
+                      )}
+                      onChange={() => {}}
+                      readOnly
+                    />
+                  </section>
+                  <section id={'preview'}>
+                    {state.employment_history.length > 0 &&
+                      state.employment_history.map((item, i) => (
+                        <>
+                          <div className="flex items-center mt-2">
+                            <i className="fa-solid fa-briefcase mr-1"></i>
+                            <h2 className="text-left text-[17px] font font-bold">
+                              Employment History
+                            </h2>
+                          </div>
+                          <h3
+                            className={`text-left text-[15px] font-medium ${
+                              i > 0 ? 'mt-2' : ''
+                            }`}
+                          >
+                            {`${item.job_title}${
+                              item.employer && item.job_title
+                                ? ` at ${item.employer}`
+                                : item.employer
+                            }${
+                              item.employer || item.job_title
+                                ? `, ${item.city}`
+                                : item.city
+                            }`}
+                          </h3>
+                          <p className="text-left text-[12px]">
+                            {`${
+                              item.startYear && item.startDateSelected
+                                ? `${item.startYear} `
+                                : ''
+                            }${
+                              item.startMonth && item.startDateSelected
                                 ? item.startMonth
-                                : `${item.startMonth}, `
-                            } ${item.startYear}`
-                          : ``}
-                        {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
-                        {item.endDateSelected
-                          ? `${
-                              item.endMonth && item.endYear
-                                ? item.endMonth
-                                : `${item.endMonth}, `
-                            } ${item.endYear}`
-                          : ``}
-                      </p>
-                      <p className="text-left text-[12px] leading-snug">
-                        {item.description ? item.description : ''}
-                      </p>
-                    </>
-                  ))}
+                                : ''
+                            }${
+                              item.endDateSelected && item.startDateSelected ? ' - ' : ''
+                            }${
+                              item.endYear && item.endDateSelected
+                                ? `${item.endYear} `
+                                : ''
+                            }${
+                              item.endMonth && item.endDateSelected ? item.endMonth : ''
+                            }`}
+                          </p>
+                          {item.description.blocks[0].text && (
+                            <Editor
+                              editorState={EditorState.createWithContent(
+                                convertFromRaw(item.description),
+                              )}
+                              onChange={() => {}}
+                              readOnly
+                            />
+                          )}
+                        </>
+                      ))}
+                  </section>
+                  <section id={'preview'}>
+                    {state.education.length > 0 &&
+                      state.education.map((item, i) => (
+                        <>
+                          <div className="flex items-center mt-2">
+                            <i className="fa-solid fa-graduation-cap mr-1"></i>
+                            <h2 className="text-left text-[17px] font font-bold">
+                              Education
+                            </h2>
+                          </div>
+
+                          <h3
+                            className={`text-left text-[15px] font-medium ${
+                              i > 0 ? 'mt-2' : ''
+                            }`}
+                          >
+                            {`${item.school}${
+                              item.degree && item.school
+                                ? ` at ${item.degree}`
+                                : item.degree
+                            }${
+                              item.degree && item.school ? `, ${item.city}` : item.city
+                            }`}
+                          </h3>
+                          <p className="text-left text-[12px]">
+                            {`${
+                              item.startYear && item.startDateSelected
+                                ? `${item.startYear} `
+                                : ''
+                            }${
+                              item.startMonth && item.startDateSelected
+                                ? item.startMonth
+                                : ''
+                            }${
+                              item.endDateSelected && item.startDateSelected ? ' - ' : ''
+                            }${
+                              item.endYear && item.endDateSelected
+                                ? `${item.endYear} `
+                                : ''
+                            }${
+                              item.endMonth && item.endDateSelected ? item.endMonth : ''
+                            }`}
+                          </p>
+                          <Editor
+                            editorState={EditorState.createWithContent(
+                              convertFromRaw(item.description),
+                            )}
+                            onChange={() => {}}
+                            readOnly
+                          />
+                        </>
+                      ))}
+                  </section>
                 </div>
                 <div className="flex-1">
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-2 text-cyan-700 ${
-                      !showDetails() ? 'hidden' : ''
-                    }`}
-                  >
-                    Details
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.address}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {`${state.personal_detail.city ? state.personal_detail.city : ''} ${
-                      state.personal_detail.postal_code
-                        ? `, ${state.personal_detail.postal_code}`
-                        : ''
-                    }`}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.country}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.phone}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.email}
-                  </p>
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700`}
-                  >
-                    {state.personal_detail.date_of_birth &&
-                    !state.personal_detail.place_of_birth
-                      ? 'Date of birth'
-                      : ''}
-                    {state.personal_detail.date_of_birth &&
-                    state.personal_detail.place_of_birth
-                      ? 'Date / '
-                      : ''}
-                    {state.personal_detail.place_of_birth ? 'Place of birth' : ''}
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.place_of_birth}
-                  </p>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.date_of_birth}
-                  </p>
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700  ${
-                      state.personal_detail.nationality ? '' : 'hidden'
-                    }`}
-                  >
-                    Nationality
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.nationality}
-                  </p>
-                  <h2
-                    className={`text-left text-[14px] font-medium leading-tight pt-1 text-cyan-700 ${
-                      state.personal_detail.driving_license ? '' : 'hidden'
-                    }`}
-                  >
-                    Driving license
-                  </h2>
-                  <p className="text-left text-[12px] leading-snug">
-                    {state.personal_detail.driving_license}
-                  </p>
+                  <section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 ${
+                          !showDetails() ? 'hidden' : ''
+                        }`}
+                      >
+                        Details
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.address}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {`${
+                          state.personal_detail.city ? state.personal_detail.city : ''
+                        } ${
+                          state.personal_detail.postal_code
+                            ? `, ${state.personal_detail.postal_code}`
+                            : ''
+                        }`}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.country}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.phone}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.email}
+                      </p>
+                    </section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold leading-tight pt-1 text-cyan-700`}
+                      >
+                        {state.personal_detail.date_of_birth &&
+                        !state.personal_detail.place_of_birth
+                          ? 'Date of birth'
+                          : ''}
+                        {state.personal_detail.date_of_birth &&
+                        state.personal_detail.place_of_birth
+                          ? 'Date / '
+                          : ''}
+                        {state.personal_detail.place_of_birth ? 'Place of birth' : ''}
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.place_of_birth}
+                      </p>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.date_of_birth}
+                      </p>
+                    </section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold leading-tight pt-1 text-cyan-700  ${
+                          state.personal_detail.nationality ? '' : 'hidden'
+                        }`}
+                      >
+                        Nationality
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.nationality}
+                      </p>
+                    </section>
+                    <section className="mb-1">
+                      <h2
+                        className={`text-left text-[14px] font-bold  leading-tight pt-1 text-cyan-700 ${
+                          state.personal_detail.driving_license ? '' : 'hidden'
+                        }`}
+                      >
+                        Driving license
+                      </h2>
+                      <p className="text-left text-[12px] leading-snug">
+                        {state.personal_detail.driving_license}
+                      </p>
+                    </section>
+                  </section>
+
+                  <section className="mb-1">
+                    <h2
+                      className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 ${
+                        state.websites_social_links[0] ? '' : 'hidden'
+                      }`}
+                    >
+                      Links
+                    </h2>
+                    {state.websites_social_links.map((link) => (
+                      <a
+                        className="flex text-[12px] leading-snug"
+                        href={link.link}
+                        key={link.id}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </section>
+                  <section className="mb-1">
+                    <h2
+                      className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 ${
+                        state.skills[0] ? '' : 'hidden'
+                      }`}
+                    >
+                      Skills
+                    </h2>
+                    {state.skills.map((skill) => (
+                      <p className="text-left text-[12px] leading-snug" key={skill.id}>
+                        {skill.skill}
+                      </p>
+                    ))}
+                  </section>
+                  <section className="mb-1">
+                    <h2
+                      className={`text-left text-[14px] font-bold leading-tight pt-2 text-cyan-700 mb-2 ${
+                        state.languages[0] ? '' : 'hidden'
+                      }`}
+                    >
+                      Languages
+                    </h2>
+                    {state.languages.map((language, i) => (
+                      <div key={i}>
+                        <p className="text-left text-[12px] leading-snug">
+                          {language.language}
+                        </p>
+                        <section className="h-1 bg-slate-100 mb-2 mt-1">
+                          <div
+                            className={`h-1 bg-slate-500`}
+                            style={{
+                              width: `${language.proficiency}%`,
+                            }}
+                          ></div>
+                        </section>
+                      </div>
+                    ))}
+                  </section>
                 </div>
               </section>
             </div>
           </div>
         </div>
       </div>
-
       <div className="p-4 text-white fill-white flex items-center justify-between mt-3 w-[28rem]">
         <div className="flex items-center">
           <svg
