@@ -121,21 +121,23 @@ const Preview = () => {
                             }`}
                           </h3>
                           <p className="text-left text-[12px]">
-                            {item.startDateSelected
-                              ? `${
-                                  item.startMonth && item.startYear
-                                    ? item.startMonth
-                                    : `${item.startMonth}, `
-                                } ${item.startYear}`
-                              : ``}
-                            {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
-                            {item.endDateSelected
-                              ? `${
-                                  item.endMonth && item.endYear
-                                    ? item.endMonth
-                                    : `${item.endMonth}, `
-                                } ${item.endYear}`
-                              : ``}
+                            {`${
+                              item.startYear && item.startDateSelected
+                                ? `${item.startYear} `
+                                : ''
+                            }${
+                              item.startMonth && item.startDateSelected
+                                ? item.startMonth
+                                : ''
+                            }${
+                              item.endDateSelected && item.startDateSelected ? ' - ' : ''
+                            }${
+                              item.endYear && item.endDateSelected
+                                ? `${item.endYear} `
+                                : ''
+                            }${
+                              item.endMonth && item.endDateSelected ? item.endMonth : ''
+                            }`}
                           </p>
                           {item.description.blocks[0].text && (
                             <Editor
@@ -170,25 +172,27 @@ const Preview = () => {
                                 ? ` at ${item.degree}`
                                 : item.degree
                             }${
-                              item.degree || item.school ? `, ${item.city}` : item.city
+                              item.degree && item.school ? `, ${item.city}` : item.city
                             }`}
                           </h3>
                           <p className="text-left text-[12px]">
-                            {item.startDateSelected
-                              ? `${
-                                  item.startMonth && item.startYear
-                                    ? item.startMonth
-                                    : `${item.startMonth}, `
-                                } ${item.startYear}`
-                              : ``}
-                            {item.startDateSelected && item.endDateSelected ? ` - ` : ''}
-                            {item.endDateSelected
-                              ? `${
-                                  item.endMonth && item.endYear
-                                    ? item.endMonth
-                                    : `${item.endMonth}, `
-                                } ${item.endYear}`
-                              : ``}
+                            {`${
+                              item.startYear && item.startDateSelected
+                                ? `${item.startYear} `
+                                : ''
+                            }${
+                              item.startMonth && item.startDateSelected
+                                ? item.startMonth
+                                : ''
+                            }${
+                              item.endDateSelected && item.startDateSelected ? ' - ' : ''
+                            }${
+                              item.endYear && item.endDateSelected
+                                ? `${item.endYear} `
+                                : ''
+                            }${
+                              item.endMonth && item.endDateSelected ? item.endMonth : ''
+                            }`}
                           </p>
                           <Editor
                             editorState={EditorState.createWithContent(
