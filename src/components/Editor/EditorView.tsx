@@ -1,13 +1,6 @@
-import Header from '../UI/Header';
-import Paragraph from '../UI/Paragraph';
-import Skill from '../UI/Skill';
 import Title from '../UI/Title';
 import ProgressBar from '../UI/ProgressBar';
 import PersonalDetail from './PersonalDetail';
-// import { actionCreators, State } from '../../state';
-// import { useSelector } from 'react-redux';
-// import { useDispatch } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import { EmploymentHistory } from './EmploymentHistory';
 import { ProfessionalSummary } from './ProfessionalSummary';
 import { Education } from './Education';
