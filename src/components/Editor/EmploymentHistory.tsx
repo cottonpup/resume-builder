@@ -35,6 +35,7 @@ export function EmploymentHistory() {
             <AdditionWrapper
               target={state.employment_history}
               id={item.id}
+              key={item.id}
               titleText={`${item.job_title ? item.job_title : ''}${
                 item.job_title && item.employer ? ' at ' : ''
               }${item.employer ? item.employer : ''}`}

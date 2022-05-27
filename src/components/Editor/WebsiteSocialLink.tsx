@@ -29,6 +29,7 @@ export function WebsiteSocialLink() {
           <AdditionWrapper
             target={state.websites_social_links}
             id={item.id}
+            key={item.id}
             titleText={item.label}
             extraText={item.link}
           >

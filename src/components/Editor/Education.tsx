@@ -14,7 +14,6 @@ import { AdditionWrapper } from '../UI/AdditionWrapper';
 
 export function Education() {
   const state = useSelector((state: State) => state.cvData);
-
   const dispatch = useDispatch();
   const { add_education_data } = bindActionCreators(actionCreators, dispatch);
   const { update_education_data } = bindActionCreators(actionCreators, dispatch);
@@ -31,6 +30,7 @@ export function Education() {
           <AdditionWrapper
             target={state.education}
             id={item.id}
+            key={item.id}
             titleText={`${item.degree ? item.degree : ''}${
               item.degree && item.school ? ' at ' : ''
             }${item.school ? item.school : ''}`}

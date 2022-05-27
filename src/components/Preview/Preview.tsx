@@ -101,7 +101,7 @@ const Preview = () => {
                       state.employment_history.map((item, i) => (
                         <>
                           {i === 0 && (
-                            <div className="flex items-center mt-2">
+                            <div className="flex items-center mt-2" key={item.id}>
                               <i className="fa-solid fa-briefcase mr-1"></i>
                               <h2 className="text-left text-[17px] font font-bold">
                                 Employment History
@@ -159,7 +159,7 @@ const Preview = () => {
                       state.education.map((item, i) => (
                         <>
                           {i === 0 && (
-                            <div className="flex items-center mt-2">
+                            <div className="flex items-center mt-2" key={item.id}>
                               <i className="fa-solid fa-graduation-cap mr-1"></i>
                               <h2 className="text-left text-[17px] font font-bold">
                                 Education

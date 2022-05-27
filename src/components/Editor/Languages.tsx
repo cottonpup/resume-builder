@@ -23,6 +23,7 @@ export function Languages() {
           <AdditionWrapper
             target={state.languages}
             id={item.id}
+            key={item.id}
             titleText={item.language}
             extraText={item.level}
           >

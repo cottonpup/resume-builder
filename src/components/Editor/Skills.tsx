@@ -75,7 +75,12 @@ export function Skills() {
       </div>
       {state.skills.map((item: SkillsElement) => {
         return (
-          <AdditionWrapper target={state.skills} id={item.id} titleText={item.skill}>
+          <AdditionWrapper
+            target={state.skills}
+            id={item.id}
+            titleText={item.skill}
+            key={item.id}
+          >
             <div className="px-[20px] pt-[4px] pb-[24px]">
               <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
                 <InputText

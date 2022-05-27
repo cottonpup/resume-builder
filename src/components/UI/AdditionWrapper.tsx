@@ -36,6 +36,7 @@ export function AdditionWrapper(props: Props) {
           <Tooltip
             content="Click and drag to move"
             className="absolute right-full mt-[27px] mr-[8px]"
+            tooltipLocation="left"
           >
             <svg
               className={`cursor-pointer transition-opacity ease-in-out duration-[0.15s] ${
