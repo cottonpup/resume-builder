@@ -76,7 +76,7 @@ const Preview = () => {
                 </div>
               </section>
               <section className="flex mt-4">
-                <div className={`flex-[3_3_0%]`}>
+                <div className={`flex-[3_3_0%] mr-5`}>
                   <section
                     className={`${
                       state.professional_summary.blocks[0].text ? 'block' : 'hidden'
