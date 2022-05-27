@@ -31,69 +31,71 @@ export function EmploymentHistory() {
       </Paragraph>
       {state.employment_history.map((item: EmploymentElement) => {
         return (
-          <AdditionWrapper
-            target={state.employment_history}
-            id={item.id}
-            titleText={`${item.job_title ? item.job_title : ''}${
-              item.job_title && item.employer ? ' at ' : ''
-            }${item.employer ? item.employer : ''}`}
-            extraText={`${
-              item.startYear && item.startDateSelected ? `${item.startYear} ` : ''
-            }${item.startMonth && item.startDateSelected ? item.startMonth : ''}${
-              item.endDateSelected && item.startDateSelected ? ' - ' : ''
-            }${item.endYear && item.endDateSelected ? `${item.endYear} ` : ''}${
-              item.endMonth && item.endDateSelected ? item.endMonth : ''
-            }`}
-          >
-            <div className="px-[20px] pt-[4px] pb-[24px]">
-              <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
-                <InputText
-                  placeholder=""
-                  label="Job title"
-                  reference="job_title"
-                  updateData={update_employment_history_data}
-                  group_name={'employment_history'}
-                  identifier={item.id}
-                />
-                <div className="mr-[40px]"></div>
-                <InputText
-                  placeholder=""
-                  label="Employer"
-                  reference="employer"
-                  updateData={update_employment_history_data}
-                  group_name={'employment_history'}
-                  identifier={item.id}
-                />
-              </div>
-              <div className="flex w-full">
-                <div className="flex  mb-[20px]">
-                  <DatePicker updateData={update_employment_history_data} item={item} />
+          <>
+            <AdditionWrapper
+              target={state.employment_history}
+              id={item.id}
+              titleText={`${item.job_title ? item.job_title : ''}${
+                item.job_title && item.employer ? ' at ' : ''
+              }${item.employer ? item.employer : ''}`}
+              extraText={`${
+                item.startYear && item.startDateSelected ? `${item.startYear} ` : ''
+              }${item.startMonth && item.startDateSelected ? item.startMonth : ''}${
+                item.endDateSelected && item.startDateSelected ? ' - ' : ''
+              }${item.endYear && item.endDateSelected ? `${item.endYear} ` : ''}${
+                item.endMonth && item.endDateSelected ? item.endMonth : ''
+              }`}
+            >
+              <div className="px-[20px] pt-[4px] pb-[24px]">
+                <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
+                  <InputText
+                    placeholder=""
+                    label="Job title"
+                    reference="job_title"
+                    updateData={update_employment_history_data}
+                    group_name={'employment_history'}
+                    identifier={item.id}
+                  />
                   <div className="mr-[40px]"></div>
                   <InputText
                     placeholder=""
-                    label="City"
-                    reference={`city`}
+                    label="Employer"
+                    reference="employer"
                     updateData={update_employment_history_data}
                     group_name={'employment_history'}
                     identifier={item.id}
                   />
                 </div>
-              </div>
+                <div className="flex w-full">
+                  <div className="flex  mb-[20px]">
+                    <DatePicker updateData={update_employment_history_data} item={item} />
+                    <div className="mr-[40px]"></div>
+                    <InputText
+                      placeholder=""
+                      label="City"
+                      reference={`city`}
+                      updateData={update_employment_history_data}
+                      group_name={'employment_history'}
+                      identifier={item.id}
+                    />
+                  </div>
+                </div>
 
-              <label className="flex text-sm text-slate-500 -mb-2">Description</label>
-              <RichTextEditor
-                id={item.id}
-                updateData={(rowDraftContentState: RawDraftContentState) => {
-                  update_employment_history_data({
-                    id: item.id,
-                    key: 'description',
-                    value: rowDraftContentState,
-                  });
-                }}
-                placeholder="e.g. Passionate science teacher with 8+ years of experience and a track record of ..."
-              />
-            </div>
-          </AdditionWrapper>
+                <label className="flex text-sm text-slate-500 -mb-2">Description</label>
+                <RichTextEditor
+                  id={item.id}
+                  updateData={(rowDraftContentState: RawDraftContentState) => {
+                    update_employment_history_data({
+                      id: item.id,
+                      key: 'description',
+                      value: rowDraftContentState,
+                    });
+                  }}
+                  placeholder="e.g. Passionate science teacher with 8+ years of experience and a track record of ..."
+                />
+              </div>
+            </AdditionWrapper>
+          </>
         );
       })}
       <button

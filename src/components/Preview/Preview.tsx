@@ -100,12 +100,14 @@ const Preview = () => {
                     {state.employment_history.length > 0 &&
                       state.employment_history.map((item, i) => (
                         <>
-                          <div className="flex items-center mt-2">
-                            <i className="fa-solid fa-briefcase mr-1"></i>
-                            <h2 className="text-left text-[17px] font font-bold">
-                              Employment History
-                            </h2>
-                          </div>
+                          {i === 0 && (
+                            <div className="flex items-center mt-2">
+                              <i className="fa-solid fa-briefcase mr-1"></i>
+                              <h2 className="text-left text-[17px] font font-bold">
+                                Employment History
+                              </h2>
+                            </div>
+                          )}
                           <h3
                             className={`text-left text-[15px] font-medium ${
                               i > 0 ? 'mt-2' : ''
@@ -156,13 +158,14 @@ const Preview = () => {
                     {state.education.length > 0 &&
                       state.education.map((item, i) => (
                         <>
-                          <div className="flex items-center mt-2">
-                            <i className="fa-solid fa-graduation-cap mr-1"></i>
-                            <h2 className="text-left text-[17px] font font-bold">
-                              Education
-                            </h2>
-                          </div>
-
+                          {i === 0 && (
+                            <div className="flex items-center mt-2">
+                              <i className="fa-solid fa-graduation-cap mr-1"></i>
+                              <h2 className="text-left text-[17px] font font-bold">
+                                Education
+                              </h2>
+                            </div>
+                          )}
                           <h3
                             className={`text-left text-[15px] font-medium ${
                               i > 0 ? 'mt-2' : ''
