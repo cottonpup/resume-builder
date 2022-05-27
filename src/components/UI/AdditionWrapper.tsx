@@ -27,12 +27,12 @@ export function AdditionWrapper(props: Props) {
 
   return (
     <div>
-      <div
-        className="fill-[#9fa6bb]"
-        // onMouseEnter={() => setHoverWrapper(true)}
-        // onMouseLeave={() => setHoverWrapper(false)}
-      >
-        <div className="relative w-[100%]">
+      <div className="fill-[#9fa6bb]">
+        <div
+          className="relative w-[100%]"
+          onMouseEnter={() => setHoverWrapper(true)}
+          onMouseLeave={() => setHoverWrapper(false)}
+        >
           <Tooltip
             content="Click and drag to move"
             className="absolute right-full mt-[27px] mr-[8px]"
@@ -75,6 +75,9 @@ export function AdditionWrapper(props: Props) {
             className={`flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px] cursor-pointer ${
               hoverWrapper ? 'text-[#1a91f0]' : ''
             } transition-color ease-in-out duration-[0.15s]`}
+            onMouseEnter={() => setHoverWrapper(true)}
+            onMouseLeave={() => setHoverWrapper(false)}
+            onClick={() => setHideDetail(!hideDetail)}
           >
             <div>
               <div className="text-sm font-semibold text-left">
@@ -83,8 +86,7 @@ export function AdditionWrapper(props: Props) {
               <p className="flex text-sm text-slate-500 mt-1">{props.extraText}</p>
             </div>
             <button
-              className="rotate-90 fill-[#9fa6bb]"
-              onClick={() => setHideDetail(!hideDetail)}
+              className={`${hideDetail ? 'rotate-90' : 'rotate-[270deg]'} fill-[#9fa6bb]`}
             >
               <svg
                 width="24"
