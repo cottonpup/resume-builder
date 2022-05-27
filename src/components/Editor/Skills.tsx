@@ -18,7 +18,7 @@ export function Skills() {
   const { update_skills_data } = bindActionCreators(actionCreators, dispatch);
   const { delete_skills_data } = bindActionCreators(actionCreators, dispatch);
 
-  const [skillSuggestions, setSkillSuggestions] = useState([
+  const defaultSkillSuggestions = [
     'Interpersonal Communication',
     'Complex Problem Solving',
     'Microsoft Office',
@@ -45,10 +45,16 @@ export function Skills() {
     'Marketing',
     'Good time management',
     'Organizational Skills',
-  ]);
+    'Detail Oriented',
+  ];
+  const [skillSuggestions, setSkillSuggestions] = useState(defaultSkillSuggestions);
 
   useEffect(() => {
-    setSkillSuggestions(skillSuggestions.slice(0, 10).sort(() => Math.random() - 0.5));
+    setSkillSuggestions(
+      Array.from(new Set(skillSuggestions))
+        .slice(0, 10)
+        .sort(() => Math.random() - 0.5),
+    );
   }, [skillSuggestions.length]);
 
   return (
