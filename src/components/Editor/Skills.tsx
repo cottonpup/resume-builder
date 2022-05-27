@@ -10,6 +10,7 @@ import Skill from '../UI/Skill';
 import { SkillsElement } from '../../state/reducers/cvDataReducer';
 import { useEffect, useState } from 'react';
 import { AdditionWrapper } from '../UI/AdditionWrapper';
+import { defaultSkillSuggestions } from './defaultSkillSuggestions';
 
 export function Skills() {
   const state = useSelector((state: State) => state.cvData);
@@ -18,42 +19,11 @@ export function Skills() {
   const { update_skills_data } = bindActionCreators(actionCreators, dispatch);
   const { delete_skills_data } = bindActionCreators(actionCreators, dispatch);
 
-  const defaultSkillSuggestions = [
-    'Interpersonal Communication',
-    'Complex Problem Solving',
-    'Microsoft Office',
-    'Public Speaking',
-    'Critical thinking and problem solving',
-    'Adaptability',
-    'Customer Service Skills',
-    'Analytical Skills',
-    'Analytical Thinking Skills',
-    'Data Analysis',
-    'Interpersonal Communication Skills',
-    'Excellent Customer Service Skills',
-    'Ability to Learn Quickly',
-    'Project Management Skills',
-    'Critical Thinking Skills',
-    'Teamwork',
-    'Ability to Work in a Team',
-    'Customer Service',
-    'Communication',
-    'Fast Learner',
-    'Active Listening',
-    'Ability to Multitask',
-    'Teamwork Skills',
-    'Marketing',
-    'Good time management',
-    'Organizational Skills',
-    'Detail Oriented',
-  ];
   const [skillSuggestions, setSkillSuggestions] = useState(defaultSkillSuggestions);
 
   useEffect(() => {
     setSkillSuggestions(
-      Array.from(new Set(skillSuggestions))
-        .slice(0, 10)
-        .sort(() => Math.random() - 0.5),
+      Array.from(new Set(skillSuggestions)).sort(() => Math.random() - 0.5),
     );
   }, [skillSuggestions.length]);
 
@@ -67,17 +37,19 @@ export function Skills() {
       <div className="flex flex-wrap">
         {skillSuggestions.map((skill, i) => {
           return (
-            <div
-              key={skill}
-              onClick={() => {
-                setSkillSuggestions(skillSuggestions.filter((ele) => ele !== skill));
-                let identifier = uuidv4();
-                add_skills_data(identifier);
-                update_skills_data({ id: identifier, key: 'skill', value: skill });
-              }}
-            >
-              <Skill>{skill}</Skill>
-            </div>
+            i < 5 && (
+              <div
+                key={skill}
+                onClick={() => {
+                  setSkillSuggestions(skillSuggestions.filter((ele) => ele !== skill));
+                  let identifier = uuidv4();
+                  add_skills_data(identifier);
+                  update_skills_data({ id: identifier, key: 'skill', value: skill });
+                }}
+              >
+                <Skill>{skill}</Skill>
+              </div>
+            )
           );
         })}
       </div>
