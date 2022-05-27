@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
   id: string;
@@ -51,7 +52,7 @@ export function Select(props: Props) {
         }}
       >
         {optionMap.map((option, i) => (
-          <option value={i !== 0 ? option.value : ''} key={i}>
+          <option value={i !== 0 ? option.value : ''} key={option.value}>
             {option.value}
           </option>
         ))}

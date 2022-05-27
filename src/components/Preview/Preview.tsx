@@ -99,9 +99,9 @@ const Preview = () => {
                   <section id={'preview'}>
                     {state.employment_history.length > 0 &&
                       state.employment_history.map((item, i) => (
-                        <>
+                        <div key={item.id}>
                           {i === 0 && (
-                            <div className="flex items-center mt-2" key={item.id}>
+                            <div className="flex items-center mt-2">
                               <i className="fa-solid fa-briefcase mr-1"></i>
                               <h2 className="text-left text-[17px] font font-bold">
                                 Employment History
@@ -151,13 +151,13 @@ const Preview = () => {
                               readOnly
                             />
                           )}
-                        </>
+                        </div>
                       ))}
                   </section>
                   <section id={'preview'}>
                     {state.education.length > 0 &&
                       state.education.map((item, i) => (
-                        <>
+                        <div key={item.id}>
                           {i === 0 && (
                             <div className="flex items-center mt-2" key={item.id}>
                               <i className="fa-solid fa-graduation-cap mr-1"></i>
@@ -205,7 +205,7 @@ const Preview = () => {
                             onChange={() => {}}
                             readOnly
                           />
-                        </>
+                        </div>
                       ))}
                   </section>
                 </div>
@@ -329,7 +329,7 @@ const Preview = () => {
                       Languages
                     </h2>
                     {state.languages.map((language, i) => (
-                      <div key={i}>
+                      <div key={language.id}>
                         <p className="text-left text-[12px] leading-snug">
                           {language.language}
                         </p>

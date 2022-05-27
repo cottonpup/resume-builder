@@ -14,6 +14,7 @@ export function Languages() {
   const dispatch = useDispatch();
   const { add_languages_data } = bindActionCreators(actionCreators, dispatch);
   const { update_languages_data } = bindActionCreators(actionCreators, dispatch);
+  const { delete_languages_data } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <>
@@ -21,6 +22,7 @@ export function Languages() {
       {state.languages.map((item: LanguagesElement) => {
         return (
           <AdditionWrapper
+            deleteItem={delete_languages_data}
             target={state.languages}
             id={item.id}
             key={item.id}

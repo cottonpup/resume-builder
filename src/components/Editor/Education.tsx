@@ -17,6 +17,7 @@ export function Education() {
   const dispatch = useDispatch();
   const { add_education_data } = bindActionCreators(actionCreators, dispatch);
   const { update_education_data } = bindActionCreators(actionCreators, dispatch);
+  const { delete_education_data } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <>
@@ -28,9 +29,10 @@ export function Education() {
       {state.education.map((item: EducationElement) => {
         return (
           <AdditionWrapper
+            key={item.id}
             target={state.education}
             id={item.id}
-            key={item.id}
+            deleteItem={delete_education_data}
             titleText={`${item.degree ? item.degree : ''}${
               item.degree && item.school ? ' at ' : ''
             }${item.school ? item.school : ''}`}

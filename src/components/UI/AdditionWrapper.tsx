@@ -1,5 +1,12 @@
 import { useState } from 'react';
 import {
+  DispatchDeleteEducation,
+  DispatchDeleteEmploymentHistory,
+  DispatchDeleteLanguages,
+  DispatchDeleteSkills,
+  DispatchDeleteWebsitesSocialLinks,
+} from '../../state/action-creators';
+import {
   EducationElement,
   EmploymentElement,
   LanguagesElement,
@@ -11,6 +18,12 @@ import { Tooltip } from './Tooltip';
 interface Props {
   titleText?: string;
   extraText?: string;
+  deleteItem:
+    | DispatchDeleteSkills
+    | DispatchDeleteEducation
+    | DispatchDeleteWebsitesSocialLinks
+    | DispatchDeleteLanguages
+    | DispatchDeleteEmploymentHistory;
   target:
     | EducationElement[]
     | EmploymentElement[]
@@ -23,7 +36,7 @@ interface Props {
 
 export function AdditionWrapper(props: Props) {
   const [hideDetail, setHideDetail] = useState(true);
-  const [hoverWrapper, setHoverWrapper] = useState(true);
+  const [hoverWrapper, setHoverWrapper] = useState(false);
 
   return (
     <div>
@@ -56,6 +69,9 @@ export function AdditionWrapper(props: Props) {
               className={`cursor-pointer transition-opacity ease-in-out duration-[0.15s] ${
                 hoverWrapper ? 'opacity-1' : 'opacity-0'
               }`}
+              onClick={() => {
+                props.deleteItem(props.id);
+              }}
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -76,9 +92,9 @@ export function AdditionWrapper(props: Props) {
             className={`flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px] cursor-pointer ${
               hoverWrapper ? 'text-[#1a91f0]' : ''
             } transition-color ease-in-out duration-[0.15s]`}
+            onClick={() => setHideDetail(!hideDetail)}
             onMouseEnter={() => setHoverWrapper(true)}
             onMouseLeave={() => setHoverWrapper(false)}
-            onClick={() => setHideDetail(!hideDetail)}
           >
             <div>
               <div className="text-sm font-semibold text-left">

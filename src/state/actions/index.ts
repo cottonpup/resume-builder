@@ -29,6 +29,11 @@ export interface UpdateEmploymentHistoryDataAction {
   };
 }
 
+export interface DeleteEmploymentHistoryDataAction {
+  type: ActionType.DELETE_EMPLOYMENT_HISTORY_DATA;
+  payload: string;
+}
+
 export interface AddEducationAction {
   type: ActionType.ADD_EDUCATION_DATA;
   payload: string;
@@ -41,6 +46,11 @@ export interface UpdateEducationAction {
     key: string;
     value: EducationElement[keyof EducationElement];
   };
+}
+
+export interface DeleteEducationAction {
+  type: ActionType.DELETE_EDUCATION_DATA;
+  payload: string;
 }
 
 export interface AddWebsitesSocialLinksAction {
@@ -56,6 +66,12 @@ export interface UpdateWebsitesSocialLinksAction {
     value: string;
   };
 }
+
+export interface DeleteWebsitesSocialLinksAction {
+  type: ActionType.DELETE_WEBSITES_SOCIAL_LINKS_DATA;
+  payload: string;
+}
+
 export interface AddSkillsAction {
   type: ActionType.ADD_SKILLS_DATA;
   payload: string;
@@ -69,6 +85,12 @@ export interface UpdateSkillsAction {
     value: string;
   };
 }
+
+export interface DeleteSkillsAction {
+  type: ActionType.DELETE_SKILLS_DATA;
+  payload: string;
+}
+
 export interface AddLanguagesAction {
   type: ActionType.ADD_LANGUAGES_DATA;
   payload: string;
@@ -81,6 +103,10 @@ export interface UpdateLanguagesAction {
     key: string;
     value: string | number;
   };
+}
+export interface DeleteLanguagesAction {
+  type: ActionType.DELETE_LANGUAGES_DATA;
+  payload: string;
 }
 
 export type Action =
@@ -95,4 +121,9 @@ export type Action =
   | AddSkillsAction
   | UpdateSkillsAction
   | AddLanguagesAction
-  | UpdateLanguagesAction;
+  | UpdateLanguagesAction
+  | DeleteSkillsAction
+  | DeleteEducationAction
+  | DeleteEmploymentHistoryDataAction
+  | DeleteLanguagesAction
+  | DeleteWebsitesSocialLinksAction;

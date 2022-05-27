@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import {
-  UpdateEducationData,
-  UpdateEmploymentHistoryData,
+  DispatchUpdateEducation,
+  DispatchUpdateEmploymentHistory,
 } from '../../state/action-creators';
 import { EmploymentElement, EducationElement } from '../../state/reducers/cvDataReducer';
 
 interface Props {
-  updateData: UpdateEmploymentHistoryData | UpdateEducationData;
+  updateData: DispatchUpdateEmploymentHistory | DispatchUpdateEducation;
   item: EmploymentElement | EducationElement;
 }
 function DatePicker(props: Props) {
@@ -58,6 +58,7 @@ function DatePicker(props: Props) {
             id="start_date"
             onFocus={() => setEnterStartDate(!enterStartDate)}
             placeholder="MM / YYYY"
+            readOnly
             value={
               props.item.startMonth
                 ? `${props.item.startYear}, ${props.item.startMonth}`
@@ -191,6 +192,7 @@ function DatePicker(props: Props) {
             className="flex relative w-full px-5 py-3 bg-[#eff2f9] rounded-sm caret-[#1a91f0] focus:outline-none"
             type="text"
             id="end_date"
+            readOnly
             onFocus={() => setEnterEndDate(true)}
             value={
               props.item.endMonth
