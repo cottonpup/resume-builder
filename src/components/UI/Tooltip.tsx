@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function Tooltip(props: Props) {
-  const [isHovered, setIsHovered] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className={props.className}>
