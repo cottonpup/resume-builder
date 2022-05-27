@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import InputText from '../UI/InputText';
 import Skill from '../UI/Skill';
 import { SkillsElement } from '../../state/reducers/cvDataReducer';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AdditionWrapper } from '../UI/AdditionWrapper';
 
 export function Skills() {
@@ -16,6 +16,8 @@ export function Skills() {
   const dispatch = useDispatch();
   const { add_skills_data } = bindActionCreators(actionCreators, dispatch);
   const { update_skills_data } = bindActionCreators(actionCreators, dispatch);
+  const { delete_skills_data } = bindActionCreators(actionCreators, dispatch);
+
   const [skillSuggestions, setSkillSuggestions] = useState([
     'Interpersonal Communication',
     'Complex Problem Solving',
@@ -75,7 +77,13 @@ export function Skills() {
       </div>
       {state.skills.map((item: SkillsElement) => {
         return (
-          <AdditionWrapper target={state.skills} id={item.id} titleText={item.skill}>
+          <AdditionWrapper
+            target={state.skills}
+            id={item.id}
+            titleText={item.skill}
+            key={item.id}
+            deleteItem={delete_skills_data}
+          >
             <div className="px-[20px] pt-[4px] pb-[24px]">
               <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
                 <InputText

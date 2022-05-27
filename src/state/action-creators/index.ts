@@ -11,6 +11,11 @@ import type {
   UpdateLanguagesAction,
   UpdateSkillsAction,
   AddSkillsAction,
+  DeleteSkillsAction,
+  DeleteLanguagesAction,
+  DeleteWebsitesSocialLinksAction,
+  DeleteEducationAction,
+  DeleteEmploymentHistoryDataAction,
 } from './../actions/index';
 import { ActionType } from '../action-types';
 import type { Dispatch } from 'redux';
@@ -25,7 +30,7 @@ export const update_personal_detail_data = (
     });
   };
 };
-export type UpdatePersonalDetailData = typeof update_personal_detail_data;
+export type DispatchUpdatePersonalDetail = typeof update_personal_detail_data;
 
 export const update_professional_summary_data = (
   updatedInput: UpdateProfessionalSummaryAction['payload'],
@@ -37,7 +42,7 @@ export const update_professional_summary_data = (
     });
   };
 };
-export type UpdateProfessionalSummaryData = typeof update_professional_summary_data;
+export type DispatchUpdateProfessionalSummary = typeof update_professional_summary_data;
 
 export const add_employment_history_data = (
   updatedInput: AddEmploymentHistoryDataAction['payload'],
@@ -49,7 +54,7 @@ export const add_employment_history_data = (
     });
   };
 };
-export type AddEmploymentHistoryData = typeof add_employment_history_data;
+export type DispatchAddEmploymentHistory = typeof add_employment_history_data;
 
 export const update_employment_history_data = (
   updatedInput: UpdateEmploymentHistoryDataAction['payload'],
@@ -61,7 +66,19 @@ export const update_employment_history_data = (
     });
   };
 };
-export type UpdateEmploymentHistoryData = typeof update_employment_history_data;
+export type DispatchUpdateEmploymentHistory = typeof update_employment_history_data;
+
+export const delete_employment_history_data = (
+  updatedInput: DeleteEmploymentHistoryDataAction['payload'],
+) => {
+  return (dispatch: Dispatch<DeleteEmploymentHistoryDataAction>) => {
+    dispatch({
+      type: ActionType.DELETE_EMPLOYMENT_HISTORY_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchDeleteEmploymentHistory = typeof delete_employment_history_data;
 
 export const add_education_data = (updatedInput: AddEducationAction['payload']) => {
   return (dispatch: Dispatch<AddEducationAction>) => {
@@ -71,7 +88,7 @@ export const add_education_data = (updatedInput: AddEducationAction['payload']) 
     });
   };
 };
-export type AddEducationData = typeof add_education_data;
+export type DispatchAddEducation = typeof add_education_data;
 
 export const update_education_data = (updatedInput: UpdateEducationAction['payload']) => {
   return (dispatch: Dispatch<UpdateEducationAction>) => {
@@ -81,7 +98,17 @@ export const update_education_data = (updatedInput: UpdateEducationAction['paylo
     });
   };
 };
-export type UpdateEducationData = typeof update_education_data;
+export type DispatchUpdateEducation = typeof update_education_data;
+
+export const delete_education_data = (updatedInput: DeleteEducationAction['payload']) => {
+  return (dispatch: Dispatch<DeleteEducationAction>) => {
+    dispatch({
+      type: ActionType.DELETE_EDUCATION_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchDeleteEducation = typeof delete_education_data;
 
 export const add_websites_social_links_data = (
   updatedInput: AddWebsitesSocialLinksAction['payload'],
@@ -93,7 +120,7 @@ export const add_websites_social_links_data = (
     });
   };
 };
-export type AddWebsitesSocialLinksData = typeof update_education_data;
+export type DispatchAddWebsitesSocialLinks = typeof add_websites_social_links_data;
 
 export const update_websites_social_links_data = (
   updatedInput: UpdateWebsitesSocialLinksAction['payload'],
@@ -105,7 +132,19 @@ export const update_websites_social_links_data = (
     });
   };
 };
-export type UpdateWebsitesSocialLinksData = typeof update_education_data;
+export type DispatchUpdateWebsitesSocialLinks = typeof update_websites_social_links_data;
+
+export const delete_websites_social_links_data = (
+  updatedInput: DeleteWebsitesSocialLinksAction['payload'],
+) => {
+  return (dispatch: Dispatch<DeleteWebsitesSocialLinksAction>) => {
+    dispatch({
+      type: ActionType.DELETE_WEBSITES_SOCIAL_LINKS_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchDeleteWebsitesSocialLinks = typeof delete_websites_social_links_data;
 
 export const add_languages_data = (updatedInput: AddLanguagesAction['payload']) => {
   return (dispatch: Dispatch<AddLanguagesAction>) => {
@@ -115,7 +154,7 @@ export const add_languages_data = (updatedInput: AddLanguagesAction['payload']) 
     });
   };
 };
-export type AddLanguagesData = typeof add_languages_data;
+export type DispatchAddLanguages = typeof add_languages_data;
 
 export const update_languages_data = (updatedInput: UpdateLanguagesAction['payload']) => {
   return (dispatch: Dispatch<UpdateLanguagesAction>) => {
@@ -125,7 +164,17 @@ export const update_languages_data = (updatedInput: UpdateLanguagesAction['paylo
     });
   };
 };
-export type UpdateLanguagesData = typeof update_languages_data;
+export type DispatchUpdateLanguages = typeof update_languages_data;
+
+export const delete_languages_data = (updatedInput: DeleteLanguagesAction['payload']) => {
+  return (dispatch: Dispatch<DeleteLanguagesAction>) => {
+    dispatch({
+      type: ActionType.DELETE_LANGUAGES_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchDeleteLanguages = typeof delete_languages_data;
 
 export const add_skills_data = (updatedInput: AddSkillsAction['payload']) => {
   return (dispatch: Dispatch<AddSkillsAction>) => {
@@ -135,7 +184,7 @@ export const add_skills_data = (updatedInput: AddSkillsAction['payload']) => {
     });
   };
 };
-export type AddSkillsData = typeof add_skills_data;
+export type DispatchAddSkills = typeof add_skills_data;
 
 export const update_skills_data = (updatedInput: UpdateSkillsAction['payload']) => {
   return (dispatch: Dispatch<UpdateSkillsAction>) => {
@@ -145,4 +194,14 @@ export const update_skills_data = (updatedInput: UpdateSkillsAction['payload']) 
     });
   };
 };
-export type UpdateSkillsData = typeof update_skills_data;
+export type DispatchUpdateSkills = typeof update_skills_data;
+
+export const delete_skills_data = (updatedInput: DeleteSkillsAction['payload']) => {
+  return (dispatch: Dispatch<DeleteSkillsAction>) => {
+    dispatch({
+      type: ActionType.DELETE_SKILLS_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchDeleteSkills = typeof delete_skills_data;

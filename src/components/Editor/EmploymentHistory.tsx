@@ -12,13 +12,13 @@ import { actionCreators, State } from '../../state';
 import { useDispatch } from 'react-redux';
 import { AdditionWrapper } from '../UI/AdditionWrapper';
 
-// TODO: Split component into small components
 export function EmploymentHistory() {
   const state = useSelector((state: State) => state.cvData);
 
   const dispatch = useDispatch();
   const { add_employment_history_data } = bindActionCreators(actionCreators, dispatch);
   const { update_employment_history_data } = bindActionCreators(actionCreators, dispatch);
+  const { delete_employment_history_data } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <>
@@ -32,6 +32,8 @@ export function EmploymentHistory() {
       {state.employment_history.map((item: EmploymentElement) => {
         return (
           <AdditionWrapper
+            key={item.id}
+            deleteItem={delete_employment_history_data}
             target={state.employment_history}
             id={item.id}
             titleText={`${item.job_title ? item.job_title : ''}${

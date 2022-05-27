@@ -17,6 +17,10 @@ export function WebsiteSocialLink() {
     actionCreators,
     dispatch,
   );
+  const { delete_websites_social_links_data } = bindActionCreators(
+    actionCreators,
+    dispatch,
+  );
   return (
     <>
       <Header>Website & Social Links</Header>
@@ -27,8 +31,10 @@ export function WebsiteSocialLink() {
       {state.websites_social_links.map((item: WebsiteSocialElement) => {
         return (
           <AdditionWrapper
+            deleteItem={delete_websites_social_links_data}
             target={state.websites_social_links}
             id={item.id}
+            key={item.id}
             titleText={item.label}
             extraText={item.link}
           >

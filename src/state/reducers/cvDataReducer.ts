@@ -44,7 +44,7 @@ export interface WebsiteSocialElement {
 export interface SkillsElement {
   id: string;
   skill: string;
-  skillSuggestions: string;
+  // skillSuggestions: string;
 }
 
 export interface LanguagesElement {
@@ -126,6 +126,13 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           return ele;
         }),
       };
+    case ActionType.DELETE_EMPLOYMENT_HISTORY_DATA:
+      return {
+        ...state,
+        employment_history: state.employment_history.filter(
+          (ele) => ele.id !== action.payload,
+        ),
+      };
     case ActionType.ADD_EDUCATION_DATA:
       return {
         ...state,
@@ -154,6 +161,11 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           return ele;
         }),
       };
+    case ActionType.DELETE_EDUCATION_DATA:
+      return {
+        ...state,
+        education: state.education.filter((ele) => ele.id !== action.payload),
+      };
     case ActionType.ADD_WEBSITES_SOCIAL_LINKS_DATA:
       return {
         ...state,
@@ -175,6 +187,13 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           }
           return ele;
         }),
+      };
+    case ActionType.DELETE_WEBSITES_SOCIAL_LINKS_DATA:
+      return {
+        ...state,
+        websites_social_links: state.websites_social_links.filter(
+          (ele) => ele.id !== action.payload,
+        ),
       };
     case ActionType.ADD_LANGUAGES_DATA:
       return {
@@ -199,6 +218,11 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           return ele;
         }),
       };
+    case ActionType.DELETE_LANGUAGES_DATA:
+      return {
+        ...state,
+        languages: state.languages.filter((ele) => ele.id !== action.payload),
+      };
     case ActionType.ADD_SKILLS_DATA:
       return {
         ...state,
@@ -220,6 +244,11 @@ export const reducer = (state: CVData = initialState, action: Action) => {
           }
           return ele;
         }),
+      };
+    case ActionType.DELETE_SKILLS_DATA:
+      return {
+        ...state,
+        skills: state.skills.filter((ele) => ele.id !== action.payload),
       };
 
     default:
