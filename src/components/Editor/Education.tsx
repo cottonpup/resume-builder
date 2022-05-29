@@ -7,10 +7,10 @@ import { useDispatch } from 'react-redux';
 import { actionCreators, State } from '../../state';
 import { v4 as uuidv4 } from 'uuid';
 import InputText from '../UI/InputText';
-import DatePicker from '../UI/DatePicker';
 import RichTextEditor from '../UI/RichTextEditor';
 import { RawDraftContentState } from 'draft-js';
 import { AdditionWrapper } from '../UI/AdditionWrapper';
+import { RangeDateInput } from '../UI/DatePicker/RangeDateInput';
 
 export function Education() {
   const state = useSelector((state: State) => state.cvData);
@@ -18,6 +18,7 @@ export function Education() {
   const { add_education_data } = bindActionCreators(actionCreators, dispatch);
   const { update_education_data } = bindActionCreators(actionCreators, dispatch);
   const { delete_education_data } = bindActionCreators(actionCreators, dispatch);
+  // body => props.dsa => Education
 
   return (
     <>
@@ -36,13 +37,11 @@ export function Education() {
             titleText={`${item.degree ? item.degree : ''}${
               item.degree && item.school ? ' at ' : ''
             }${item.school ? item.school : ''}`}
-            extraText={`${
-              item.startYear && item.startDateSelected ? `${item.startYear} ` : ''
-            }${item.startMonth && item.startDateSelected ? item.startMonth : ''}${
-              item.endDateSelected && item.startDateSelected ? ' - ' : ''
-            }${item.endYear && item.endDateSelected ? `${item.endYear} ` : ''}${
-              item.endMonth && item.endDateSelected ? item.endMonth : ''
-            }`}
+            extraText={`${item.startMonth ? `${item.startMonth} ` : ''}${
+              item.startYear ? item.startYear : ''
+            }${item.startYear && item.endYear ? ' - ' : ''}${
+              item.endMonth ? `${item.endMonth} ` : ''
+            }${item.endYear ? item.endYear : ''}`}
           >
             <div className="px-[20px] pt-[4px] pb-[24px]">
               <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
@@ -66,7 +65,7 @@ export function Education() {
               </div>
               <div className="flex w-full">
                 <div className="flex  mb-[20px]">
-                  <DatePicker updateData={update_education_data} item={item} />
+                  <RangeDateInput updateData={update_education_data} item={item} />
                   <div className="mr-[40px]"></div>
                   <InputText
                     placeholder=""

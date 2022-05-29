@@ -124,23 +124,11 @@ const Preview = () => {
                             }`}
                           </h3>
                           <p className="text-left text-[12px]">
-                            {`${
-                              item.startYear && item.startDateSelected
-                                ? `${item.startYear} `
-                                : ''
-                            }${
-                              item.startMonth && item.startDateSelected
-                                ? item.startMonth
-                                : ''
-                            }${
-                              item.endDateSelected && item.startDateSelected ? ' - ' : ''
-                            }${
-                              item.endYear && item.endDateSelected
-                                ? `${item.endYear} `
-                                : ''
-                            }${
-                              item.endMonth && item.endDateSelected ? item.endMonth : ''
-                            }`}
+                            {`${item.startMonth ? `${item.startMonth} ` : ''}`}
+                            {`${item.startYear ? item.startYear : ''}`}
+                            {`${item.startYear && item.endYear ? ' - ' : ''}`}
+                            {`${item.endMonth ? `${item.endMonth} ` : ''}`}
+                            {`${item.endYear ? item.endYear : ''}`}
                           </p>
                           {item.description.blocks[0].text && (
                             <Editor
@@ -180,23 +168,11 @@ const Preview = () => {
                             }`}
                           </h3>
                           <p className="text-left text-[12px]">
-                            {`${
-                              item.startYear && item.startDateSelected
-                                ? `${item.startYear} `
-                                : ''
-                            }${
-                              item.startMonth && item.startDateSelected
-                                ? item.startMonth
-                                : ''
-                            }${
-                              item.endDateSelected && item.startDateSelected ? ' - ' : ''
-                            }${
-                              item.endYear && item.endDateSelected
-                                ? `${item.endYear} `
-                                : ''
-                            }${
-                              item.endMonth && item.endDateSelected ? item.endMonth : ''
-                            }`}
+                            {`${item.startMonth ? `${item.startMonth} ` : ''}`}
+                            {`${item.startYear ? item.startYear : ''}`}
+                            {`${item.startYear && item.endYear ? ' - ' : ''}`}
+                            {`${item.endMonth ? `${item.endMonth} ` : ''}`}
+                            {`${item.endYear ? item.endYear : ''}`}
                           </p>
                           <Editor
                             editorState={EditorState.createWithContent(
@@ -363,7 +339,7 @@ const Preview = () => {
             <path d="M5.5 5.5v4h4v-4h-4zM11 4v7H4V4h7zm3.5 1.5v4h4v-4h-4zM20 4v7h-7V4h7zM5.5 14.5v4h4v-4h-4zM11 13v7H4v-7h7zm3.5 1.5v4h4v-4h-4zM20 13v7h-7v-7h7z"></path>
           </svg>
 
-          <div>Select template</div>
+          <div className="cursor-pointer">Select template</div>
         </div>
         <div className="flex items-center">
           <button className="py-[13px] px-6 bg-[#1a91f0] rounded-md mr-2 font-bold">

@@ -6,12 +6,10 @@ export interface EmploymentElement {
   id: string;
   job_title: string;
   employer: string;
-  startYear: number;
-  startMonth: string;
-  startDateSelected: boolean;
-  endYear: number;
-  endMonth: string;
-  endDateSelected: boolean;
+  startYear?: number;
+  startMonth?: string;
+  endYear?: number;
+  endMonth?: string;
   city: string;
   description: RawDraftContentState;
 }
@@ -26,12 +24,10 @@ export interface EducationElement {
   id: string;
   school: string;
   degree: string;
-  startYear: number;
-  startMonth: string;
-  startDateSelected: boolean;
-  endYear: number;
-  endMonth: string;
-  endDateSelected: boolean;
+  startYear?: number;
+  startMonth?: string;
+  endYear?: number;
+  endMonth?: string;
   city: string;
   description: RawDraftContentState;
 }
@@ -105,12 +101,6 @@ export const reducer = (state: CVData = initialState, action: Action) => {
             id: action.payload,
             job_title: '',
             employer: '',
-            startYear: new Date().getFullYear(),
-            startMonth: '',
-            endYear: new Date().getFullYear(),
-            endMonth: '',
-            startDateSelected: false,
-            endDateSelected: false,
             city: '',
             description: convertToRaw(EditorState.createEmpty().getCurrentContent()),
           },
@@ -142,10 +132,6 @@ export const reducer = (state: CVData = initialState, action: Action) => {
             id: action.payload,
             school: '',
             degree: '',
-            startYear: new Date().getFullYear(),
-            startMonth: '',
-            endYear: new Date().getFullYear(),
-            startDateSelected: false,
             city: '',
             description: convertToRaw(EditorState.createEmpty().getCurrentContent()),
           },
