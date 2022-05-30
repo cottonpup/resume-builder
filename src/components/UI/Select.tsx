@@ -52,7 +52,7 @@ export function Select(props: Props) {
         }}
       >
         {optionMap.map((option, i) => (
-          <option value={i !== 0 ? option.value : ''} key={option.value}>
+          <option value={option.value} key={option.value}>
             {option.value}
           </option>
         ))}

@@ -17,8 +17,9 @@ export function Skills() {
   const dispatch = useDispatch();
   const { add_skills_data } = bindActionCreators(actionCreators, dispatch);
   const { update_skills_data } = bindActionCreators(actionCreators, dispatch);
+  const { move_skills_data } = bindActionCreators(actionCreators, dispatch);
   const { delete_skills_data } = bindActionCreators(actionCreators, dispatch);
-
+  const [draggingIndex, setDraggingIndex] = useState<number | undefined>(undefined);
   const [skillSuggestions, setSkillSuggestions] = useState(defaultSkillSuggestions);
 
   useEffect(() => {
@@ -53,31 +54,37 @@ export function Skills() {
           );
         })}
       </div>
-      {state.skills.map((item: SkillsElement) => {
-        return (
-          <AdditionWrapper
-            target={state.skills}
-            id={item.id}
-            titleText={item.skill}
-            key={item.id}
-            deleteItem={delete_skills_data}
-          >
-            <div className="px-[20px] pt-[4px] pb-[24px]">
-              <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
-                <InputText
-                  placeholder=""
-                  label="Skill"
-                  reference="skill"
-                  value={item.skill}
-                  updateData={update_skills_data}
-                  group_name={'skills'}
-                  identifier={item.id}
-                />
+      <section onDragOver={(e) => e.preventDefault()}>
+        {state.skills.map((item: SkillsElement, i: number) => {
+          return (
+            <AdditionWrapper
+              moveItem={move_skills_data}
+              index={i}
+              draggingIndex={draggingIndex}
+              setDraggingIndex={setDraggingIndex}
+              target={state.skills}
+              id={item.id}
+              titleText={item.skill}
+              key={item.id}
+              deleteItem={delete_skills_data}
+            >
+              <div className="px-[20px] pt-[4px] pb-[24px]">
+                <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
+                  <InputText
+                    placeholder=""
+                    label="Skill"
+                    reference="skill"
+                    value={item.skill}
+                    updateData={update_skills_data}
+                    group_name={'skills'}
+                    identifier={item.id}
+                  />
+                </div>
               </div>
-            </div>
-          </AdditionWrapper>
-        );
-      })}
+            </AdditionWrapper>
+          );
+        })}
+      </section>
       <button
         className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10 mt-5`}
         onClick={() => add_skills_data(uuidv4())}
