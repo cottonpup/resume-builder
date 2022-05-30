@@ -1,3 +1,4 @@
+import { Console } from 'console';
 import { useState } from 'react';
 import {
   DispatchDeleteEducation,
@@ -5,6 +6,11 @@ import {
   DispatchDeleteLanguages,
   DispatchDeleteSkills,
   DispatchDeleteWebsitesSocialLinks,
+  DispatchMoveEducation,
+  DispatchMoveEmploymentHistory,
+  DispatchMoveLanguages,
+  DispatchMoveSkills,
+  DispatchMoveWebsitesSocialLinks,
 } from '../../state/action-creators';
 import {
   EducationElement,
@@ -16,8 +22,17 @@ import {
 import { Tooltip } from './Tooltip';
 
 interface Props {
+  draggingIndex?: number;
+  setDraggingIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
+  index: number;
   titleText?: string;
   extraText?: string;
+  moveItem:
+    | DispatchMoveEmploymentHistory
+    | DispatchMoveEducation
+    | DispatchMoveLanguages
+    | DispatchMoveSkills
+    | DispatchMoveWebsitesSocialLinks;
   deleteItem:
     | DispatchDeleteSkills
     | DispatchDeleteEducation
@@ -35,12 +50,27 @@ interface Props {
 }
 
 export function AdditionWrapper(props: Props) {
-  const [hideDetail, setHideDetail] = useState(true);
+  const [showDetail, setShowDetail] = useState(true);
   const [hoverWrapper, setHoverWrapper] = useState(false);
 
   return (
     <div>
-      <div className="fill-[#9fa6bb]">
+      <div
+        className="fill-[#9fa6bb] bg-white"
+        draggable
+        onDragStart={() => {
+          setShowDetail(false);
+          props.setDraggingIndex(props.index);
+        }}
+        onDrop={() => {
+          if (props.draggingIndex !== undefined) {
+            props.moveItem({
+              insertLocation: props.index,
+              removeLocation: props.draggingIndex,
+            });
+          }
+        }}
+      >
         <div
           className="relative w-[100%]"
           onMouseEnter={() => setHoverWrapper(true)}
@@ -92,7 +122,7 @@ export function AdditionWrapper(props: Props) {
             className={`flex justify-between items-center py-[15px] px-[20px] rounded-[4px] h-[70px] cursor-pointer ${
               hoverWrapper ? 'text-[#1a91f0]' : ''
             } transition-color ease-in-out duration-[0.15s]`}
-            onClick={() => setHideDetail(!hideDetail)}
+            onClick={() => setShowDetail(!showDetail)}
             onMouseEnter={() => setHoverWrapper(true)}
             onMouseLeave={() => setHoverWrapper(false)}
           >
@@ -103,7 +133,7 @@ export function AdditionWrapper(props: Props) {
               <p className="flex text-sm text-slate-500 mt-1">{props.extraText}</p>
             </div>
             <button
-              className={`${hideDetail ? 'rotate-90' : 'rotate-[270deg]'} fill-[#9fa6bb]`}
+              className={`${showDetail ? 'rotate-90' : 'rotate-[270deg]'} fill-[#9fa6bb]`}
             >
               <svg
                 width="24"
@@ -119,14 +149,7 @@ export function AdditionWrapper(props: Props) {
               </svg>
             </button>
           </div>
-
-          <div
-            className={`${
-              hideDetail ? `opacity-0 h-0 overflow-hidden` : `opacity-100 h-full block`
-            } transition-all`}
-          >
-            {props.children}
-          </div>
+          {showDetail && <div>{props.children}</div>}
         </div>
       </div>
     </div>

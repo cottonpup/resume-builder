@@ -8,11 +8,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { WebsiteSocialElement } from '../../state/reducers/cvDataReducer';
 import InputText from '../UI/InputText';
 import { AdditionWrapper } from '../UI/AdditionWrapper';
+import { useState } from 'react';
 
 export function WebsiteSocialLink() {
   const state = useSelector((state: State) => state.cvData);
   const dispatch = useDispatch();
   const { add_websites_social_links_data } = bindActionCreators(actionCreators, dispatch);
+  const { move_websites_social_links_data } = bindActionCreators(
+    actionCreators,
+    dispatch,
+  );
   const { update_websites_social_links_data } = bindActionCreators(
     actionCreators,
     dispatch,
@@ -21,6 +26,8 @@ export function WebsiteSocialLink() {
     actionCreators,
     dispatch,
   );
+  const [draggingIndex, setDraggingIndex] = useState<number | undefined>(undefined);
+
   return (
     <>
       <Header>Website & Social Links</Header>
@@ -28,40 +35,46 @@ export function WebsiteSocialLink() {
         You can add links to websites you want hiring managers to see! Perhaps It will be
         a link to your portfolio, LinkedIn profile, or personal website
       </Paragraph>
-      {state.websites_social_links.map((item: WebsiteSocialElement) => {
-        return (
-          <AdditionWrapper
-            deleteItem={delete_websites_social_links_data}
-            target={state.websites_social_links}
-            id={item.id}
-            key={item.id}
-            titleText={item.label}
-            extraText={item.link}
-          >
-            <div className="px-[20px] pt-[4px] pb-[24px]">
-              <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
-                <InputText
-                  placeholder=""
-                  label="Label"
-                  reference="label"
-                  updateData={update_websites_social_links_data}
-                  group_name={'website_social_link'}
-                  identifier={item.id}
-                />
-                <div className="mr-[40px]"></div>
-                <InputText
-                  placeholder=""
-                  label="Link"
-                  reference="link"
-                  updateData={update_websites_social_links_data}
-                  group_name={'website_social_link'}
-                  identifier={item.id}
-                />
+      <section onDragOver={(e) => e.preventDefault()}>
+        {state.websites_social_links.map((item: WebsiteSocialElement, i: number) => {
+          return (
+            <AdditionWrapper
+              moveItem={move_websites_social_links_data}
+              index={i}
+              draggingIndex={draggingIndex}
+              setDraggingIndex={setDraggingIndex}
+              deleteItem={delete_websites_social_links_data}
+              target={state.websites_social_links}
+              id={item.id}
+              key={item.id}
+              titleText={item.label}
+              extraText={item.link}
+            >
+              <div className="px-[20px] pt-[4px] pb-[24px]">
+                <div className="flex flex-[0_0_calc(50%_-_20px)] mb-[20px]">
+                  <InputText
+                    placeholder=""
+                    label="Label"
+                    reference="label"
+                    updateData={update_websites_social_links_data}
+                    group_name={'website_social_link'}
+                    identifier={item.id}
+                  />
+                  <div className="mr-[40px]"></div>
+                  <InputText
+                    placeholder=""
+                    label="Link"
+                    reference="link"
+                    updateData={update_websites_social_links_data}
+                    group_name={'website_social_link'}
+                    identifier={item.id}
+                  />
+                </div>
               </div>
-            </div>
-          </AdditionWrapper>
-        );
-      })}
+            </AdditionWrapper>
+          );
+        })}
+      </section>
       <button
         className={`flex items-center py-[6px] px-[14px] text-[#1a91f0] fill-[#1a91f0] font-bold text-sm mb-10 mt-5`}
         onClick={() => add_websites_social_links_data(uuidv4())}

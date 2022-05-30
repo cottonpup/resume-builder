@@ -16,6 +16,11 @@ import type {
   DeleteWebsitesSocialLinksAction,
   DeleteEducationAction,
   DeleteEmploymentHistoryDataAction,
+  MoveEmploymentHistoryDataAction,
+  MoveWebsitesSocialLinksAction,
+  MoveEducationDataAction,
+  MoveLanguagesAction,
+  MoveSkillsAction,
 } from './../actions/index';
 import { ActionType } from '../action-types';
 import type { Dispatch } from 'redux';
@@ -80,6 +85,18 @@ export const delete_employment_history_data = (
 };
 export type DispatchDeleteEmploymentHistory = typeof delete_employment_history_data;
 
+export const move_employment_history_data = (
+  updatedInput: MoveEmploymentHistoryDataAction['payload'],
+) => {
+  return (dispatch: Dispatch<MoveEmploymentHistoryDataAction>) => {
+    dispatch({
+      type: ActionType.MOVE_EMPLOYMENT_HISTORY_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchMoveEmploymentHistory = typeof move_employment_history_data;
+
 export const add_education_data = (updatedInput: AddEducationAction['payload']) => {
   return (dispatch: Dispatch<AddEducationAction>) => {
     dispatch({
@@ -109,6 +126,16 @@ export const delete_education_data = (updatedInput: DeleteEducationAction['paylo
   };
 };
 export type DispatchDeleteEducation = typeof delete_education_data;
+
+export const move_education_data = (updatedInput: MoveEducationDataAction['payload']) => {
+  return (dispatch: Dispatch<MoveEducationDataAction>) => {
+    dispatch({
+      type: ActionType.MOVE_EDUCATION_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchMoveEducation = typeof move_education_data;
 
 export const add_websites_social_links_data = (
   updatedInput: AddWebsitesSocialLinksAction['payload'],
@@ -146,6 +173,18 @@ export const delete_websites_social_links_data = (
 };
 export type DispatchDeleteWebsitesSocialLinks = typeof delete_websites_social_links_data;
 
+export const move_websites_social_links_data = (
+  updatedInput: MoveWebsitesSocialLinksAction['payload'],
+) => {
+  return (dispatch: Dispatch<MoveWebsitesSocialLinksAction>) => {
+    dispatch({
+      type: ActionType.MOVE_WEBSITES_SOCIAL_LINKS_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchMoveWebsitesSocialLinks = typeof move_websites_social_links_data;
+
 export const add_languages_data = (updatedInput: AddLanguagesAction['payload']) => {
   return (dispatch: Dispatch<AddLanguagesAction>) => {
     dispatch({
@@ -176,6 +215,16 @@ export const delete_languages_data = (updatedInput: DeleteLanguagesAction['paylo
 };
 export type DispatchDeleteLanguages = typeof delete_languages_data;
 
+export const move_languages_data = (updatedInput: MoveLanguagesAction['payload']) => {
+  return (dispatch: Dispatch<MoveLanguagesAction>) => {
+    dispatch({
+      type: ActionType.MOVE_LANGUAGES_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchMoveLanguages = typeof move_languages_data;
+
 export const add_skills_data = (updatedInput: AddSkillsAction['payload']) => {
   return (dispatch: Dispatch<AddSkillsAction>) => {
     dispatch({
@@ -205,3 +254,13 @@ export const delete_skills_data = (updatedInput: DeleteSkillsAction['payload']) 
   };
 };
 export type DispatchDeleteSkills = typeof delete_skills_data;
+
+export const move_skills_data = (updatedInput: MoveSkillsAction['payload']) => {
+  return (dispatch: Dispatch<MoveSkillsAction>) => {
+    dispatch({
+      type: ActionType.MOVE_SKILLS_DATA,
+      payload: updatedInput,
+    });
+  };
+};
+export type DispatchMoveSkills = typeof move_skills_data;

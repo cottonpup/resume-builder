@@ -34,6 +34,14 @@ export interface DeleteEmploymentHistoryDataAction {
   payload: string;
 }
 
+export interface MoveEmploymentHistoryDataAction {
+  type: ActionType.MOVE_EMPLOYMENT_HISTORY_DATA;
+  payload: {
+    insertLocation: number;
+    removeLocation: number;
+  };
+}
+
 export interface AddEducationAction {
   type: ActionType.ADD_EDUCATION_DATA;
   payload: string;
@@ -47,10 +55,17 @@ export interface UpdateEducationAction {
     value: EducationElement[keyof EducationElement];
   };
 }
-
 export interface DeleteEducationAction {
   type: ActionType.DELETE_EDUCATION_DATA;
   payload: string;
+}
+
+export interface MoveEducationDataAction {
+  type: ActionType.MOVE_EDUCATION_DATA;
+  payload: {
+    insertLocation: number;
+    removeLocation: number;
+  };
 }
 
 export interface AddWebsitesSocialLinksAction {
@@ -72,6 +87,14 @@ export interface DeleteWebsitesSocialLinksAction {
   payload: string;
 }
 
+export interface MoveWebsitesSocialLinksAction {
+  type: ActionType.MOVE_WEBSITES_SOCIAL_LINKS_DATA;
+  payload: {
+    insertLocation: number;
+    removeLocation: number;
+  };
+}
+
 export interface AddSkillsAction {
   type: ActionType.ADD_SKILLS_DATA;
   payload: string;
@@ -89,6 +112,14 @@ export interface UpdateSkillsAction {
 export interface DeleteSkillsAction {
   type: ActionType.DELETE_SKILLS_DATA;
   payload: string;
+}
+
+export interface MoveSkillsAction {
+  type: ActionType.MOVE_SKILLS_DATA;
+  payload: {
+    insertLocation: number;
+    removeLocation: number;
+  };
 }
 
 export interface AddLanguagesAction {
@@ -109,21 +140,34 @@ export interface DeleteLanguagesAction {
   payload: string;
 }
 
+export interface MoveLanguagesAction {
+  type: ActionType.MOVE_LANGUAGES_DATA;
+  payload: {
+    insertLocation: number;
+    removeLocation: number;
+  };
+}
+
 export type Action =
   | UpdatePersonalDetailAction
   | UpdateProfessionalSummaryAction
   | AddEmploymentHistoryDataAction
   | UpdateEmploymentHistoryDataAction
+  | DeleteEmploymentHistoryDataAction
+  | MoveEmploymentHistoryDataAction
   | AddEducationAction
   | UpdateEducationAction
+  | MoveEducationDataAction
+  | DeleteEducationAction
   | AddWebsitesSocialLinksAction
   | UpdateWebsitesSocialLinksAction
+  | DeleteWebsitesSocialLinksAction
+  | MoveWebsitesSocialLinksAction
   | AddSkillsAction
   | UpdateSkillsAction
+  | DeleteSkillsAction
+  | MoveSkillsAction
   | AddLanguagesAction
   | UpdateLanguagesAction
-  | DeleteSkillsAction
-  | DeleteEducationAction
-  | DeleteEmploymentHistoryDataAction
-  | DeleteLanguagesAction
-  | DeleteWebsitesSocialLinksAction;
+  | MoveLanguagesAction
+  | DeleteLanguagesAction;
