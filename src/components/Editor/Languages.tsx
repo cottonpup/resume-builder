@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { actionCreators, State } from '../../state';
 import { bindActionCreators } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
-import InputText from '../UI/InputText';
+import InputText from '../UI/Inputs/InputText';
 import { LanguagesElement } from '../../state/reducers/cvDataReducer';
-import { Select } from '../UI/Select';
-import { AdditionWrapper } from '../UI/AdditionWrapper';
+import { Select } from '../UI/Inputs/Select';
+import { AdditionWrapper } from '../UI/Inputs/AdditionWrapper';
 import { useState } from 'react';
 
 export function Languages() {

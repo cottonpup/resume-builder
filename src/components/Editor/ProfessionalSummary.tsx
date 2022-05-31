@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state';
 import Header from '../UI/Header';
 import Paragraph from '../UI/Paragraph';
-import RichTextEditor from '../UI/RichTextEditor';
+import RichTextEditor from '../UI/RichTextEditor/RichTextEditor';
 import { useDispatch } from 'react-redux';
 
 export function ProfessionalSummary() {

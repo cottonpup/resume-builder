@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { actionCreators, State } from '../../state';
 import { bindActionCreators } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
-import InputText from '../UI/InputText';
+import InputText from '../UI/Inputs/InputText';
 import Skill from '../UI/Skill';
 import { SkillsElement } from '../../state/reducers/cvDataReducer';
 import { useEffect, useState } from 'react';
-import { AdditionWrapper } from '../UI/AdditionWrapper';
+import { AdditionWrapper } from '../UI/Inputs/AdditionWrapper';
 import { defaultSkillSuggestions } from './defaultSkillSuggestions';
 
 export function Skills() {

@@ -1,15 +1,15 @@
 import { RawDraftContentState } from 'draft-js';
 import { v4 as uuidv4 } from 'uuid';
 import { EmploymentElement } from '../../state/reducers/cvDataReducer';
-import RichTextEditor from '../UI/RichTextEditor';
-import InputText from '../UI/InputText';
+import RichTextEditor from '../UI/RichTextEditor/RichTextEditor';
+import InputText from '../UI/Inputs/InputText';
 import Paragraph from '../UI/Paragraph';
 import Header from '../UI/Header';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators, State } from '../../state';
 import { useDispatch } from 'react-redux';
-import { AdditionWrapper } from '../UI/AdditionWrapper';
+import { AdditionWrapper } from '../UI/Inputs/AdditionWrapper';
 import { RangeDateInput } from '../UI/DatePicker/RangeDateInput';
 import { useState } from 'react';
 

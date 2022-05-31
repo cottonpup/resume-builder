@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../state';
+import { actionCreators } from '../../../state';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {

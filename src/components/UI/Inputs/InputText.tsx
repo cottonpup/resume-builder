@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type {
   UpdateEmploymentHistoryDataAction,
   UpdatePersonalDetailAction,
-} from '../../state/actions';
+} from '../../../state/actions';
 
 interface Props {
   group_name: string;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { bindActionCreators } from 'redux';
-import { actionCreators, State } from '../../state';
+import { actionCreators, State } from '../../../state';
 import { useDispatch, useSelector } from 'react-redux';
 
 function InputFile() {

@@ -10,12 +10,19 @@ import { PreviewButtonGroup } from './PreviewButtonGroup';
 import { WebsiteSocialLinkPreview } from './WebsiteSocialLinkPreview';
 import { SkillsPreview } from './SkillsPreview';
 import { LanguagePreview } from './LanguagePreview';
+interface Props {
+  isFullScreen: boolean;
+  setIsFullScreen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const Preview = () => {
+const Preview = (props: Props) => {
   return (
     <div className="xl:w-1/2 xl:visible invisible bg-slate-500 fixed right-0 top-0 h-screen flex flex-col items-center">
       <PreviewController />
-      <PreviewWrapper>
+      <PreviewWrapper
+        isFullScreen={props.isFullScreen}
+        setIsFullScreen={props.setIsFullScreen}
+      >
         <PersonalDetailPreview />
         <section className="flex mt-4">
           <div className={`flex-[3_3_0%] mr-5`}>

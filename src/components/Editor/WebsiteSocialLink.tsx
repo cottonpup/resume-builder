@@ -6,8 +6,8 @@ import { actionCreators, State } from '../../state';
 import { bindActionCreators } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 import { WebsiteSocialElement } from '../../state/reducers/cvDataReducer';
-import InputText from '../UI/InputText';
-import { AdditionWrapper } from '../UI/AdditionWrapper';
+import InputText from '../UI/Inputs/InputText';
+import { AdditionWrapper } from '../UI/Inputs/AdditionWrapper';
 import { useState } from 'react';
 
 export function WebsiteSocialLink() {
