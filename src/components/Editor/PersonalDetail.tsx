@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state';
 import Header from '../UI/Header';
-import InputFile from '../UI/InputFile';
-import InputText from '../UI/InputText';
+import InputFile from '../UI/Inputs/InputFile';
+import InputText from '../UI/Inputs/InputText';
 
 function PersonalDetail() {
   const [hideDetail, setHideDetail] = useState(true);

@@ -11,15 +11,15 @@ import {
   DispatchMoveLanguages,
   DispatchMoveSkills,
   DispatchMoveWebsitesSocialLinks,
-} from '../../state/action-creators';
+} from '../../../state/action-creators';
 import {
   EducationElement,
   EmploymentElement,
   LanguagesElement,
   SkillsElement,
   WebsiteSocialElement,
-} from '../../state/reducers/cvDataReducer';
-import { Tooltip } from './Tooltip';
+} from '../../../state/reducers/cvDataReducer';
+import { Tooltip } from '../Tooltip';
 
 interface Props {
   draggingIndex?: number;
