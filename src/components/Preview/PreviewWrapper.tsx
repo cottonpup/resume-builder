@@ -10,21 +10,29 @@ export function PreviewWrapper(props: Props) {
   const windowSize = useWindowSize();
   const [showFullBtn, setShowFullBtn] = useState(false);
 
+  const containerClass = props.isFullScreen
+    ? `overflow-y-auto items-start `
+    : `items-center`;
+
+  // TODO find a way to determine 1122.52 depending on the dpi of the screen
+  const dimensionsClass = props.isFullScreen
+    ? 'aspect-[21/29.7] h-[1122.52px] my-9'
+    : 'aspect-[21/29.7] h-[1122.52px] absolute';
+
+  const dimensionsStyle = props.isFullScreen
+    ? ``
+    : // 130 is a 130px constant margin
+      `translate(-50%, -50%) scale(calc(${windowSize.height - 130} / 1122.52))`;
+
   return (
     <div
-      className={`w-full flex-1 flex items-center justify-center leading-2 break-words`}
+      className={`w-full flex-1 flex justify-center leading-2 break-words relative ${containerClass}`}
     >
       <div className="relative">
         <div
-          className="bg-white aspect-[21/29.7] h-[1122.52px] rounded-[12px] absolute break-all"
+          className={`bg-white ${dimensionsClass} rounded-[12px] break-all`}
           style={{
-            transform: `${
-              props.isFullScreen
-                ? 'translate(-50%, -50%)'
-                : `translate(-50%, -50%) scale(calc(${
-                    windowSize.height - 130
-                  } / 1122.52))`
-            }`,
+            transform: `${dimensionsStyle}`,
           }}
           onMouseEnter={() => setShowFullBtn(true)}
           onMouseLeave={() => setShowFullBtn(false)}

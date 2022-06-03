@@ -26,7 +26,9 @@ export function MeatballsMenuBtn(props: Props) {
         </svg>
       </button>
       <div
-        className={`absolute z-[1] bg-white py-[10px] left-auto right-0 bottom-[100%] rounded-[4px] mb-[8px] text-black fill-[#1a91f0] whitespace-nowrap ${
+        className={`absolute z-[1] bg-white py-[10px] left-auto right-0 ${
+          props.optionsDirection === 'top' ? `bottom-[100%]` : `top-[120%]`
+        } rounded-[4px] text-black fill-[#1a91f0] whitespace-nowrap ${
           showOptionsModal ? '' : 'hidden'
         }`}
         style={{

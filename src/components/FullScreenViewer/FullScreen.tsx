@@ -15,9 +15,8 @@ interface Props {
 }
 export function FullScreen(props: Props) {
   return (
-    <div className={`bg-[#495163] h-screen fixed w-[100%] flex flex-col z-0`}>
+    <div className={`bg-[#495163] h-screen w-[100%] flex flex-col z-0`}>
       <NavBar isFullScreen={props.isFullScreen} setIsFullScreen={props.setIsFullScreen} />
-      {/* <div className=" overflow-y-auto"> */}
       <PreviewWrapper
         isFullScreen={props.isFullScreen}
         setIsFullScreen={props.setIsFullScreen}
@@ -37,8 +36,9 @@ export function FullScreen(props: Props) {
           </div>
         </section>
       </PreviewWrapper>
-      {/* </div> */}
+
       <FullScreenController />
+      {/* </div> */}
     </div>
   );
 }
