@@ -2,7 +2,7 @@ import Paragraph from '../UI/Paragraph';
 import { State } from '../../state';
 import { useSelector } from 'react-redux';
 
-const ProgressBar: React.FC = () => {
+export function ProgressBar() {
   const state = useSelector((state: State) => state.cvData);
 
   const progressRate = () => {
@@ -46,8 +46,8 @@ const ProgressBar: React.FC = () => {
   };
 
   return (
-    <>
-      <section className="mb-2 flex justify-between">
+    <div>
+      <section className="mb-2 flex justify-between bg-white w-auto">
         <Paragraph>
           <div className="pr-1 font-bold text-red-500">{`${progressRate()} %`}</div>
           Profile completeness
@@ -65,8 +65,6 @@ const ProgressBar: React.FC = () => {
           }}
         ></div>
       </section>
-    </>
+    </div>
   );
-};
-
-export default ProgressBar;
+}
