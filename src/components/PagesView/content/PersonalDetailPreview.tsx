@@ -1,5 +1,6 @@
-import { State } from '../../state';
+import { State } from '../../../state';
 import { useSelector } from 'react-redux';
+
 export function PersonalDetailPreview() {
   const state = useSelector((state: State) => state.cvData);
 

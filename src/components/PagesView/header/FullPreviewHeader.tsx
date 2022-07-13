@@ -1,16 +1,15 @@
-import { DownloadBtn } from '../UI/Buttons/DownloadBtn';
-import { MeatballsMenuBtn } from '../UI/Buttons/MeatballsMenuBtn';
+import { DownloadBtn } from '../../UI/Buttons/DownloadBtn';
+import { MeatballsMenuBtn } from '../../UI/Buttons/MeatballsMenuBtn';
 
 interface Props {
-  isFullScreen: boolean;
-  setIsFullScreen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsFullPreview: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export function NavBar(props: Props) {
+export function FullPreviewHeader(props: Props) {
   return (
     <div className="bg-[#0f141e] h-[64px] flex text-white fill-white justify-between items-center px-[32px] z-10">
       <div
         className="flex items-center cursor-pointer bg-[rgba(48,_56,_72,_0)]"
-        onClick={() => props.setIsFullScreen(false)}
+        onClick={() => props.setIsFullPreview(false)}
       >
         <svg
           width="24"

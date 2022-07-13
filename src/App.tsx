@@ -1,26 +1,18 @@
-// import React, { useState } from 'react';
-import { useState } from 'react';
-import './App.css';
-import EditorView from './components/Editor/EditorView';
-import { FullScreen } from './components/FullScreenViewer/FullScreen';
-import Preview from './components/Preview/Preview';
+import { useState } from "react";
+import "./App.css";
+import EditorView from "./components/EditorView/EditorView";
+import { PagesView } from "./components/PagesView/PagesView";
 
 function App() {
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFullPreview, setIsFullPreview] = useState(false);
 
   return (
     <div className="App">
-      {/* <main className="overflow-y-auto"> */}
-      {!isFullScreen && (
-        <>
-          <EditorView />
-          <Preview isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />
-        </>
-      )}
-      {isFullScreen && (
-        <FullScreen isFullScreen={isFullScreen} setIsFullScreen={setIsFullScreen} />
-      )}
-      {/* </main> */}
+      <EditorView isFullPreview={isFullPreview} />
+      <PagesView
+        isFullPreview={isFullPreview}
+        setIsFullPreview={setIsFullPreview}
+      />
     </div>
   );
 }

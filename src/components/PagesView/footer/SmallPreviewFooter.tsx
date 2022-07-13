@@ -1,7 +1,7 @@
-import { DownloadBtn } from '../UI/Buttons/DownloadBtn';
-import { MeatballsMenuBtn } from '../UI/Buttons/MeatballsMenuBtn';
+import { DownloadBtn } from '../../UI/Buttons/DownloadBtn';
+import { MeatballsMenuBtn } from '../../UI/Buttons/MeatballsMenuBtn';
 
-export function PreviewButtonGroup() {
+export function SmallPreviewFooter() {
   return (
     <div className="p-4 text-white fill-white flex items-center justify-between mt-3 w-[30rem]">
       <div className="flex items-center">
