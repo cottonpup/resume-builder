@@ -9,7 +9,11 @@ import { Skills } from './Skills';
 import { Languages } from './Languages';
 import { useEffect, useRef, useState } from 'react';
 
-function Editor() {
+interface Props {
+  isFullPreview: boolean;
+}
+
+function Editor(props: Props) {
   const [shouldFixHeader, setShouldFixHeader] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -17,12 +21,12 @@ function Editor() {
     const TITLE_HEIGHT_PX = ref.current!.getBoundingClientRect().height;
 
     function scrollThenFix() {
-      console.log(TITLE_HEIGHT_PX, window.screenTop);
+      // console.log(TITLE_HEIGHT_PX, window.screenTop);
       if (window.scrollY > TITLE_HEIGHT_PX && !shouldFixHeader) {
-        console.log('FIX HEADER!!');
+        // console.log('FIX HEADER!!');
         setShouldFixHeader(true);
       } else if (window.scrollY <= TITLE_HEIGHT_PX && shouldFixHeader) {
-        console.log('UNFIX HEADER!!');
+        // console.log('UNFIX HEADER!!');
         setShouldFixHeader(false);
       }
     }
@@ -34,7 +38,11 @@ function Editor() {
   }, [shouldFixHeader]);
 
   return (
-    <section className="flex-1 p-[48px] max-w-full xl:w-2/4">
+    <section
+      className={`flex-1 p-[48px] max-w-full xl:w-2/4 ${
+        props.isFullPreview ? 'hidden' : ''
+      }`}
+    >
       <div className="max-w-[760px] m-auto xl:m-0 xl:max-w-full">
         <section ref={ref}>
           <Title>Simple Resume</Title>

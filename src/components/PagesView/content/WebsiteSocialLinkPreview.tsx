@@ -1,4 +1,4 @@
-import { State } from '../../state';
+import { State } from '../../../state';
 import { useSelector } from 'react-redux';
 
 export function WebsiteSocialLinkPreview() {
