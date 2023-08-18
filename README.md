@@ -1,11 +1,9 @@
-# Simple Resume Builder 
+# Resume.io - 간단한 레쥬메 빌더
+## 개요
+## 프로젝트 주요기능
+## 기능소개
+## 트러블 슈팅
+## 개선 사항
 
-Just fill in your details. It will make a beautiful ready-to-use resume in minutes 💫 Download it to any format you like.
-
-## Features
-- Free and easy to use
-- Time saver 
-- Easily edit online
-- Automatic spell checker
-- Export to anything
-- Multi-format resume options
+## Translation
+[English](./ENG.md)
