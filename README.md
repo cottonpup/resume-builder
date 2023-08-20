@@ -12,6 +12,7 @@
 - Tailwind
 - Redux
 - uuid
+- draft-js
 
 ## 프로젝트 주요기능 소개
 - 다양한 서식과 디자인 템플릿 (`WIP`)
