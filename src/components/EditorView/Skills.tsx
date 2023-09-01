@@ -26,7 +26,7 @@ export function Skills() {
         setSkillSuggestions(
             Array.from(new Set(skillSuggestions)).sort(() => Math.random() - 0.5),
         );
-    }, [skillSuggestions, skillSuggestions.length]);
+    }, [skillSuggestions.length]);
 
     return (
         <section className="flex flex-col">
