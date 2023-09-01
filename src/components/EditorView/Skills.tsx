@@ -26,10 +26,10 @@ export function Skills() {
         setSkillSuggestions(
             Array.from(new Set(skillSuggestions)).sort(() => Math.random() - 0.5),
         );
-    }, [skillSuggestions.length]);
+    }, [skillSuggestions, skillSuggestions.length]);
 
     return (
-        <>
+        <section className="flex flex-col">
             <Header>Skills</Header>
             <Paragraph>
                 Choose 5 of the most important skills to show your talents! Make sure they
@@ -106,6 +106,6 @@ export function Skills() {
                 </svg>
                 <p className="text-left">Add skill</p>
             </button>
-        </>
+        </section>
     );
 }
