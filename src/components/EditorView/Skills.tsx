@@ -22,10 +22,17 @@ export function Skills() {
     const [draggingIndex, setDraggingIndex] = useState<number | undefined>(undefined);
     const [skillSuggestions, setSkillSuggestions] = useState(defaultSkillSuggestions);
 
+    const shuffle_suggestions = () => {
+        Array.from(new Set(skillSuggestions)).sort(() => Math.random() - 0.5);
+    };
+
     useEffect(() => {
-        setSkillSuggestions(
-            Array.from(new Set(skillSuggestions)).sort(() => Math.random() - 0.5),
-        );
+        // NOTE: 화살표 함수로 안하면 setState를 안하면 오류가 뜸.
+        // 기존 상태를 참조하는 의존성이 생기면 dependency array에 넣어줘야 한다.
+        // 따라서 화살표 함수로 하지 않고 그냥 함수로 따로 빼서 호출하자.
+        // setSkillSuggestions((skillSuggestions) =>
+        shuffle_suggestions();
+        // );
     }, [skillSuggestions.length]);
 
     return (

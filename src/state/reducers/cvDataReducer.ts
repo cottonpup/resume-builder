@@ -96,8 +96,9 @@ const initialStateSampleCV = {
     professional_summary: {
         blocks: [
             {
-                key: '1vn6k',
-                text: 'Software engineer.',
+                // FIXME: WHY do i need a key here???
+                key: '',
+                text: '',
                 type: 'unstyled',
                 depth: 0,
                 inlineStyleRanges: [],
@@ -105,7 +106,7 @@ const initialStateSampleCV = {
                 data: {},
             },
         ],
-        //  TODO: What was entityMap?
+        //  TODO: What was entityMap? I guess it's for Draft.js
         entityMap: {},
     } as RawDraftContentState,
     employment_history: [] as EmploymentElement[],
