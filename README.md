@@ -1,14 +1,29 @@
 # Resume.io - 간단한 레쥬메 빌더
+
+## 목차
+- [개요](#개요)
+- [기술스택](#기술스택)
+- [기술 선택 이유](#기술-선택-이유)
+- [프로젝트 주요기능 소개](#프로젝트-주요기능-소개)
+- [트러블 슈팅](#트러블-슈팅)
+- [개선 사항 및 추가 기능](#개선-사항-및-추가-기능)
 ## 개요
 [Resume.io](https://resume.io/)는 이력서를 정말 간단하고 빠르게 작성할 수 있는 웹 사이트입니다. 아주 간단하게 인풋만으로도 프로페셔널한 이력서가 짧은 시간에 완성이 가능합니다. 그러나 아쉽게도 Resume.io는 한국어 지원을 하지 않습니다. 한국어를 지원하는 클론 사이트를 직접 개발함으로써, 한국어 사용자도 이력서를 작성할 수 있도록 사용자 경험을 최적화하고, 이력서의 미적인 측면에서도 디자인 옵션을 통해 다양한 선택을 제공할 계획입니다. 
 
+# 기술스택
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+</br>
+![uuid](https://img.shields.io/badge/uuid-8A2BE2)
+![uuid](https://img.shields.io/badge/draft.js-8ACBE2)
+
 ## 기술 선택 이유
 - React
+- Reudx
 - TypeScript
-- Tailwind
-- Redux
-- uuid
-- draft-js
+- TailWind
 
 ## 프로젝트 주요기능 소개
 - 다양한 서식과 디자인 템플릿 (`WIP`)
