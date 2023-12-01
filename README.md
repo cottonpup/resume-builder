@@ -1,7 +1,7 @@
 <h1 align="middle">Resume.io</h1>
 <p align="middle">간단한 입력으로 빠르게 이력서를 만들어주는 웹 애플리케이션 ✍️</p>
 <p align="middle">
-  <img src="https://img.shields.io/badge/version-1.0.0-yellow?style=flat-square" alt="template version"/>
+  <img src="https://img.shields.io/badge/version-1.0.0-yellow?style=flat-square](https://github.com/cottonpup/personal-portfolio/assets/67526014/8ab79e64-ebb1-4cd2-b9d5-095abd393711" alt="template version"/>
   <a target="_blank">
     <img src="https://img.shields.io/github/license/daybrush/moveable.svg?style=flat-square&label=license&color=08CE5D"/>
   </a>
