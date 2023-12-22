@@ -51,7 +51,7 @@ $ yarn run start
 
 ## 📚 기술 스택
 
-| Typescript | React | Redux |
+| TypeScript | React | Redux |
 |:------------:|:-------:|:-------:|
 | <img src="https://user-images.githubusercontent.com/21965795/174472604-4e0c144f-4500-4cc6-80b7-3dd29c907171.png" width="100px"/> | <img src="https://user-images.githubusercontent.com/21965795/176630651-1248191d-432c-45ac-b876-9e5ff54e36f9.png" width="100px" > | <img src="https://img.stackshare.io/service/5448/13142323.png" width="100px" height="100px" style="background-color: white;"/> |
 
